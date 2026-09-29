@@ -1,4 +1,4 @@
-GRUPPCENTRALEN 3.0 - GITHUB-VERSION
+GRUPPCENTRALEN 3.1 - GITHUB-VERSION
 
 PUBLICERA
 1. Skapa ett nytt GitHub-repo, exempelvis gruppcentralen.
@@ -15,3 +15,9 @@ Exportera gruppcentral-backup.json på datorn, spara filen på en skyddad OneDri
 
 VIKTIGT
 Elevuppgifter sparas i webbläsarens localStorage. Rensas webbplatsdata försvinner arbetskopian. Behåll därför en aktuell backup. Lägg aldrig backupfilen med elevnamn i GitHub-repot.
+
+NYTT I 3.1
+- Renare steg-för-steg-flöde för slumpning.
+- Gruppväljaren försvinner när valet är klart.
+- Efter slumpning visas nästan bara resultatet och en kompakt verktygsrad.
+- Ändra val och inställningar finns kvar som diskreta knappar.
