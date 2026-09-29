@@ -1,10 +1,12 @@
-Gruppcentralen 4.4
+Gruppcentralen 4.5
 
-Nytt i denna version:
-- Klassrumsritningen kan öppnas i helskärmsläge.
-- I helskärm visas hela klassrumsytan tillsammans med elevgrupperna och listan Ej placerade elever.
-- Vald grupp och antal elever visas tydligt i panelen.
-- Du kan välja grupp, slumpa placering, tömma placering och klicka bort elever utan att lämna ritningen.
-- Knappen Avsluta helskärm eller Escape återgår till vanlig vy.
+Nytt:
+- Välj elevgrupper och tryck Välj grupp. Gruppvalen fälls då ihop och ersätts av en kompakt sammanfattning.
+- Dra elevnamn från Ej placerade elever till en valfri plats.
+- Dra placerade namn mellan bord och platser.
+- Dra ett namn till Ej placerade elever för att ta bort placeringen.
+- Klicka på ett placerat namn för att ta bort det från figuren.
+- Bord, whiteboard, dörr och skiljevägg kan roteras fritt 0-359 grader.
+- Snabbknappar finns för 0, 45, 90 och 135 grader.
 
-Tidigare funktioner för större yta, storleksändring och skiljevägg finns kvar.
+Ersätt filerna i GitHub-repots rot.
