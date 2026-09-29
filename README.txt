@@ -1,9 +1,12 @@
-Gruppcentralen 4.2
+Gruppcentralen 4.3
 
-Korrigerat:
-- Figurer och bord kan nu flyttas med mus, penna och finger.
-- Förflyttning tar hänsyn till mobilens skalning.
-- Borden är mindre: rektangel 180x86, kvadrat 76x76 och runt 132x132.
-- Tidigare elevgrupper från version 3 migreras automatiskt.
+Nytt:
+- Klassrumsytan är större: 1000 x 680.
+- Bord, whiteboard, dörr och skiljevägg kan storleksändras.
+- Ny flyttbar skiljevägg som visas som ett tjockt streck.
+- Elevgrupper väljs direkt bredvid klassrumsbilden.
+- Placeringen slumpas utan att lämna klassrummet.
+- Klicka på ett elevnamn i ett bord för att ta bort placeringen. Eleven hamnar i listan Ej placerade elever.
+- Klicka på ett namn i Ej placerade för att lägga eleven på första tomma plats.
 
-Packa upp och ersätt filerna i GitHub-repots rot.
+Ersätt filerna i GitHub-repots rot. Elevdata ligger fortfarande endast lokalt.
