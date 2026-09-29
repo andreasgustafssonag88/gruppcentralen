@@ -1,23 +1,20 @@
-GRUPPCENTRALEN 3.1 - GITHUB-VERSION
+GRUPPCENTRALEN 4.1
 
-PUBLICERA
-1. Skapa ett nytt GitHub-repo, exempelvis gruppcentralen.
-2. Ladda upp alla filer i den här mappen till repots rot.
-3. Gå till Settings > Pages.
-4. Välj Deploy from a branch, branch main och mappen /(root).
-5. Öppna adressen som GitHub visar.
+Ny modul: Klassrum och bordsplaceringar.
 
-ELEVLISTOR
-Inga elevnamn finns i GitHub-filerna. Importera dem på varje enhet via Import & backup. Word-importen fungerar med .docx-tabeller och sker lokalt i webbläsaren. Kontrollera alltid förhandsgranskningen.
+BORDSREGLER
+- Rektangulärt: 2-6 platser. Vid 2 sitter eleverna bredvid varandra. Vid 3-6 sitter de på två motstående sidor, fördelat 2+1, 2+2, 3+2 eller 3+3.
+- Kvadratiskt: alltid exakt 1 plats.
+- Runt: 2-6 platser jämnt fördelade inne i cirkeln.
+- Elevnamnen visas inne i bordsfigurerna.
 
-FLYTTA MELLAN ENHETER
-Exportera gruppcentral-backup.json på datorn, spara filen på en skyddad OneDrive och importera den på telefonen.
+GITHUB
+Packa upp ZIP-filen och ersätt filerna i repots rot. Inga elevnamn ligger i appkoden. Importera Word eller en backup lokalt på varje enhet.
 
-VIKTIGT
-Elevuppgifter sparas i webbläsarens localStorage. Rensas webbplatsdata försvinner arbetskopian. Behåll därför en aktuell backup. Lägg aldrig backupfilen med elevnamn i GitHub-repot.
+BACKUP
+Backupen innehåller både elevgrupper och klassrum. Spara den skyddat och aldrig i GitHub.
 
-NYTT I 3.1
-- Renare steg-för-steg-flöde för slumpning.
-- Gruppväljaren försvinner när valet är klart.
-- Efter slumpning visas nästan bara resultatet och en kompakt verktygsrad.
-- Ändra val och inställningar finns kvar som diskreta knappar.
+KORRIGERING I 4.1
+- Tidigare elevgrupper från Gruppcentralen 3.x flyttas automatiskt till version 4.
+- Du ska inte behöva importera Word-listorna igen på samma enhet och webbläsare.
+- Klassrumsbyggaren och bordsplaceringarna finns kvar.
