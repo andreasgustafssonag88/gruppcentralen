@@ -1,12 +1,10 @@
-Gruppcentralen 4.3
+Gruppcentralen 4.4
 
-Nytt:
-- Klassrumsytan är större: 1000 x 680.
-- Bord, whiteboard, dörr och skiljevägg kan storleksändras.
-- Ny flyttbar skiljevägg som visas som ett tjockt streck.
-- Elevgrupper väljs direkt bredvid klassrumsbilden.
-- Placeringen slumpas utan att lämna klassrummet.
-- Klicka på ett elevnamn i ett bord för att ta bort placeringen. Eleven hamnar i listan Ej placerade elever.
-- Klicka på ett namn i Ej placerade för att lägga eleven på första tomma plats.
+Nytt i denna version:
+- Klassrumsritningen kan öppnas i helskärmsläge.
+- I helskärm visas hela klassrumsytan tillsammans med elevgrupperna och listan Ej placerade elever.
+- Vald grupp och antal elever visas tydligt i panelen.
+- Du kan välja grupp, slumpa placering, tömma placering och klicka bort elever utan att lämna ritningen.
+- Knappen Avsluta helskärm eller Escape återgår till vanlig vy.
 
-Ersätt filerna i GitHub-repots rot. Elevdata ligger fortfarande endast lokalt.
+Tidigare funktioner för större yta, storleksändring och skiljevägg finns kvar.
