@@ -1,11 +1,11 @@
-Gruppcentralen 5.4
+Gruppcentralen 5.5
 
-Nytt: Placeringsregler under Elevgrupper.
+Nytt: placeringsregler för flera elever samtidigt.
 
-Regeltyper:
-- Måste eller önskemål: två elever ska inte sitta vid samma bord.
-- Måste eller önskemål: två elever ska sitta vid samma bord.
-- Måste eller önskemål: en elev ska ha en enskild plats.
-- Måste eller önskemål: en elev ska placeras långt fram.
+Du kan nu markera flera elever på båda sidor i en regel. Exempel:
+- Pelle och Lisa ska inte sitta med Kalle, Nils eller Sara.
+- Pelle, Anna och Bo ska helst sitta vid samma bord.
+- Flera elever ska ha enskilda platser.
+- Flera elever ska placeras långt fram.
 
-Reglerna sparas i elevgruppen, följer med backup och används automatiskt när gruppen väljs i ett klassrum. Slumpningen bevarar låsta elever och platser, följer alla möjliga måste-regler och väljer den placering som uppfyller flest önskemål. Efter slumpningen visas en resultatrapport. Reglerna syns aldrig på utskriften.
+På dator väljs flera elever med Ctrl-klick eller Cmd-klick. På pekskärm kan flera alternativ markeras direkt i flervalslistan. Äldre regler med en elev per sida uppgraderas automatiskt. Reglerna följer med backupen och används av samma regelstyrda slumpning som i version 5.4.

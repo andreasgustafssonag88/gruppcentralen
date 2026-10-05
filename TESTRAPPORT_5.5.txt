@@ -1,0 +1,14 @@
+Gruppcentralen 5.5 - funktionstest
+
+Testmiljö: Chromium, 1440 x 900
+Resultat: GODKÄNT
+
+Godkända kontroller:
+- Flera elever kan väljas på båda sidor i samma regel
+- Flerpersonsregler visas korrekt i redigeraren
+- Elevlistorna sparas som flervärdesregler
+- Måste-regel mellan två elevmängder följs för samtliga kombinationer
+- Önskemål om att flera elever ska sitta tillsammans uppfylls när bordskapaciteten räcker
+- Äldre regler med en elev per sida uppgraderas automatiskt
+- Inga JavaScript-fel under testet
+- Ingen horisontell sidrullning i testvyn
