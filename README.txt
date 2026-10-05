@@ -1,10 +1,18 @@
-Gruppcentralen 4.9
+Gruppcentralen 5.0
 
-Genomförda steg 1–3:
-1. Ny startsida med fyra stora val: Elevgrupper, Slumpa grupper, Klassrum och Import & backup.
-2. Den blå sidomenyn är borttagen från arbetslägena. Varje funktion använder hela skärmbredden.
-3. Varje arbetsläge har en kompakt knapp ← Startsida högst upp.
+Nästa tre steg genomförda:
+1. Autosparning
+- Klassrummet sparas automatiskt cirka en halv sekund efter en ändring.
+- Tydlig status visas: Sparar…, Sparad eller Kunde inte spara.
+- Spara nu finns kvar för manuell sparning.
 
-Startsidan visar även hur många elevgrupper och klassrum som finns sparade. Befintliga funktioner och lokal lagring är oförändrade.
+2. Infällbar verktygspanel
+- Knappen Verktyg visar eller döljer panelen med bord, whiteboard, dörr och skiljevägg.
+- När panelen döljs använder klassrumsytan den lediga bredden.
 
-Nästa möjliga steg är autosparning vid navigering, infällbara verktyg och en infällbar elevpanel i klassrumsbyggaren.
+3. Infällbar elevpanel
+- Knappen Elever visar eller döljer elevlistan och placeringsverktygen.
+- När elevpanelen döljs får ritningen mer utrymme.
+- Verktyg och elevpanel kan döljas samtidigt.
+
+Startsidan och knappen ← Startsida finns kvar.
