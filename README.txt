@@ -1,12 +1,12 @@
-Gruppcentralen 4.5
+Gruppcentralen 4.6
 
-Nytt:
-- Välj elevgrupper och tryck Välj grupp. Gruppvalen fälls då ihop och ersätts av en kompakt sammanfattning.
-- Dra elevnamn från Ej placerade elever till en valfri plats.
-- Dra placerade namn mellan bord och platser.
-- Dra ett namn till Ej placerade elever för att ta bort placeringen.
-- Klicka på ett placerat namn för att ta bort det från figuren.
-- Bord, whiteboard, dörr och skiljevägg kan roteras fritt 0-359 grader.
-- Snabbknappar finns för 0, 45, 90 och 135 grader.
+Korrigerat:
+- Namn kan dras ut från bord med mus, penna och finger.
+- Namn kan dras mellan platser och bord.
+- Namn kan dras till Ej placerade elever.
+- Klick på namn tar fortfarande bort placeringen.
+- Rotation syns nu på själva figuren, inte bara i inställningen.
+- Rotation kan anges fritt 0–359 grader eller med snabbknappar.
+- Verktygen för att lägga till rektangulära, enskilda och runda bord samt whiteboard, dörr och skiljevägg visas även i helskärmsläge.
 
-Ersätt filerna i GitHub-repots rot.
+Ersätt alla filer i GitHub-repots rot och gör Ctrl+F5 efter publicering.
