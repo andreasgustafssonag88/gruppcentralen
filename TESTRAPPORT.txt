@@ -1,0 +1,19 @@
+Gruppcentralen 5.2 - funktionstest
+
+Testmiljö: Chromium, 1440 x 900
+Resultat: GODKÄNT
+
+Godkända kontroller:
+- Skapa nytt klassrum
+- Lägga till två bord utan överlappning
+- Välja elevgrupp och slumpa samtliga elever
+- Låsa en elevplats
+- Bevara låst elev vid ny slumpning
+- Bevara låst tom plats vid slumpning
+- Låsa klassrumsritningen och blockera möbelförändringar
+- Spara en namngiven placering
+- Tömma och återläsa en sparad placering
+- Spara, stänga och öppna klassrummet igen
+- Bevara bord, lås och sparade placeringar i lokal lagring
+- Inga JavaScript-fel under testet
+- Ingen horisontell sidrullning i testvyn

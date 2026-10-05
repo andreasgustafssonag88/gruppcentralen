@@ -1,12 +1,19 @@
-Gruppcentralen 5.1
+Gruppcentralen 5.2
 
-Layouten har testats i Chromium vid 1920×1080, 1440×900 och 390×844.
+Nytt:
+1. Lås klassrumsritningen
+- Knappen Lås ritning hindrar flytt, rotation, storleksändring, tillägg och borttagning av möbler.
+- Elevnamn kan fortfarande placeras och flyttas.
 
-Åtgärdat:
-- Ingen horisontell sidrullning på testade skärmstorlekar.
-- Klassrumsytan använder mer av den tillgängliga höjden och bredden.
-- Verktygsrad och redigeringsrad bryts mer kontrollerat.
-- Knapparna i elevpanelen överlappar inte längre.
-- På mobil visas klassrumsytan först. Verktyg och elevpanel startar infällda och öppnas med knapparna högst upp.
-- På mobil ligger figurinställningarna efter elevpanelen och klassrumsytan.
-- Klassrummet anpassas automatiskt till den tillgängliga ytan när redigeraren öppnas.
+2. Lås enskilda elever och platser
+- Varje plats har ett lås. En låst elev stannar kvar vid ny slumpning.
+- En låst tom plats förblir tom.
+- Låsta elever kan inte dras eller klickas bort förrän platsen låsts upp.
+
+3. Flera placeringar per klassrum
+- Spara aktuell placering med eget namn.
+- Välj och öppna tidigare placeringar från listan.
+- Ta bort en sparad placering.
+
+4. Funktionstest
+- Hela arbetsflödet testas automatiskt i Chromium: skapa klassrum, bord, låsning, slumpning, sparad placering, återöppning och lokal lagring.
