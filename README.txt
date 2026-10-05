@@ -1,12 +1,23 @@
-Gruppcentralen 4.7
+Gruppcentralen 4.8
 
-Nytt:
-- Skriv figurens storlek direkt i procent.
-- Knapp för Återställ till 100 %.
-- Rotationshandtag direkt ovanför markerad figur. Dra handtaget runt figuren för fri rotation.
-- Zooma klassrumsytan med minus, plus eller ett eget procentvärde.
-- Anpassa visar hela klassrummet inom den tillgängliga ytan.
-- Knappen 100 % återställer zoomnivån.
-- Zoomverktygen finns även i helskärmsläge.
+Fyra förbättringsområden:
+1. Stabil zoom och panorering
+- Zoom 25–200 %, plus/minus, eget värde, 100 % och Anpassa.
+- Knappen Flytta ytan aktiverar panorering. Dra då i den tomma klassrumsytan.
+- Ctrl + mushjul zoomar på dator.
 
-Tidigare funktioner för elevgrupper, namnflytt, bordsplacering, skiljevägg och backup finns kvar.
+2. Stabil rotation
+- Dra rotationshandtaget direkt på markerad figur.
+- Vinkel visas under rotation.
+- Storlek och rotation sparas i klassrummet.
+
+3. Förbättrad namnflyttning
+- Dra från elevlistan till plats, mellan bord eller tillbaka till Ej placerade.
+- Målplatsen markeras tydligt.
+- Klick på ett placerat namn tar bort placeringen.
+
+4. Ångra
+- Ångrar senaste flytt, rotation, storleksändring, borttagning, elevflyttning eller slumpning.
+- Upp till 30 steg sparas under den aktuella redigeringen.
+
+Ersätt alla filer i GitHub-repots rot och gör Ctrl+F5 efter publicering.
