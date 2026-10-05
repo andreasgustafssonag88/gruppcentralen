@@ -1,0 +1,16 @@
+Gruppcentralen 5.4 - funktionstest
+
+Testmiljö: Chromium, 1440 x 900
+Resultat: GODKÄNT
+
+Godkända kontroller:
+- Skapa elevgrupp och två placeringsregler i gränssnittet
+- Regler sparas tillsammans med elevgruppen
+- Valda regler sammanfattas i klassrummets elevpanel
+- Måste-regel: två elever placeras vid olika bord
+- Önskemål: två elever placeras vid samma bord när det är möjligt
+- Resultatrapport visas efter slumpning
+- Omöjlig måste-regel stoppar ny placering och visar fel
+- Regler finns med i backupdata
+- Inga JavaScript-fel under testet
+- Ingen horisontell sidrullning i testvyn
