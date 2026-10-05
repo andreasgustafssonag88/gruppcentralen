@@ -1,0 +1,17 @@
+Gruppcentralen 5.6 - funktionstest
+
+Testmiljö: Chromium, 1440 x 900
+Resultat: GODKÄNT
+
+Godkända kontroller:
+- Redigera en regel med flera elever
+- Kopiera en regel
+- Pausa och återaktivera regler i Elevgrupper
+- Regelkontroll visas före slumpning
+- Regel kan tillfälligt stängas av i klassrummet
+- Detaljerad rapport visar varje aktiv regel
+- Pausade och tillfälligt avstängda regler redovisas
+- Kapacitetskonflikt upptäcks före slumpning
+- Omöjlig placering blockeras utan att befintlig placering ändras
+- Inga JavaScript-fel under testet
+- Ingen horisontell sidrullning
