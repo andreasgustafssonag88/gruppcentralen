@@ -1,19 +1,20 @@
-Gruppcentralen 5.2
+Gruppcentralen 5.3
 
 Nytt:
-1. Lås klassrumsritningen
-- Knappen Lås ritning hindrar flytt, rotation, storleksändring, tillägg och borttagning av möbler.
-- Elevnamn kan fortfarande placeras och flyttas.
+1. Byggläge och placeringsläge
+- Byggläge visar redigeringsverktyg för möbler och figurer.
+- Placeringsläge skyddar ritningen automatiskt och fokuserar på eleverna.
 
-2. Lås enskilda elever och platser
-- Varje plats har ett lås. En låst elev stannar kvar vid ny slumpning.
-- En låst tom plats förblir tom.
-- Låsta elever kan inte dras eller klickas bort förrän platsen låsts upp.
+2. Tryck för att placera
+- Tryck på ett oplacerat eller placerat namn.
+- Tryck sedan på önskad plats.
+- Fungerar parallellt med dra och släpp och är särskilt anpassat för mobil.
 
-3. Flera placeringar per klassrum
-- Spara aktuell placering med eget namn.
-- Välj och öppna tidigare placeringar från listan.
-- Ta bort en sparad placering.
+3. Gör om
+- Ny knapp Gör om återställer en ångrad ändring.
+- Ny ändring efter Ångra tömmer gör-om-historiken.
 
-4. Funktionstest
-- Hela arbetsflödet testas automatiskt i Chromium: skapa klassrum, bord, låsning, slumpning, sparad placering, återöppning och lokal lagring.
+4. Ren utskriftsvy
+- Skriv ut aktuell placering på liggande A4.
+- Menyer, paneler, lås och redigeringsverktyg döljs.
+- Klassrumsnamn och placeringens namn visas högst upp.

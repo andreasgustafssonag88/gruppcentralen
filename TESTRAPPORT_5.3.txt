@@ -1,0 +1,17 @@
+Gruppcentralen 5.3 - funktionstest
+
+Testmiljö: Chromium, 1440 x 900
+Resultat: GODKÄNT
+
+Godkända kontroller:
+- Byggläge är aktivt när klassrummet öppnas
+- Placeringsläge skyddar ritningen och fokuserar på elevpanelen
+- Tryck på placerad elev markerar eleven
+- Tryck på annan plats byter elevernas platser
+- Ångra återställer elevbytet
+- Gör om återställer det ångrade elevbytet
+- Tryck på oplacerad elev och därefter tom plats placerar eleven
+- Utskriftsrubrik visas i utskriftsläge
+- Redigeringsverktyg och elevpanel döljs i utskriftsläge
+- Inga JavaScript-fel under testet
+- Ingen horisontell sidrullning i testvyn
