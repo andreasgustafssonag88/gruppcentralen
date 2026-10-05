@@ -1,23 +1,10 @@
-Gruppcentralen 4.8
+Gruppcentralen 4.9
 
-Fyra förbättringsområden:
-1. Stabil zoom och panorering
-- Zoom 25–200 %, plus/minus, eget värde, 100 % och Anpassa.
-- Knappen Flytta ytan aktiverar panorering. Dra då i den tomma klassrumsytan.
-- Ctrl + mushjul zoomar på dator.
+Genomförda steg 1–3:
+1. Ny startsida med fyra stora val: Elevgrupper, Slumpa grupper, Klassrum och Import & backup.
+2. Den blå sidomenyn är borttagen från arbetslägena. Varje funktion använder hela skärmbredden.
+3. Varje arbetsläge har en kompakt knapp ← Startsida högst upp.
 
-2. Stabil rotation
-- Dra rotationshandtaget direkt på markerad figur.
-- Vinkel visas under rotation.
-- Storlek och rotation sparas i klassrummet.
+Startsidan visar även hur många elevgrupper och klassrum som finns sparade. Befintliga funktioner och lokal lagring är oförändrade.
 
-3. Förbättrad namnflyttning
-- Dra från elevlistan till plats, mellan bord eller tillbaka till Ej placerade.
-- Målplatsen markeras tydligt.
-- Klick på ett placerat namn tar bort placeringen.
-
-4. Ångra
-- Ångrar senaste flytt, rotation, storleksändring, borttagning, elevflyttning eller slumpning.
-- Upp till 30 steg sparas under den aktuella redigeringen.
-
-Ersätt alla filer i GitHub-repots rot och gör Ctrl+F5 efter publicering.
+Nästa möjliga steg är autosparning vid navigering, infällbara verktyg och en infällbar elevpanel i klassrumsbyggaren.
