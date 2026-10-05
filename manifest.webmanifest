@@ -1,1 +1,16 @@
-{"name": "Gruppcentralen", "short_name": "Gruppcentral", "start_url": "./", "display": "standalone", "theme_color": "#17223c", "background_color": "#f4f6fa"}
+{
+  "name": "Gruppcentralen",
+  "short_name": "Gruppcentral",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f4f6fa",
+  "theme_color": "#17223c",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
