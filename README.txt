@@ -1,18 +1,12 @@
-Gruppcentralen 5.0
+Gruppcentralen 5.1
 
-Nästa tre steg genomförda:
-1. Autosparning
-- Klassrummet sparas automatiskt cirka en halv sekund efter en ändring.
-- Tydlig status visas: Sparar…, Sparad eller Kunde inte spara.
-- Spara nu finns kvar för manuell sparning.
+Layouten har testats i Chromium vid 1920×1080, 1440×900 och 390×844.
 
-2. Infällbar verktygspanel
-- Knappen Verktyg visar eller döljer panelen med bord, whiteboard, dörr och skiljevägg.
-- När panelen döljs använder klassrumsytan den lediga bredden.
-
-3. Infällbar elevpanel
-- Knappen Elever visar eller döljer elevlistan och placeringsverktygen.
-- När elevpanelen döljs får ritningen mer utrymme.
-- Verktyg och elevpanel kan döljas samtidigt.
-
-Startsidan och knappen ← Startsida finns kvar.
+Åtgärdat:
+- Ingen horisontell sidrullning på testade skärmstorlekar.
+- Klassrumsytan använder mer av den tillgängliga höjden och bredden.
+- Verktygsrad och redigeringsrad bryts mer kontrollerat.
+- Knapparna i elevpanelen överlappar inte längre.
+- På mobil visas klassrumsytan först. Verktyg och elevpanel startar infällda och öppnas med knapparna högst upp.
+- På mobil ligger figurinställningarna efter elevpanelen och klassrumsytan.
+- Klassrummet anpassas automatiskt till den tillgängliga ytan när redigeraren öppnas.
