@@ -1,0 +1,13 @@
+Gruppcentralen 5.7.1 - funktionstest
+
+Resultat: GODKÄNT
+
+Kontroller:
+- Bokhylla och matta kan tas bort
+- Markerad figur kan tas bort med Delete/Backspace i byggläget
+- Dragning fungerar vid 50, 75, 100 och 125 procents zoom
+- Elevpanelen visas först i Placera elever
+- Figurinställningarna döljs i placeringsläget
+- Elevlistan har egen scrollning
+- Mobilpanelen visas tydligt
+- Inga JavaScript-fel

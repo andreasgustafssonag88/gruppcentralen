@@ -1,13 +1,9 @@
-Gruppcentralen 5.7
+Gruppcentralen 5.7.1
 
-Nya figurer:
-- Bokhylla
-- Fåtölj
-- Stor rund matta som alltid ligger under bord och övriga figurer
-- Halvrunt bord med 2–6 elevplatser
-
-Färgval:
-- Alla bord, möbler och rumsfigurer kan färgsättas.
-- När en figur markeras visas färgväljare och tio färdiga färgval i egenskapspanelen.
-- Vald färg sparas i klassrummet, följer med backup och skrivs ut.
-Ny publicering efter GitHub Actions-störning.
+Korrigeringar:
+- Ta bort fungerar för bord, matta, bokhylla, fåtölj och övriga figurer.
+- Delete-tangenten kan också ta bort markerad figur i byggläget.
+- Dragning använder separat X/Y-skala, rörelsetröskel och bildruteuppdatering för mjukare förflyttning vid zoom.
+- I Placera elever visas elevpanelen högst upp till höger och figurinställningarna döljs.
+- Elevlistorna får egen scrollning så de viktigaste placeringsknapparna förblir synliga.
+- Mobilens elevpanel prioriteras och hålls kompakt.
