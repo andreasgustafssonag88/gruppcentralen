@@ -1,9 +1,6 @@
-Gruppcentralen 5.7.1
+Gruppcentralen 5.7.2
 
-Korrigeringar:
-- Ta bort fungerar för bord, matta, bokhylla, fåtölj och övriga figurer.
-- Delete-tangenten kan också ta bort markerad figur i byggläget.
-- Dragning använder separat X/Y-skala, rörelsetröskel och bildruteuppdatering för mjukare förflyttning vid zoom.
-- I Placera elever visas elevpanelen högst upp till höger och figurinställningarna döljs.
-- Elevlistorna får egen scrollning så de viktigaste placeringsknapparna förblir synliga.
-- Mobilens elevpanel prioriteras och hålls kompakt.
+- Ej placerade elever visas direkt under vald grupp, före regler och åtgärdsknappar.
+- Markerad figur får en röd borttagningsknapp direkt på ritningen i Bygg klassrum.
+- Ta bort figur finns även kvar i egenskapspanelen och Delete/Backspace fungerar.
+- Bygg klassrum låser automatiskt upp ritningen.
