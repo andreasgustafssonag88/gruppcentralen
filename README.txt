@@ -10,3 +10,4 @@ Färgval:
 - Alla bord, möbler och rumsfigurer kan färgsättas.
 - När en figur markeras visas färgväljare och tio färdiga färgval i egenskapspanelen.
 - Vald färg sparas i klassrummet, följer med backup och skrivs ut.
+Ny publicering efter GitHub Actions-störning.
