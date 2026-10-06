@@ -250,3 +250,33 @@ tableHTML=function(t,result){
   });
   return html;
 }
+
+
+/* Gruppcentralen 5.7.5 */
+const _tableHTMLBefore575=tableHTML;
+tableHTML=function(t,result){
+  if(t.type!=='round')return _tableHTMLBefore575(t,result);
+  t.color=t.color||figureColor(t);
+  let names=Array.from({length:t.seats},(_,i)=>t.names?.[i]||''),sc=t.scale||1;
+  let inside=names.map((n,i)=>{
+    let angle=-Math.PI/2+(2*Math.PI*i/t.seats);
+    let radius=t.seats>=6?37:t.seats>=4?35:31;
+    let left=50+Math.cos(angle)*radius,top=50+Math.sin(angle)*radius;
+    let content=esc(n)||(result?'':'Tom');
+    return `<div class="seat roundSeat dragName" draggable="${!!n}" data-student="${n?encodeURIComponent(n):''}" style="--seat-left:${left.toFixed(2)}%;--seat-top:${top.toFixed(2)}%">${content}</div>`
+  }).join('');
+  return `<div class="obj tableObj round ${sel?.id===t.id&&!result?'selected':''}" data-kind="table" data-id="${t.id}" style="--figure-color:${t.color};left:${t.x}px;top:${t.y}px;width:${132*sc}px;height:${132*sc}px;transform:rotate(${t.rotation||0}deg)"><div class="shape" style="--figure-color:${t.color}">${inside}</div>${sel?.id===t.id&&!result&&!room.layoutLocked?`<span class="rotateStem"></span><button class="rotateHandle" data-rotate-id="${t.id}" aria-label="Rotera">↻</button>`:''}</div>`
+}
+function forceStudentsFirst575(){
+  let panel=$('studentPanel'),box=$('inlineSeat'),un=$('unassigned');if(!panel||!box||!un)return;
+  panel.prepend(box);
+  let top=$('studentTop575');if(!top){top=document.createElement('section');top.id='studentTop575'}
+  let block=$('unassignedBlock');if(!block){block=document.createElement('section');block.id='unassignedBlock';let h=[...box.querySelectorAll('h4')].find(x=>x.textContent.includes('Ej placerade'));if(h)block.appendChild(h);else block.innerHTML='<h4>Ej placerade elever</h4>';block.appendChild(un);let note=un.nextElementSibling&&un.nextElementSibling.matches('p.meta')?un.nextElementSibling:null;if(note)block.appendChild(note)}
+  if(!top.contains(block))top.appendChild(block);
+  box.prepend(top);
+  box.scrollTop=0;panel.scrollTop=0;
+}
+const _renderInlinePanel575=renderInlinePanel;renderInlinePanel=function(){_renderInlinePanel575();forceStudentsFirst575()}
+const _renderUnassigned575=renderUnassigned;renderUnassigned=function(){_renderUnassigned575();forceStudentsFirst575()}
+const _renderCanvas575=renderCanvas;renderCanvas=function(id='canvas',result=false){_renderCanvas575(id,result);if(!result&&id==='canvas')forceStudentsFirst575()}
+requestAnimationFrame(forceStudentsFirst575)

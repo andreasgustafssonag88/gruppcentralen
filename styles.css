@@ -111,3 +111,23 @@ html,body{max-width:100%;overflow-x:hidden}.workspaceFocus .app>main{padding:12p
 .builder.placeMode #inlineSeat>p.meta:last-child{order:6!important}
 @media(max-width:900px){.builder.placeMode #unassigned{max-height:180px!important}}
 @media(max-width:700px){.builder.placeMode #unassigned{max-height:135px!important}.builder.placeMode #studentTop572 .studentTopTitle h3{font-size:18px}}
+
+
+/* 5.7.5: runda bordsplatser och elevarbetsyta först */
+.round .shape{position:relative!important;width:100%!important;height:100%!important;overflow:visible!important}
+.round .roundSeat{position:absolute!important;width:54px!important;height:32px!important;left:var(--seat-left)!important;top:var(--seat-top)!important;transform:translate(-50%,-50%)!important;box-sizing:border-box;white-space:normal;line-height:1.05;padding:3px;z-index:4}
+#studentPanel{display:flex!important;flex-direction:column!important;min-height:0}
+#inlineSeat{order:-100!important;display:flex!important;flex-direction:column!important;min-height:0}
+#inspect{order:10!important}
+#studentTop575{order:-1000!important;display:flex;flex-direction:column;min-height:0}
+#unassignedBlock{order:-999!important;background:#f7f8ff;border:2px solid #d9defe;border-radius:13px;padding:10px;margin:0 0 10px;min-height:0}
+#unassignedBlock h4{margin:0 0 8px;font-size:17px}
+#unassigned{max-height:250px!important;overflow-y:auto!important;margin:0!important;overscroll-behavior:contain}
+#selectedStudentBanner{order:-998!important}
+#selectedGroupSummary{order:-997!important}
+#groupPickerArea,#chosenGroupsCompact{order:-996!important}
+#inlineSeat>.buttons{order:-995!important}
+#ruleSummaryBtn,#ruleDetails,#ruleResult{order:-994!important}
+#inlineSeat>.fullscreenPanelHead,#inlineSeat>p.meta{order:5!important}
+@media(max-width:900px){#unassigned{max-height:170px!important}}
+@media(max-width:700px){#unassigned{max-height:130px!important}}
