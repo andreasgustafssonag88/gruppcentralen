@@ -131,3 +131,20 @@ html,body{max-width:100%;overflow-x:hidden}.workspaceFocus .app>main{padding:12p
 #inlineSeat>.fullscreenPanelHead,#inlineSeat>p.meta{order:5!important}
 @media(max-width:900px){#unassigned{max-height:170px!important}}
 @media(max-width:700px){#unassigned{max-height:130px!important}}
+
+
+/* 5.7.6: separata panelkort och robust elevdragning */
+#studentPanel{display:flex!important;flex-direction:column!important;gap:10px;min-height:0;overflow-y:auto!important}
+.panelBlock576{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 4px 14px #17223c0b;overflow:hidden;flex:0 0 auto}
+.panelBlockHeader576{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;padding:11px 12px;border:0;background:#f7f8fc;color:#17223c;font-weight:900;font-size:15px;text-align:left;cursor:pointer}
+.panelBlockHeader576 span:last-child{width:28px;height:28px;border-radius:8px;background:#e9edf5;display:grid;place-items:center;font-size:15px}
+.panelBlockBody576{padding:10px 12px}.panelBlock576.collapsed .panelBlockBody576{display:none}.panelBlock576.collapsed .panelBlockHeader576 span:last-child{transform:rotate(-90deg)}
+#studentsCard576{order:-300}#groupCard576{order:-290}#placementCard576{order:-280}#inspectCard576{order:-270}
+#studentsCard576 #unassigned{max-height:260px!important;overflow-y:auto!important;margin:0!important}
+#studentsCard576 .unassignedName{cursor:grab;touch-action:none}#studentsCard576 .unassignedName:active{cursor:grabbing}
+#inspect{display:block!important;margin:0!important;box-shadow:none!important;border:0!important;padding:0!important}
+.builder.placeMode #inspectCard576{display:none!important}.builder.buildMode #inspectCard576{display:block!important}
+.builder.placeMode #studentsCard576,.builder.placeMode #groupCard576,.builder.placeMode #placementCard576{display:block!important}
+#inlineSeat{display:contents!important}.panelClose{display:none!important}
+.seat.dragDropReady{outline:4px solid #5268ed!important;background:#eef1ff!important}.studentDragActive .seat:not(.lockedSeat){outline:2px dashed #8190ef}
+@media(max-width:700px){#studentPanel{overflow:visible!important}.panelBlockBody576{padding:9px}.panelBlockHeader576{padding:10px}.panelBlock576{border-radius:12px}#studentsCard576 #unassigned{max-height:150px!important}}

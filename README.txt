@@ -1,7 +1,9 @@
-Gruppcentralen 5.7.5
+Gruppcentralen 5.7.6
 
-- Runda bord fördelar 2–6 elevplatser runt hela cirkeln utan överlappning.
-- Elevnamnen ligger alltid först och högst upp i högerpanelen.
-- Gruppval, regler, Slumpa på borden och övriga kontroller ligger under elevnamnen.
-- Figurinställningar ligger under elevpanelen i byggläget.
-- Tidigare korrigeringar finns kvar.
+- Elever kan dras från Ej placerade elever till en ledig bordsplats.
+- Högerpanelen består av fyra oberoende rutor: Ej placerade elever, Välj elevgrupp, Placering och regler samt Inställningar för bord och figurer.
+- Varje ruta kan minimeras utan att någon annan ruta stängs.
+- Inställningar för bord och figurer påverkas inte när elevrutan minimeras.
+- Vald öppen/stängd status sparas lokalt.
+
+5.7.6.1: panelerna städas efter varje omritning så inga äldre elevblock ligger kvar utanför rutorna.

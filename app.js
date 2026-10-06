@@ -280,3 +280,59 @@ const _renderInlinePanel575=renderInlinePanel;renderInlinePanel=function(){_rend
 const _renderUnassigned575=renderUnassigned;renderUnassigned=function(){_renderUnassigned575();forceStudentsFirst575()}
 const _renderCanvas575=renderCanvas;renderCanvas=function(id='canvas',result=false){_renderCanvas575(id,result);if(!result&&id==='canvas')forceStudentsFirst575()}
 requestAnimationFrame(forceStudentsFirst575)
+
+
+/* Gruppcentralen 5.7.6 */
+function block576(id,title){let el=$(id);if(el)return el;el=document.createElement('section');el.id=id;el.className='panelBlock576';el.innerHTML=`<button type="button" class="panelBlockHeader576" aria-expanded="true"><span>${title}</span><span>⌄</span></button><div class="panelBlockBody576"></div>`;el.querySelector('.panelBlockHeader576').onclick=()=>toggleBlock576(id);return el}
+function toggleBlock576(id){let el=$(id);if(!el)return;el.classList.toggle('collapsed');let open=!el.classList.contains('collapsed');el.querySelector('.panelBlockHeader576')?.setAttribute('aria-expanded',String(open));try{localStorage.setItem('gc-block-'+id,open?'1':'0')}catch(_){}}
+function restoreBlock576(el){try{if(localStorage.getItem('gc-block-'+el.id)==='0'){el.classList.add('collapsed');el.querySelector('.panelBlockHeader576')?.setAttribute('aria-expanded','false')}}catch(_){}}
+function arrangePanelBlocks576(){
+ let panel=$('studentPanel'),inline=$('inlineSeat'),un=$('unassigned'),inspect=$('inspect');if(!panel||!inline||!un)return;
+ let students=block576('studentsCard576','Ej placerade elever'),groupsCard=block576('groupCard576','Välj elevgrupp'),placement=block576('placementCard576','Placering och regler'),inspectCard=block576('inspectCard576','Inställningar för bord och figurer');
+ [students,groupsCard,placement,inspectCard].forEach(x=>{if(!x.parentElement||x.parentElement!==panel){panel.appendChild(x);restoreBlock576(x)}});
+ let sb=students.querySelector('.panelBlockBody576');let oldBlock=$('unassignedBlock');let oldH=oldBlock?.querySelector('h4');if(oldH)oldH.remove();sb.appendChild(un);let note=oldBlock?.querySelector('p.meta');if(note)sb.appendChild(note);oldBlock?.remove();
+ let gb=groupsCard.querySelector('.panelBlockBody576');['selectedGroupSummary','selectedStudentBanner','groupPickerArea','chosenGroupsCompact'].forEach(id=>{let x=$(id);if(x)gb.appendChild(x)});
+ let pb=placement.querySelector('.panelBlockBody576');let buttons=inline.querySelector(':scope > .buttons');if(buttons)pb.appendChild(buttons);['ruleSummaryBtn','ruleDetails','ruleResult'].forEach(id=>{let x=$(id);if(x)pb.appendChild(x)});
+ let intro=[...inline.children].filter(x=>x.matches('.fullscreenPanelHead,p.meta'));intro.forEach(x=>x.remove());
+ if(inspect)inspectCard.querySelector('.panelBlockBody576').appendChild(inspect);
+ panel.scrollTop=0;
+}
+const _renderInlinePanel576=renderInlinePanel;renderInlinePanel=function(){_renderInlinePanel576();arrangePanelBlocks576();bindStudentDrag576()}
+const _renderUnassigned576=renderUnassigned;renderUnassigned=function(){_renderUnassigned576();arrangePanelBlocks576();bindStudentDrag576()}
+const _renderCanvas576=renderCanvas;renderCanvas=function(id='canvas',result=false){_renderCanvas576(id,result);if(!result&&id==='canvas'){arrangePanelBlocks576();bindStudentDrag576()}}
+function moveDroppedStudent576(name,seat){if(!name||!seat||seat.classList.contains('lockedSeat'))return false;let table=seat.closest('.tableObj');if(!table)return false;let idx=[...table.querySelectorAll('.seat')].indexOf(seat);if(idx<0)return false;moveStudentToSeat(name,table.dataset.id,idx);clearSelectedStudent();return true}
+function bindStudentDrag576(){
+ document.querySelectorAll('.unassignedName[data-student],.tableObj .seat[data-student]').forEach(el=>{
+  el.setAttribute('draggable','true');
+  el.ondragstart=e=>{let name=decodeURIComponent(el.dataset.student||'');if(!name){e.preventDefault();return}dragStudent=name;e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',name);document.body.classList.add('studentDragActive');setTimeout(()=>el.classList.add('draggingName'),0)};
+  el.ondragend=()=>{dragStudent=null;document.body.classList.remove('studentDragActive');document.querySelectorAll('.dragDropReady').forEach(x=>x.classList.remove('dragDropReady'));el.classList.remove('draggingName')};
+ });
+ document.querySelectorAll('#canvas .tableObj .seat').forEach(seat=>{
+  seat.ondragover=e=>{if(seat.classList.contains('lockedSeat'))return;e.preventDefault();e.dataTransfer.dropEffect='move';seat.classList.add('dragDropReady')};
+  seat.ondragleave=()=>seat.classList.remove('dragDropReady');
+  seat.ondrop=e=>{e.preventDefault();e.stopPropagation();seat.classList.remove('dragDropReady');let name=e.dataTransfer.getData('text/plain')||dragStudent;moveDroppedStudent576(name,seat)};
+ });
+}
+document.addEventListener('dragover',e=>{let seat=e.target.closest?.('#canvas .tableObj .seat');if(seat&&!seat.classList.contains('lockedSeat'))e.preventDefault()});
+document.addEventListener('drop',e=>{let seat=e.target.closest?.('#canvas .tableObj .seat');if(!seat)return;e.preventDefault();let name=e.dataTransfer?.getData('text/plain')||dragStudent;moveDroppedStudent576(name,seat)});
+requestAnimationFrame(()=>{arrangePanelBlocks576();bindStudentDrag576()})
+
+
+/* Gruppcentralen 5.7.6.1: slutlig panelstabilisering */
+function finalizePanelBlocks5761(){
+ let panel=$('studentPanel'),un=$('unassigned'),inspect=$('inspect');if(!panel||!un)return;
+ let students=$('studentsCard576'),groupsCard=$('groupCard576'),placement=$('placementCard576'),inspectCard=$('inspectCard576');
+ if(!students||!groupsCard||!placement||!inspectCard){arrangePanelBlocks576();students=$('studentsCard576');groupsCard=$('groupCard576');placement=$('placementCard576');inspectCard=$('inspectCard576')}
+ let sb=students.querySelector('.panelBlockBody576');sb.prepend(un);
+ ['studentTop572','studentTop575','unassignedBlock'].forEach(id=>{let x=$(id);if(x){[...x.querySelectorAll('p.meta')].forEach(n=>sb.appendChild(n));x.remove()}});
+ let gb=groupsCard.querySelector('.panelBlockBody576');['selectedGroupSummary','selectedStudentBanner','groupPickerArea','chosenGroupsCompact'].forEach(id=>{let x=$(id);if(x)gb.appendChild(x)});
+ let pb=placement.querySelector('.panelBlockBody576');let buttons=document.querySelector('#inlineSeat > .buttons');if(buttons)pb.prepend(buttons);['ruleSummaryBtn','ruleDetails','ruleResult'].forEach(id=>{let x=$(id);if(x)pb.appendChild(x)});
+ if(inspect)inspectCard.querySelector('.panelBlockBody576').appendChild(inspect);
+ document.querySelectorAll('#inlineSeat>.fullscreenPanelHead,#inlineSeat>p.meta').forEach(x=>x.remove());
+ [students,groupsCard,placement,inspectCard].forEach(x=>panel.appendChild(x));
+ bindStudentDrag576();panel.scrollTop=0;
+}
+const _renderInlinePanel5761=renderInlinePanel;renderInlinePanel=function(){_renderInlinePanel5761();requestAnimationFrame(finalizePanelBlocks5761)}
+const _renderUnassigned5761=renderUnassigned;renderUnassigned=function(){_renderUnassigned5761();requestAnimationFrame(finalizePanelBlocks5761)}
+const _renderCanvas5761=renderCanvas;renderCanvas=function(id='canvas',result=false){_renderCanvas5761(id,result);if(!result&&id==='canvas')requestAnimationFrame(finalizePanelBlocks5761)}
+requestAnimationFrame(finalizePanelBlocks5761)
