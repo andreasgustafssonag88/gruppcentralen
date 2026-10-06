@@ -91,3 +91,23 @@ html,body{max-width:100%;overflow-x:hidden}.workspaceFocus .app>main{padding:12p
 /* 5.7.2: ej placerade elever först och säker borttagning */
 .builder.placeMode #unassignedBlock{order:-10;background:#f7f8ff;border:1px solid #dfe3ff;border-radius:12px;padding:10px;margin:6px 0 10px;flex:0 0 auto}.builder.placeMode #unassignedBlock h4{margin:0 0 7px;font-size:15px}.builder.placeMode #unassigned{max-height:190px;overflow:auto;margin:0}.builder.placeMode #groupPickerArea{order:-9}.builder.placeMode #chosenGroupsCompact{order:-9}.builder.placeMode #selectedGroupSummary{order:-12}.builder.placeMode #selectedStudentBanner{order:-11}.builder.placeMode #ruleSummaryBtn,.builder.placeMode #ruleDetails,.builder.placeMode #ruleResult{order:2}.builder.placeMode #inlineSeat>.buttons{order:1}.selectedDeleteButton{position:absolute;right:-14px;top:-14px;z-index:60;width:34px;height:34px;border-radius:50%;border:3px solid #fff;background:#c93352;color:#fff;font-size:17px;font-weight:900;box-shadow:0 4px 12px #0004;cursor:pointer;display:grid;place-items:center}.selectedDeleteButton:hover{background:#a92340}.buildDeleteHint{font-size:11px;color:#68748a;margin-top:7px}.builder.placeMode .selectedDeleteButton{display:none!important}
 @media(max-width:700px){.builder.placeMode #unassignedBlock{padding:8px}.builder.placeMode #unassigned{max-height:120px}.selectedDeleteButton{right:-8px;top:-8px;width:38px;height:38px}}
+
+
+/* 5.7.3: elever absolut först i högerpanelen */
+.builder.placeMode #studentPanel{display:flex!important;flex-direction:column!important;overflow:hidden!important}
+.builder.placeMode #inspect{display:none!important}
+.builder.placeMode #inlineSeat{display:flex!important;flex-direction:column!important;overflow:hidden!important;max-height:100%!important}
+.builder.placeMode #studentTop572{order:-100!important;display:flex;flex-direction:column;min-height:0;background:#fff}
+.builder.placeMode #studentTop572 .studentTopTitle{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.builder.placeMode #studentTop572 .studentTopTitle h3{margin:0;font-size:20px}
+.builder.placeMode #unassignedBlock{order:-99!important;margin:0 0 10px!important;background:#f7f8ff;border:2px solid #d9defe;border-radius:13px;padding:10px;min-height:0}
+.builder.placeMode #unassignedBlock h4{margin:0 0 8px;font-size:16px}
+.builder.placeMode #unassigned{max-height:260px!important;overflow-y:auto!important;overscroll-behavior:contain;margin:0!important}
+.builder.placeMode #selectedStudentBanner{order:-98!important}
+.builder.placeMode #selectedGroupSummary{order:-97!important}
+.builder.placeMode #chosenGroupsCompact,.builder.placeMode #groupPickerArea{order:-96!important}
+.builder.placeMode #inlineSeat>.buttons{order:-95!important}
+.builder.placeMode #ruleSummaryBtn,.builder.placeMode #ruleDetails,.builder.placeMode #ruleResult{order:5!important}
+.builder.placeMode #inlineSeat>p.meta:last-child{order:6!important}
+@media(max-width:900px){.builder.placeMode #unassigned{max-height:180px!important}}
+@media(max-width:700px){.builder.placeMode #unassigned{max-height:135px!important}.builder.placeMode #studentTop572 .studentTopTitle h3{font-size:18px}}

@@ -1,6 +1,7 @@
-Gruppcentralen 5.7.2
+Gruppcentralen 5.7.4
 
-- Ej placerade elever visas direkt under vald grupp, före regler och åtgärdsknappar.
-- Markerad figur får en röd borttagningsknapp direkt på ritningen i Bygg klassrum.
-- Ta bort figur finns även kvar i egenskapspanelen och Delete/Backspace fungerar.
-- Bygg klassrum låser automatiskt upp ritningen.
+Korrigering:
+- När ett nytt bord läggs till behåller alla befintliga bord sina positioner.
+- Bordens left/top-koordinater och rotation bevaras vid varje omritning.
+- Färgvalet läggs till utan att ersätta bordets positionsstil.
+- Funktionerna från 5.7.3 för elever högst upp och borttagning finns kvar.

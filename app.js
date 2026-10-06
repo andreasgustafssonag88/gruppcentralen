@@ -197,3 +197,56 @@ const _renderCanvas572=renderCanvas;renderCanvas=function(id='canvas',result=fal
 const _setWorkMode572=setWorkMode;setWorkMode=function(mode,announce=true){_setWorkMode572(mode,announce);arrangeStudentPanel572();if(mode==='build'){room.layoutLocked=false;updateLayoutLockUI();requestAnimationFrame(addSelectedDelete572)}else{document.querySelectorAll('.selectedDeleteButton').forEach(x=>x.remove())}}
 function removeItem(){if(!room||!sel)return toast('Välj först en figur.');if(workMode!=='build')return toast('Tryck på Bygg klassrum för att ta bort figurer.');let target=item();if(!target)return toast('Figuren kunde inte hittas.');snapshotRoom();let before=(room.tables?.length||0)+(room.objects?.length||0);if(sel.kind==='table')room.tables=room.tables.filter(x=>x.id!==sel.id);else room.objects=room.objects.filter(x=>x.id!==sel.id);let after=(room.tables?.length||0)+(room.objects?.length||0);if(after===before)return toast('Figuren kunde inte tas bort.');sel=null;room.activePlacementId='';scheduleAutosave();renderCanvas();toast('Figuren togs bort.')}
 requestAnimationFrame(arrangeStudentPanel572)
+
+
+/* Gruppcentralen 5.7.3: flytta elevnamnen fysiskt högst upp */
+function forceStudentsFirst573(){
+  let panel=$('studentPanel'),box=$('inlineSeat'),un=$('unassigned');
+  if(!panel||!box||!un)return;
+  if(workMode!=='place')return;
+  let inspect=$('inspect');
+  if(inspect){inspect.style.display='none';inspect.setAttribute('aria-hidden','true')}
+  let top=$('studentTop572');
+  if(!top){
+    top=document.createElement('section');top.id='studentTop572';
+    let title=document.createElement('div');title.className='studentTopTitle';
+    title.innerHTML='<h3>Elever att placera</h3><span class="meta" id="studentCount573"></span>';
+    top.appendChild(title);
+  }
+  let block=$('unassignedBlock');
+  if(!block){
+    block=document.createElement('section');block.id='unassignedBlock';
+    let h=[...box.querySelectorAll('h4')].find(x=>x.textContent.includes('Ej placerade'));
+    if(h)block.appendChild(h);else block.insertAdjacentHTML('afterbegin','<h4>Ej placerade elever</h4>');
+    block.appendChild(un);
+  }
+  if(!top.contains(block))top.appendChild(block);
+  let header=box.querySelector('.fullscreenPanelHead');
+  if(header)header.replaceWith(top);else box.prepend(top);
+  let count=$('studentCount573'),n=un.querySelectorAll('.unassignedName').length;
+  if(count)count.textContent=n?`${n} kvar`:'Alla placerade';
+  box.scrollTop=0;panel.scrollTop=0;
+}
+const _renderInlinePanel573=renderInlinePanel;
+renderInlinePanel=function(){_renderInlinePanel573();forceStudentsFirst573()}
+const _renderUnassigned573=renderUnassigned;
+renderUnassigned=function(){_renderUnassigned573();forceStudentsFirst573()}
+const _setWorkMode573=setWorkMode;
+setWorkMode=function(mode,announce=true){_setWorkMode573(mode,announce);if(mode==='place'){requestAnimationFrame(forceStudentsFirst573)}else{let inspect=$('inspect');if(inspect){inspect.style.display='';inspect.removeAttribute('aria-hidden')}}}
+document.addEventListener('click',e=>{if(e.target.closest('#confirmGroupsBtn,.chosenGroupsCompact button,#placeModeBtn'))requestAnimationFrame(forceStudentsFirst573)})
+requestAnimationFrame(()=>{if(workMode==='place')forceStudentsFirst573()})
+
+
+/* Gruppcentralen 5.7.4: bevara bordens koordinater vid omritning */
+const _tableHTMLBefore574=tableHTML;
+tableHTML=function(t,result){
+  t.color=t.color||figureColor(t);
+  if(t.type==='half')return _tableHTMLBefore574(t,result);
+  let html=_tableHTML57(t,result);
+  html=html.replace('<div class="shape">',`<div class="shape" style="--figure-color:${t.color}">`);
+  html=html.replace(/(<div class="obj tableObj[^"]*"[^>]*style=")([^"]*)(")/,(_,start,style,end)=>{
+    let cleaned=style.replace(/--figure-color\s*:[^;]+;?/g,'');
+    return`${start}--figure-color:${t.color};${cleaned}${end}`;
+  });
+  return html;
+}
