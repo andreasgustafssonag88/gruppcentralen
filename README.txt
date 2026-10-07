@@ -1,10 +1,9 @@
-Gruppcentralen 5.7.7
+Gruppcentralen 5.7.8
 
-Korrigeringar:
-- Alla figurer kan tas bort i Bygg klassrum.
-- Stabilare dragning utan hopp vid zoom och stora figurer.
-- I Placera elever visas elevdelen överst till höger.
-- Ej placerade elever kan minimeras med minus och öppnas med plus.
-- Minimering döljer bara elevnamnen, inte elevgrupp, regler, slumpning eller sparade placeringar.
-- Figurinställningar döljs i placeringsläget.
-- Förbättrat beteende på mobil.
+Korrigering av helskärmsläget:
+- Klassrumsytan använder huvuddelen av skärmens bredd.
+- Elevpanelen är en fast smal kolumn till höger.
+- Verktygspanelen öppnas som en överlagrad panel och minskar inte klassrumsytan.
+- När elevpanelen döljs använder klassrumsytan hela bredden.
+- Verktygsraden ligger överst och skapar inte längre ett stort tomt grått fält.
+- Anpassad layout för mindre skärmar och mobil.

@@ -149,28 +149,17 @@ html,body{max-width:100%;overflow-x:hidden}.workspaceFocus .app>main{padding:12p
 .seat.dragDropReady{outline:4px solid #5268ed!important;background:#eef1ff!important}.studentDragActive .seat:not(.lockedSeat){outline:2px dashed #8190ef}
 @media(max-width:700px){#studentPanel{overflow:visible!important}.panelBlockBody576{padding:9px}.panelBlockHeader576{padding:10px}.panelBlock576{border-radius:12px}#studentsCard576 #unassigned{max-height:150px!important}}
 
-
-/* Gruppcentralen 5.7.7: kompakt elevpanel och stabil redigering */
-#studentPanel{min-height:0}
-#studentPanel>#inlineSeat{min-height:0}
-#studentTop577{display:grid;gap:8px;position:sticky;top:0;z-index:14;background:var(--card,#fff);padding-bottom:8px}
-#unassignedBlock{border:1px solid var(--line);border-radius:11px;background:#f8f9fc;overflow:hidden}
-.unassignedHead577{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 9px;background:#eef1f7}
-.unassignedHead577 h4{margin:0;font-size:13px}
-.unassignedToggle577{width:34px;height:30px;border:0;border-radius:8px;background:#fff;color:#40506d;font-size:18px;font-weight:900;cursor:pointer;box-shadow:0 0 0 1px #d8dde7}
-.unassignedBody577{padding:8px}
-#unassignedBlock.collapsed .unassignedBody577{display:none}
-#unassignedBlock.collapsed{background:#eef1f7}
-#unassignedBlock .chips{max-height:185px;overflow:auto;align-content:start}
-#unassignedBlock .meta{margin:6px 0 0}
-.builder.placeMode #studentPanel{overflow:hidden}
-.builder.placeMode #inlineSeat{display:flex;flex-direction:column;max-height:calc(100vh - 155px);overflow:hidden}
-.builder.placeMode #studentTop577{flex:0 0 auto}
-.builder.placeMode #studentControls577{overflow:auto;min-height:0;padding-right:2px}
-.builder.placeMode #inspect{display:none!important}
-.obj.dragging{transition:none!important;will-change:left,top;cursor:grabbing!important}
-.canvas.dragActive{touch-action:none;user-select:none}
-.selectedDeleteButton{touch-action:manipulation}
-@media(max-width:900px){.builder.placeMode #inlineSeat{max-height:none}.builder.placeMode #studentPanel{overflow:auto}.builder.placeMode #studentTop577{position:sticky;top:0}.builder.placeMode #studentControls577{overflow:visible}}
-@media(max-width:700px){#studentTop577{padding-bottom:6px}.unassignedHead577{padding:10px}.unassignedToggle577{width:43px;height:38px;font-size:22px}#unassignedBlock .chips{max-height:150px}.builder.placeMode #studentPanel{max-height:58vh}}
-@media print{#studentTop577,.unassignedToggle577{display:none!important}}
+/* Gruppcentralen 5.7.8: klassrumsytan prioriteras i helskärm */
+.builder:fullscreen,.builder.fullscreenFallback{display:grid!important;grid-template-columns:minmax(0,1fr) 300px!important;grid-template-rows:auto minmax(0,1fr)!important;gap:10px!important;width:100vw!important;height:100vh!important;padding:10px!important;overflow:hidden!important;background:#e7ebf2!important}
+.builder:fullscreen>.canvasZoomBar,.builder.fullscreenFallback>.canvasZoomBar{grid-column:1/-1!important;grid-row:1!important;width:100%!important;min-width:0!important;margin:0!important;padding:0 260px 0 0!important;display:flex!important;flex-wrap:wrap!important;justify-content:center!important;align-items:center!important;gap:8px!important;background:transparent!important}
+.builder:fullscreen>.stage,.builder.fullscreenFallback>.stage{grid-column:1!important;grid-row:2!important;width:100%!important;height:100%!important;min-width:0!important;min-height:0!important;margin:0!important;padding:10px!important;overflow:auto!important;background:#dfe5ee!important;border-radius:14px!important;display:flex!important;justify-content:center!important;align-items:flex-start!important}
+.builder:fullscreen>#studentPanel,.builder.fullscreenFallback>#studentPanel{grid-column:2!important;grid-row:2!important;width:300px!important;height:100%!important;min-height:0!important;overflow:auto!important;margin:0!important}
+.builder:fullscreen>#toolsPanel,.builder.fullscreenFallback>#toolsPanel{position:fixed!important;left:10px!important;top:76px!important;bottom:10px!important;width:190px!important;height:auto!important;z-index:1005!important;overflow:auto!important;box-shadow:0 12px 32px #17223c33!important}
+.builder:fullscreen.toolsCollapsed>#toolsPanel,.builder.fullscreenFallback.toolsCollapsed>#toolsPanel{display:none!important}
+.builder:fullscreen.studentsCollapsed,.builder.fullscreenFallback.studentsCollapsed{grid-template-columns:minmax(0,1fr)!important}
+.builder:fullscreen.studentsCollapsed>.stage,.builder.fullscreenFallback.studentsCollapsed>.stage{grid-column:1!important}
+.builder:fullscreen.studentsCollapsed>#studentPanel,.builder.fullscreenFallback.studentsCollapsed>#studentPanel{display:none!important}
+.builder:fullscreen .canvas,.builder.fullscreenFallback .canvas{flex:0 0 auto!important;margin:0 auto!important;min-width:1000px!important;min-height:680px!important;transform-origin:top center!important}
+.builder:fullscreen .exitFullscreen,.builder.fullscreenFallback .exitFullscreen{z-index:1010!important}
+@media(max-width:1100px){.builder:fullscreen,.builder.fullscreenFallback{grid-template-columns:minmax(0,1fr) 250px!important}.builder:fullscreen>#studentPanel,.builder.fullscreenFallback>#studentPanel{width:250px!important}.builder:fullscreen>.canvasZoomBar,.builder.fullscreenFallback>.canvasZoomBar{padding-right:210px!important;justify-content:flex-start!important}}
+@media(max-width:760px){.builder:fullscreen,.builder.fullscreenFallback{grid-template-columns:1fr!important;grid-template-rows:auto minmax(0,1fr) auto!important;padding:6px!important}.builder:fullscreen>.canvasZoomBar,.builder.fullscreenFallback>.canvasZoomBar{grid-column:1!important;padding-right:54px!important;overflow-x:auto!important;flex-wrap:nowrap!important;justify-content:flex-start!important}.builder:fullscreen>.stage,.builder.fullscreenFallback>.stage{grid-column:1!important;grid-row:2!important;padding:5px!important}.builder:fullscreen>#studentPanel,.builder.fullscreenFallback>#studentPanel{grid-column:1!important;grid-row:3!important;width:100%!important;height:auto!important;max-height:38vh!important}.builder:fullscreen>#toolsPanel,.builder.fullscreenFallback>#toolsPanel{left:6px!important;right:6px!important;top:68px!important;width:auto!important;bottom:6px!important}}
