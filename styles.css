@@ -148,3 +148,29 @@ html,body{max-width:100%;overflow-x:hidden}.workspaceFocus .app>main{padding:12p
 #inlineSeat{display:contents!important}.panelClose{display:none!important}
 .seat.dragDropReady{outline:4px solid #5268ed!important;background:#eef1ff!important}.studentDragActive .seat:not(.lockedSeat){outline:2px dashed #8190ef}
 @media(max-width:700px){#studentPanel{overflow:visible!important}.panelBlockBody576{padding:9px}.panelBlockHeader576{padding:10px}.panelBlock576{border-radius:12px}#studentsCard576 #unassigned{max-height:150px!important}}
+
+
+/* Gruppcentralen 5.7.7: kompakt elevpanel och stabil redigering */
+#studentPanel{min-height:0}
+#studentPanel>#inlineSeat{min-height:0}
+#studentTop577{display:grid;gap:8px;position:sticky;top:0;z-index:14;background:var(--card,#fff);padding-bottom:8px}
+#unassignedBlock{border:1px solid var(--line);border-radius:11px;background:#f8f9fc;overflow:hidden}
+.unassignedHead577{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 9px;background:#eef1f7}
+.unassignedHead577 h4{margin:0;font-size:13px}
+.unassignedToggle577{width:34px;height:30px;border:0;border-radius:8px;background:#fff;color:#40506d;font-size:18px;font-weight:900;cursor:pointer;box-shadow:0 0 0 1px #d8dde7}
+.unassignedBody577{padding:8px}
+#unassignedBlock.collapsed .unassignedBody577{display:none}
+#unassignedBlock.collapsed{background:#eef1f7}
+#unassignedBlock .chips{max-height:185px;overflow:auto;align-content:start}
+#unassignedBlock .meta{margin:6px 0 0}
+.builder.placeMode #studentPanel{overflow:hidden}
+.builder.placeMode #inlineSeat{display:flex;flex-direction:column;max-height:calc(100vh - 155px);overflow:hidden}
+.builder.placeMode #studentTop577{flex:0 0 auto}
+.builder.placeMode #studentControls577{overflow:auto;min-height:0;padding-right:2px}
+.builder.placeMode #inspect{display:none!important}
+.obj.dragging{transition:none!important;will-change:left,top;cursor:grabbing!important}
+.canvas.dragActive{touch-action:none;user-select:none}
+.selectedDeleteButton{touch-action:manipulation}
+@media(max-width:900px){.builder.placeMode #inlineSeat{max-height:none}.builder.placeMode #studentPanel{overflow:auto}.builder.placeMode #studentTop577{position:sticky;top:0}.builder.placeMode #studentControls577{overflow:visible}}
+@media(max-width:700px){#studentTop577{padding-bottom:6px}.unassignedHead577{padding:10px}.unassignedToggle577{width:43px;height:38px;font-size:22px}#unassignedBlock .chips{max-height:150px}.builder.placeMode #studentPanel{max-height:58vh}}
+@media print{#studentTop577,.unassignedToggle577{display:none!important}}

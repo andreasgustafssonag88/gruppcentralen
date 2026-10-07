@@ -1,9 +1,10 @@
-Gruppcentralen 5.7.6
+Gruppcentralen 5.7.7
 
-- Elever kan dras från Ej placerade elever till en ledig bordsplats.
-- Högerpanelen består av fyra oberoende rutor: Ej placerade elever, Välj elevgrupp, Placering och regler samt Inställningar för bord och figurer.
-- Varje ruta kan minimeras utan att någon annan ruta stängs.
-- Inställningar för bord och figurer påverkas inte när elevrutan minimeras.
-- Vald öppen/stängd status sparas lokalt.
-
-5.7.6.1: panelerna städas efter varje omritning så inga äldre elevblock ligger kvar utanför rutorna.
+Korrigeringar:
+- Alla figurer kan tas bort i Bygg klassrum.
+- Stabilare dragning utan hopp vid zoom och stora figurer.
+- I Placera elever visas elevdelen överst till höger.
+- Ej placerade elever kan minimeras med minus och öppnas med plus.
+- Minimering döljer bara elevnamnen, inte elevgrupp, regler, slumpning eller sparade placeringar.
+- Figurinställningar döljs i placeringsläget.
+- Förbättrat beteende på mobil.
