@@ -1,17 +1,16 @@
-GRUPPCENTRALEN 6.0.2 - LUGN KLASSRUMSBYGGARE
+GRUPPCENTRALEN 6.0.3 - KLICKA PA MOBELN FOR ATT REDIGERA
 
-Detta paket innehaller endast index.html, styles.css och instruktioner.
+Paketet innehaller endast index.html, styles.css och README.txt.
 Ingen ny JavaScript, service worker eller minifierad kod ingar.
 
-ATGARDAT
-- Klassrumsytan tvingas alltid vara synlig vid byte mellan Bygg och Placera.
-- Bygglage visar mobelverktyg och den befintliga inspektorn for bland annat fargval.
-- Placeringslage visar elevpanelen men inte byggverktygen.
-- Synliga rullister doljs i helskarm, men ytorna gar fortfarande att rulla med mushjul eller styrplatta.
-- Verktygsraden har endast Bygg, Placera och Fler verktyg som huvudval.
-- Zoom, lasning, flytta yta, anpassa, angra och gor om finns kvar under Fler verktyg.
-- Moblerna ligger i hopfallbara kategorier: Bord och sittplatser, Rummet och Inredning.
-- Alla befintliga onclick-funktioner och all lagrad data ar oforandrade.
+NYTT
+- Klicka pa ett bord, en matta eller annan mobel i Bygglage.
+- Den befintliga redigeraren oppnas som en tydlig popup nere till hoger.
+- Fargval, storlek, rotation, antal platser och Ta bort finns kvar i popupen beroende pa foremal.
+- Klassrumsytan tvingas vara synlig vid byte mellan Bygg och Placera.
+- Helskarm har dolda rullister men behaller mushjul och styrplatta.
+- Byggverktygen ligger i Bord, Rummet och Inredning.
+- Zoom, lasning, flytta yta, anpassa, angra och gor om ligger under Fler verktyg.
 
 INSTALLATION
 1. Packa upp ZIP-filen.
