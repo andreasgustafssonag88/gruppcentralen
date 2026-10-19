@@ -163,3 +163,252 @@ html,body{max-width:100%;overflow-x:hidden}.workspaceFocus .app>main{padding:12p
 .builder:fullscreen .exitFullscreen,.builder.fullscreenFallback .exitFullscreen{z-index:1010!important}
 @media(max-width:1100px){.builder:fullscreen,.builder.fullscreenFallback{grid-template-columns:minmax(0,1fr) 250px!important}.builder:fullscreen>#studentPanel,.builder.fullscreenFallback>#studentPanel{width:250px!important}.builder:fullscreen>.canvasZoomBar,.builder.fullscreenFallback>.canvasZoomBar{padding-right:210px!important;justify-content:flex-start!important}}
 @media(max-width:760px){.builder:fullscreen,.builder.fullscreenFallback{grid-template-columns:1fr!important;grid-template-rows:auto minmax(0,1fr) auto!important;padding:6px!important}.builder:fullscreen>.canvasZoomBar,.builder.fullscreenFallback>.canvasZoomBar{grid-column:1!important;padding-right:54px!important;overflow-x:auto!important;flex-wrap:nowrap!important;justify-content:flex-start!important}.builder:fullscreen>.stage,.builder.fullscreenFallback>.stage{grid-column:1!important;grid-row:2!important;padding:5px!important}.builder:fullscreen>#studentPanel,.builder.fullscreenFallback>#studentPanel{grid-column:1!important;grid-row:3!important;width:100%!important;height:auto!important;max-height:38vh!important}.builder:fullscreen>#toolsPanel,.builder.fullscreenFallback>#toolsPanel{left:6px!important;right:6px!important;top:68px!important;width:auto!important;bottom:6px!important}}
+
+/* ==========================================================
+   Gruppcentralen 6.0 - ren layoutuppdatering
+   Endast CSS. Ingen ny JavaScript-kod och ingen service worker.
+   Mal: stor klassrumsyta, tydlig sidopanel, alla funktioner kvar.
+   ========================================================== */
+
+#editor {
+  --gc60-panel-width: 280px;
+}
+
+#editor .editorbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  background: #ffffff;
+  border: 1px solid #dbe3ef;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(30, 55, 90, 0.07);
+}
+
+#editor .editorbar #roomName {
+  min-width: 180px;
+  max-width: 300px;
+  padding: 10px 12px;
+  font-size: 20px;
+  font-weight: 900;
+  background: #f3f6fb;
+  border: 0;
+  border-radius: 10px;
+}
+
+#editor .editorbar .placementControls {
+  margin-left: auto;
+}
+
+#editor .canvasZoomBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 58px;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  overflow-x: auto;
+  background: #ffffff;
+  border: 1px solid #dbe3ef;
+  border-radius: 16px;
+}
+
+#editor .canvasZoomBar button,
+#editor .canvasZoomBar label {
+  flex: 0 0 auto;
+}
+
+#editor .modeSwitch {
+  display: flex;
+  gap: 6px;
+}
+
+#editor .modeBtn {
+  min-height: 42px;
+  padding-inline: 16px;
+  font-weight: 900;
+  border-radius: 11px;
+}
+
+#editor .builder {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--gc60-panel-width);
+  gap: 12px;
+  min-height: clamp(620px, 72vh, 920px);
+}
+
+#editor .builder > .stage {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+  min-height: clamp(620px, 72vh, 920px);
+  padding: 16px;
+  overflow: auto;
+  background: #dfe6f0;
+  border-radius: 18px;
+  box-shadow: inset 0 0 0 1px #d3ddea;
+}
+
+#editor .builder > .stage::before {
+  display: block;
+  max-width: 1000px;
+  margin: 0 auto 10px;
+  color: #52627a;
+  font-size: 14px;
+  font-weight: 800;
+  text-align: center;
+  content: "Bygg ditt klassrum här";
+}
+
+#editor .builder > .stage .canvas {
+  min-width: 1000px;
+  min-height: 680px;
+  margin: 0 auto;
+  background: #ffffff;
+  box-shadow: 0 10px 34px rgba(34, 55, 86, 0.12);
+}
+
+#editor #toolsPanel,
+#editor #studentPanel {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: stretch;
+  max-height: clamp(620px, 72vh, 920px);
+  overflow: auto;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(30, 55, 90, 0.08);
+}
+
+#editor #toolsPanel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  align-content: start;
+  padding: 14px;
+}
+
+#editor #toolsPanel .panelHead,
+#editor #toolsPanel h3,
+#editor #toolsPanel p {
+  grid-column: 1 / -1;
+}
+
+#editor #toolsPanel h3 {
+  margin: 12px 0 2px;
+  color: #40516b;
+  font-size: 15px;
+}
+
+#editor #toolsPanel button:not(.panelClose) {
+  min-height: 66px;
+  padding: 10px;
+  text-align: left;
+  font-weight: 800;
+  background: #f5f7fb;
+  border: 1px solid #dbe3ef;
+  border-radius: 12px;
+}
+
+#editor #toolsPanel button:not(.panelClose):hover,
+#editor #toolsPanel button:not(.panelClose):focus-visible {
+  background: #eef3ff;
+  border-color: #9fb2ff;
+}
+
+#editor #studentPanel {
+  padding: 0;
+  background: transparent;
+}
+
+#editor #studentPanel .card {
+  border-radius: 18px;
+}
+
+#editor .builder.toolsCollapsed {
+  grid-template-columns: minmax(0, 1fr) var(--gc60-panel-width);
+}
+
+#editor .builder.toolsCollapsed #toolsPanel {
+  display: none;
+}
+
+#editor .builder.studentsCollapsed #studentPanel {
+  display: none;
+}
+
+#editor .builder.toolsCollapsed.studentsCollapsed,
+#editor .builder.toolsCollapsed:not(:has(#studentPanel:not([style*="display: none"]))) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (max-width: 1100px) {
+  #editor {
+    --gc60-panel-width: 255px;
+  }
+
+  #editor .editorbar {
+    flex-wrap: wrap;
+  }
+
+  #editor .editorbar .placementControls {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  #editor .editorbar {
+    position: static;
+  }
+
+  #editor .editorbar .placementControls {
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  #editor .canvasZoomBar {
+    position: sticky;
+    top: 0;
+    z-index: 35;
+    flex-wrap: nowrap;
+  }
+
+  #editor .modeBtn {
+    white-space: nowrap;
+  }
+
+  #editor .builder {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  #editor #toolsPanel,
+  #editor #studentPanel {
+    order: 1;
+    width: 100%;
+    max-height: 42vh;
+  }
+
+  #editor .builder > .stage {
+    order: 2;
+    width: 100%;
+    min-height: 62vh;
+    padding: 8px;
+  }
+
+  #editor #toolsPanel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media print {
+  #editor .builder > .stage::before {
+    display: none !important;
+  }
+}
