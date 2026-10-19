@@ -1,16 +1,13 @@
-GRUPPCENTRALEN 6.0.3 - KLICKA PA MOBELN FOR ATT REDIGERA
+GRUPPCENTRALEN 6.0.4 - STANG MOBELMENYN
 
-Paketet innehaller endast index.html, styles.css och README.txt.
-Ingen ny JavaScript, service worker eller minifierad kod ingar.
+Detta ar en korrigering av version 6.0.3.
 
-NYTT
-- Klicka pa ett bord, en matta eller annan mobel i Bygglage.
-- Den befintliga redigeraren oppnas som en tydlig popup nere till hoger.
-- Fargval, storlek, rotation, antal platser och Ta bort finns kvar i popupen beroende pa foremal.
-- Klassrumsytan tvingas vara synlig vid byte mellan Bygg och Placera.
-- Helskarm har dolda rullister men behaller mushjul och styrplatta.
-- Byggverktygen ligger i Bord, Rummet och Inredning.
-- Zoom, lasning, flytta yta, anpassa, angra och gor om ligger under Fler verktyg.
+ATGARDAT
+- Mobelmenyn har fatt en tydlig rod X-knapp.
+- X-knappen stanger bara redigeringsmenyn.
+- Bordet eller mobeln tas inte bort nar menyn stangs.
+- Fargval, storlek, rotation och ovriga mobelinstallningar finns kvar.
+- Ingen ny JavaScript-fil eller service worker ingar.
 
 INSTALLATION
 1. Packa upp ZIP-filen.

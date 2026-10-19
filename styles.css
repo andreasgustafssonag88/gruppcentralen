@@ -241,3 +241,44 @@ html,body{max-width:100%;overflow-x:hidden}.workspaceFocus .app>main{padding:12p
 @media(max-width:900px){#editor{--gc603-side:255px}#editor .editorbar{flex-wrap:wrap}#editor .editorbar .placementControls{margin-left:0}}
 @media(max-width:760px){#editor .editorbar{position:static}#editor .editorbar .placementControls{display:flex;width:100%;overflow-x:auto}#editor .canvasZoomBar{position:sticky;top:0;z-index:40}#editor .gc603More{margin-left:0}#editor .gc603MoreBody{position:fixed;top:72px;left:10px;right:10px;width:auto}#editor .builder,#editor .builder.toolsCollapsed,#editor .builder.studentsCollapsed,#editor .builder.toolsCollapsed.studentsCollapsed{display:flex!important;flex-direction:column!important;min-height:0}#editor .builder:not(.placeMode) #toolsPanel,#editor .builder.placeMode #studentPanel{order:1;width:100%;max-height:34vh}#editor .builder>.stage{order:2;width:100%;min-height:62vh!important}#editor .modeBtn{padding-inline:10px;font-size:14px;white-space:nowrap}#editor .builder:not(.placeMode) #inspect:has(.figureColorControl){right:10px!important;bottom:10px!important;left:10px!important;width:auto!important;max-height:58vh!important}}
 @media print{#editor .builder>.stage::before{display:none!important}}
+
+/* Gruppcentralen 6.0.4 - tydlig stangknapp for mobelpopup */
+#editor .gcCloseInspector{
+  display:none;
+}
+
+#editor .builder:not(.placeMode) #inspect:has(.figureColorControl) + .gcCloseInspector{
+  position:fixed!important;
+  right:34px!important;
+  bottom:min(548px,calc(100vh - 72px))!important;
+  z-index:1510!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:38px!important;
+  height:38px!important;
+  padding:0!important;
+  color:#fff!important;
+  font-size:26px!important;
+  font-weight:800!important;
+  line-height:1!important;
+  cursor:pointer!important;
+  pointer-events:auto!important;
+  background:#c83e57!important;
+  border:3px solid #fff!important;
+  border-radius:50%!important;
+  box-shadow:0 6px 18px rgba(70,28,40,.28)!important;
+}
+
+#editor .builder:not(.placeMode) #inspect:has(.figureColorControl) + .gcCloseInspector:hover,
+#editor .builder:not(.placeMode) #inspect:has(.figureColorControl) + .gcCloseInspector:focus-visible{
+  background:#a92f46!important;
+  transform:scale(1.06);
+}
+
+@media(max-width:760px){
+  #editor .builder:not(.placeMode) #inspect:has(.figureColorControl) + .gcCloseInspector{
+    right:20px!important;
+    bottom:calc(58vh - 4px)!important;
+  }
+}
