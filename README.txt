@@ -1,25 +1,23 @@
-GRUPPCENTRALEN 6.0 - RENT UPPDATERINGSPAKET
+GRUPPCENTRALEN 6.0.1 - ASTRIDVANLIG LAYOUT
 
-INNEHALL
-- styles.css
-- README.txt
+Detta ar ett rent CSS-paket. Ingen JavaScript, HTML eller service worker ingar.
 
-SAKERHET
-- Ingen JavaScript-fil ingar.
-- Ingen service worker ingar.
-- Inget minifierat bibliotek ingar.
-- Ingen HTML-fil ingar.
-- Ingen programfil eller installation ingar.
-- Paketet andrar endast utseendet med CSS.
+VIKTIGASTE FORANDRINGAR
+- Bygglage visar endast klassrummet och byggverktygen.
+- Placeringslage visar endast klassrummet och elevpanelen.
+- Verktyg och elever visas inte samtidigt.
+- Helskarmen har klassrummet till vanster och en enda panel till hoger.
+- Ovresta verktygsraden ar mindre och lugnare.
+- Sekundara knappar visas som kompakta symbolknappar.
+- Mobilläget visar de tva tydliga stegen Bygg och Placera.
+- Alla befintliga funktioner finns kvar.
 
 INSTALLATION
 1. Packa upp ZIP-filen.
-2. Oppna GitHub-repot gruppcentralen.
-3. Ersatt endast den befintliga filen styles.css.
-4. Behall index.html, app.js, jszip.min.js och service-worker.js oforandrade.
-5. Commit och push.
-6. Vanta tills GitHub Pages har publicerat.
-7. Gor en hard omladdning med Ctrl+F5.
+2. Ersatt endast styles.css i GitHub-repot.
+3. Behall alla andra filer oforandrade.
+4. Commit och push.
+5. Vanta pa GitHub Pages och gor sedan Ctrl+F5.
 
 ATERSTALLNING
-Om du vill ga tillbaka, aterstall foregaende version av styles.css via GitHubs historik.
+Aterstall foregaende styles.css via GitHubs filhistorik om du vill ga tillbaka.
