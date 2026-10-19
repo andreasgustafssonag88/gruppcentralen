@@ -165,498 +165,337 @@ html,body{max-width:100%;overflow-x:hidden}.workspaceFocus .app>main{padding:12p
 @media(max-width:760px){.builder:fullscreen,.builder.fullscreenFallback{grid-template-columns:1fr!important;grid-template-rows:auto minmax(0,1fr) auto!important;padding:6px!important}.builder:fullscreen>.canvasZoomBar,.builder.fullscreenFallback>.canvasZoomBar{grid-column:1!important;padding-right:54px!important;overflow-x:auto!important;flex-wrap:nowrap!important;justify-content:flex-start!important}.builder:fullscreen>.stage,.builder.fullscreenFallback>.stage{grid-column:1!important;grid-row:2!important;padding:5px!important}.builder:fullscreen>#studentPanel,.builder.fullscreenFallback>#studentPanel{grid-column:1!important;grid-row:3!important;width:100%!important;height:auto!important;max-height:38vh!important}.builder:fullscreen>#toolsPanel,.builder.fullscreenFallback>#toolsPanel{left:6px!important;right:6px!important;top:68px!important;width:auto!important;bottom:6px!important}}
 
 /* ==========================================================
-   Gruppcentralen 6.0 - ren layoutuppdatering
-   Endast CSS. Ingen ny JavaScript-kod och ingen service worker.
-   Mal: stor klassrumsyta, tydlig sidopanel, alla funktioner kvar.
+   Gruppcentralen 6.0.2 - lugn klassrumsbyggare
+   HTML + CSS, ingen ny JavaScript och ingen service worker.
    ========================================================== */
 
 #editor {
-  --gc60-panel-width: 280px;
+  --gc602-panel: 300px;
 }
 
+/* Tydlig topprad */
 #editor .editorbar {
   position: sticky;
   top: 0;
-  z-index: 40;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  margin-bottom: 10px;
-  background: #ffffff;
-  border: 1px solid #dbe3ef;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(30, 55, 90, 0.07);
-}
-
-#editor .editorbar #roomName {
-  min-width: 180px;
-  max-width: 300px;
-  padding: 10px 12px;
-  font-size: 20px;
-  font-weight: 900;
-  background: #f3f6fb;
-  border: 0;
-  border-radius: 10px;
-}
-
-#editor .editorbar .placementControls {
-  margin-left: auto;
-}
-
-#editor .canvasZoomBar {
+  z-index: 45;
   display: flex;
   align-items: center;
   gap: 8px;
   min-height: 58px;
   padding: 8px 10px;
   margin-bottom: 10px;
-  overflow-x: auto;
-  background: #ffffff;
+  background: #fff;
+  border: 1px solid #dbe3ef;
+  border-radius: 16px;
+  box-shadow: 0 7px 22px rgba(32, 51, 82, .07);
+}
+
+#editor .editorbar #roomName {
+  min-width: 180px;
+  max-width: 330px;
+  min-height: 42px;
+  padding: 8px 12px;
+  font-size: 19px;
+  font-weight: 900;
+  background: #f3f6fb;
+  border: 0;
+  border-radius: 11px;
+}
+
+#editor .editorbar .placementControls { margin-left: auto; }
+#editor .editorbar button,
+#editor .editorbar select { min-height: 40px; padding: 7px 10px; font-size: 14px; }
+#editor .editorbar #deletePlacementBtn:disabled { display: none !important; }
+
+/* Bara de tva arbetsstegen syns direkt */
+#editor .canvasZoomBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 58px;
+  padding: 8px;
+  margin-bottom: 10px;
+  overflow: visible;
+  background: #fff;
   border: 1px solid #dbe3ef;
   border-radius: 16px;
 }
 
-#editor .canvasZoomBar button,
-#editor .canvasZoomBar label {
-  flex: 0 0 auto;
-}
+#editor .modeSwitch { display: flex; gap: 7px; }
+#editor .modeBtn { min-height: 44px; padding: 9px 18px; font-size: 16px; font-weight: 900; border-radius: 12px; }
+#editor #toggleToolsBtn,
+#editor #toggleStudentsBtn,
+#editor .canvasZoomBar > .toolbarDivider { display: none !important; }
 
-#editor .modeSwitch {
-  display: flex;
-  gap: 6px;
-}
-
-#editor .modeBtn {
-  min-height: 42px;
-  padding-inline: 16px;
-  font-weight: 900;
-  border-radius: 11px;
-}
-
-#editor .builder {
+/* Alla sekundara funktioner finns kvar i en enda meny */
+#editor .gcAdvancedMenu {
   position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) var(--gc60-panel-width);
-  gap: 12px;
-  min-height: clamp(620px, 72vh, 920px);
+  margin-left: auto;
+}
+
+#editor .gcAdvancedMenu > summary {
+  min-height: 42px;
+  padding: 10px 14px;
+  color: #35435d;
+  font-weight: 850;
+  list-style: none;
+  cursor: pointer;
+  background: #eef2f7;
+  border-radius: 11px;
+  user-select: none;
+}
+
+#editor .gcAdvancedMenu > summary::-webkit-details-marker { display: none; }
+#editor .gcAdvancedMenu[open] > summary { background: #e2e8f5; }
+#editor .gcAdvancedMenuBody {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 100;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  width: min(690px, calc(100vw - 40px));
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #dbe3ef;
+  border-radius: 14px;
+  box-shadow: 0 18px 45px rgba(29, 43, 68, .18);
+}
+
+#editor .gcAdvancedMenuBody button,
+#editor .gcAdvancedMenuBody label { flex: 0 0 auto; }
+
+/* Klassrummet kan aldrig doljas nar lage byts */
+#editor .builder,
+#editor .builder.toolsCollapsed,
+#editor .builder.studentsCollapsed,
+#editor .builder.toolsCollapsed.studentsCollapsed {
+  position: relative;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) var(--gc602-panel) !important;
+  grid-template-rows: minmax(0, 1fr) auto !important;
+  gap: 10px !important;
+  min-height: clamp(650px, 74vh, 940px);
 }
 
 #editor .builder > .stage {
-  grid-column: 1;
-  grid-row: 1;
-  min-width: 0;
-  min-height: clamp(620px, 72vh, 920px);
-  padding: 16px;
-  overflow: auto;
-  background: #dfe6f0;
+  display: block !important;
+  grid-column: 1 !important;
+  grid-row: 1 / 3 !important;
+  min-width: 0 !important;
+  min-height: clamp(650px, 74vh, 940px) !important;
+  padding: 14px !important;
+  overflow: auto !important;
+  background: #dfe6f0 !important;
   border-radius: 18px;
-  box-shadow: inset 0 0 0 1px #d3ddea;
+  scrollbar-width: none;
 }
+
+#editor .builder > .stage::-webkit-scrollbar,
+#editor #toolsPanel::-webkit-scrollbar,
+#editor #studentPanel::-webkit-scrollbar { display: none; }
+#editor #toolsPanel,
+#editor #studentPanel { scrollbar-width: none; }
 
 #editor .builder > .stage::before {
   display: block;
-  max-width: 1000px;
-  margin: 0 auto 10px;
-  color: #52627a;
-  font-size: 14px;
+  margin: 0 auto 8px;
+  color: #637188;
+  font-size: 13px;
   font-weight: 800;
   text-align: center;
-  content: "Bygg ditt klassrum här";
+  content: "Klassrumsyta";
 }
 
 #editor .builder > .stage .canvas {
+  display: block !important;
   min-width: 1000px;
   min-height: 680px;
   margin: 0 auto;
-  background: #ffffff;
-  box-shadow: 0 10px 34px rgba(34, 55, 86, 0.12);
+  background: #fff;
+  box-shadow: 0 10px 34px rgba(34, 55, 86, .12);
 }
 
-#editor #toolsPanel,
-#editor #studentPanel {
-  grid-column: 2;
-  grid-row: 1;
-  align-self: stretch;
-  max-height: clamp(620px, 72vh, 920px);
+/* Bygglage: mobler till hoger och fargval under nar en mobel valjs */
+#editor .builder:not(.placeMode) #toolsPanel {
+  display: block !important;
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  max-height: 610px;
+  padding: 12px;
   overflow: auto;
-  border-radius: 18px;
-  box-shadow: 0 10px 30px rgba(30, 55, 90, 0.08);
+  background: #fff;
+  border-radius: 16px;
 }
 
-#editor #toolsPanel {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  align-content: start;
-  padding: 14px;
-}
-
-#editor #toolsPanel .panelHead,
-#editor #toolsPanel h3,
-#editor #toolsPanel p {
-  grid-column: 1 / -1;
-}
-
-#editor #toolsPanel h3 {
-  margin: 12px 0 2px;
-  color: #40516b;
-  font-size: 15px;
-}
-
-#editor #toolsPanel button:not(.panelClose) {
-  min-height: 66px;
-  padding: 10px;
-  text-align: left;
-  font-weight: 800;
-  background: #f5f7fb;
-  border: 1px solid #dbe3ef;
-  border-radius: 12px;
-}
-
-#editor #toolsPanel button:not(.panelClose):hover,
-#editor #toolsPanel button:not(.panelClose):focus-visible {
-  background: #eef3ff;
-  border-color: #9fb2ff;
-}
-
-#editor #studentPanel {
-  padding: 0;
+#editor .builder:not(.placeMode) #studentPanel {
+  display: block !important;
+  grid-column: 2 !important;
+  grid-row: 2 !important;
+  max-height: 245px;
+  overflow: auto;
   background: transparent;
 }
 
-#editor #studentPanel .card {
-  border-radius: 18px;
+#editor .builder:not(.placeMode) #studentPanel #inlineSeat { display: none !important; }
+#editor .builder:not(.placeMode) #studentPanel #inspect {
+  display: block !important;
+  margin: 0;
+  padding: 13px;
+  background: #fff;
+  border: 1px solid #dbe3ef;
+  border-radius: 16px;
 }
 
-#editor .builder.toolsCollapsed {
-  grid-template-columns: minmax(0, 1fr) var(--gc60-panel-width);
-}
-
-#editor .builder.toolsCollapsed #toolsPanel {
-  display: none;
-}
-
-#editor .builder.studentsCollapsed #studentPanel {
-  display: none;
-}
-
-#editor .builder.toolsCollapsed.studentsCollapsed,
-#editor .builder.toolsCollapsed:not(:has(#studentPanel:not([style*="display: none"]))) {
-  grid-template-columns: minmax(0, 1fr);
-}
-
-@media (max-width: 1100px) {
-  #editor {
-    --gc60-panel-width: 255px;
-  }
-
-  #editor .editorbar {
-    flex-wrap: wrap;
-  }
-
-  #editor .editorbar .placementControls {
-    margin-left: 0;
-  }
-}
-
-@media (max-width: 760px) {
-  #editor .editorbar {
-    position: static;
-  }
-
-  #editor .editorbar .placementControls {
-    display: flex;
-    width: 100%;
-    overflow-x: auto;
-  }
-
-  #editor .canvasZoomBar {
-    position: sticky;
-    top: 0;
-    z-index: 35;
-    flex-wrap: nowrap;
-  }
-
-  #editor .modeBtn {
-    white-space: nowrap;
-  }
-
-  #editor .builder {
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-  }
-
-  #editor #toolsPanel,
-  #editor #studentPanel {
-    order: 1;
-    width: 100%;
-    max-height: 42vh;
-  }
-
-  #editor .builder > .stage {
-    order: 2;
-    width: 100%;
-    min-height: 62vh;
-    padding: 8px;
-  }
-
-  #editor #toolsPanel {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media print {
-  #editor .builder > .stage::before {
-    display: none !important;
-  }
-}
-
-/* ==========================================================
-   Gruppcentralen 6.0.1 - Astridlage
-   Tydlig arbetsordning: Bygg ELLER placera.
-   Alla funktioner finns kvar, men konkurrerar inte samtidigt.
-   ========================================================== */
-
-/* En huvudpanel i taget */
-#editor .builder:not(.placeMode) #studentPanel {
-  display: none !important;
-}
-
-#editor .builder.placeMode #toolsPanel {
-  display: none !important;
-}
-
-#editor .builder:not(.placeMode),
-#editor .builder.placeMode {
-  grid-template-columns: minmax(0, 1fr) 300px !important;
-}
-
-#editor .builder:not(.placeMode) > .stage,
-#editor .builder.placeMode > .stage {
-  grid-column: 1 !important;
-}
-
-#editor .builder:not(.placeMode) #toolsPanel,
+/* Placeringslage: endast elevpanelen till hoger */
+#editor .builder.placeMode #toolsPanel { display: none !important; }
 #editor .builder.placeMode #studentPanel {
+  display: block !important;
   grid-column: 2 !important;
-  grid-row: 1 !important;
+  grid-row: 1 / 3 !important;
+  max-height: clamp(650px, 74vh, 940px);
+  padding: 0;
+  overflow: auto;
+  background: transparent;
+}
+#editor .builder.placeMode #studentPanel #inspect { display: none !important; }
+#editor .builder.placeMode #studentPanel #inlineSeat { display: block !important; }
+
+/* Lugna, hopfallbara kategorier */
+#editor #toolsPanel > .panelHead { margin-bottom: 8px; }
+#editor #toolsPanel > .panelHead h3 { font-size: 20px; }
+#editor .gcToolGroup {
+  margin: 8px 0;
+  overflow: hidden;
+  background: #f7f9fc;
+  border: 1px solid #dbe3ef;
+  border-radius: 13px;
+}
+#editor .gcToolGroup > summary {
+  padding: 13px 14px;
+  font-size: 15px;
+  font-weight: 900;
+  cursor: pointer;
+  list-style: none;
+}
+#editor .gcToolGroup > summary::-webkit-details-marker { display: none; }
+#editor .gcToolGroup > summary::after { float: right; content: "+"; }
+#editor .gcToolGroup[open] > summary::after { content: "−"; }
+#editor .gcToolGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  padding: 0 9px 9px;
+}
+#editor .gcToolGrid h3 { display: none; }
+#editor .gcToolGrid p { grid-column: 1 / -1; }
+#editor .gcToolGrid button:not(.panelClose) {
+  min-height: 60px;
+  padding: 9px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 850;
+  line-height: 1.25;
+  background: #fff;
+  border: 1px solid #d7e0ee;
+  border-radius: 11px;
 }
 
-/* Helskarm ska behalla samma enkla struktur */
+/* Helskarm: samma tva kolumner, inga synliga rullister */
 #editor .builder:fullscreen,
-#editor .builder.fullscreenFallback {
+#editor .builder.fullscreenFallback,
+#editor .builder:fullscreen.toolsCollapsed,
+#editor .builder.fullscreenFallback.toolsCollapsed,
+#editor .builder:fullscreen.studentsCollapsed,
+#editor .builder.fullscreenFallback.studentsCollapsed {
   display: grid !important;
-  grid-template-columns: minmax(0, 1fr) 320px !important;
-  grid-template-rows: minmax(0, 1fr) !important;
-  gap: 12px !important;
+  grid-template-columns: minmax(0, 1fr) 300px !important;
+  grid-template-rows: minmax(0, 1fr) auto !important;
+  gap: 10px !important;
+  width: 100vw !important;
+  height: 100vh !important;
   padding: 10px !important;
+  overflow: hidden !important;
   background: #e4eaf3 !important;
 }
 
 #editor .builder:fullscreen > .stage,
 #editor .builder.fullscreenFallback > .stage {
   grid-column: 1 !important;
-  grid-row: 1 !important;
+  grid-row: 1 / 3 !important;
   width: auto !important;
   height: calc(100vh - 20px) !important;
   min-height: 0 !important;
-  padding: 12px !important;
+  overflow: auto !important;
 }
 
 #editor .builder:fullscreen:not(.placeMode) #toolsPanel,
-#editor .builder.fullscreenFallback:not(.placeMode) #toolsPanel,
+#editor .builder.fullscreenFallback:not(.placeMode) #toolsPanel {
+  display: block !important;
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  width: 300px !important;
+  height: auto !important;
+  max-height: calc(100vh - 285px) !important;
+}
+
+#editor .builder:fullscreen:not(.placeMode) #studentPanel,
+#editor .builder.fullscreenFallback:not(.placeMode) #studentPanel {
+  display: block !important;
+  grid-column: 2 !important;
+  grid-row: 2 !important;
+  width: 300px !important;
+  max-height: 255px !important;
+}
+
+#editor .builder:fullscreen.placeMode #toolsPanel,
+#editor .builder.fullscreenFallback.placeMode #toolsPanel { display: none !important; }
 #editor .builder:fullscreen.placeMode #studentPanel,
 #editor .builder.fullscreenFallback.placeMode #studentPanel {
   display: block !important;
   grid-column: 2 !important;
-  grid-row: 1 !important;
-  width: 320px !important;
+  grid-row: 1 / 3 !important;
+  width: 300px !important;
   height: calc(100vh - 20px) !important;
   max-height: none !important;
-  overflow-y: auto !important;
 }
 
-#editor .builder:fullscreen:not(.placeMode) #studentPanel,
-#editor .builder.fullscreenFallback:not(.placeMode) #studentPanel,
-#editor .builder:fullscreen.placeMode #toolsPanel,
-#editor .builder.fullscreenFallback.placeMode #toolsPanel {
-  display: none !important;
-}
-
-/* Avsluta helskarm mindre och mindre dominant */
 #editor .exitFullscreen {
   position: fixed !important;
   top: 12px !important;
-  right: 338px !important;
+  right: 320px !important;
   z-index: 1200 !important;
-  min-height: 40px !important;
-  padding: 8px 13px !important;
-  font-size: 14px !important;
-  border-radius: 12px !important;
-}
-
-/* Arbetsvalen ar det viktigaste i ovre raden */
-#editor .canvasZoomBar {
-  min-height: 50px !important;
-  padding: 6px 8px !important;
-  gap: 6px !important;
-  background: #f7f9fc !important;
-}
-
-#editor .canvasZoomBar .modeSwitch {
-  margin-right: auto !important;
-}
-
-#editor .canvasZoomBar .modeBtn {
-  min-height: 42px !important;
-  padding: 9px 16px !important;
-  font-size: 16px !important;
-}
-
-#editor .canvasZoomBar > button:not(.modeBtn),
-#editor .canvasZoomBar > label {
-  min-height: 36px !important;
-  padding: 6px 10px !important;
+  min-height: 38px !important;
+  padding: 7px 12px !important;
   font-size: 13px !important;
-  color: #53627a !important;
-  background: #eef2f7 !important;
-  border-color: transparent !important;
-  box-shadow: none !important;
+  border-radius: 11px !important;
 }
 
-#editor .canvasZoomBar .toolbarDivider {
-  height: 26px !important;
-  opacity: 0.45 !important;
+@media (max-width: 900px) {
+  #editor { --gc602-panel: 260px; }
+  #editor .editorbar { flex-wrap: wrap; }
+  #editor .editorbar .placementControls { margin-left: 0; }
 }
 
-#editor #toggleStudentsBtn,
-#editor #toggleToolsBtn {
-  display: none !important;
-}
-
-#editor #layoutLockBtn,
-#editor #panBtn,
-#editor #undoBtn,
-#editor #redoBtn {
-  font-size: 0 !important;
-  width: 38px !important;
-  padding: 6px !important;
-}
-
-#editor #layoutLockBtn::before { content: "🔒"; font-size: 17px; }
-#editor #panBtn::before { content: "✋"; font-size: 17px; }
-#editor #undoBtn::before { content: "↶"; font-size: 20px; }
-#editor #redoBtn::before { content: "↷"; font-size: 20px; }
-
-/* Sidopanelens rubrik forklarar vad som ska goras */
-#editor #toolsPanel::before {
-  grid-column: 1 / -1;
-  display: block;
-  padding: 10px 12px;
-  margin-bottom: 2px;
-  color: #23314d;
-  font-size: 15px;
-  font-weight: 800;
-  line-height: 1.35;
-  background: #edf2ff;
-  border-radius: 12px;
-  content: "1. Valj en mobel  2. Dra den till ratt plats";
-}
-
-#editor #toolsPanel .panelHead h3 {
-  font-size: 20px !important;
-}
-
-#editor #toolsPanel button:not(.panelClose) {
-  min-height: 58px !important;
-  font-size: 14px !important;
-  line-height: 1.25 !important;
-}
-
-/* Elevlaget far en lugnare, sammanhallen sida */
-#editor .builder.placeMode #studentPanel {
-  background: #f7f9fc !important;
-  padding: 10px !important;
-}
-
-#editor .builder.placeMode #studentPanel .card {
-  margin-bottom: 10px !important;
-  box-shadow: none !important;
-  border: 1px solid #dfe5ef !important;
-}
-
-/* Rubriken ovanfor arbetsytan tar mindre plats */
-#editor .builder > .stage::before {
-  margin-bottom: 7px !important;
-  font-size: 13px !important;
-  color: #65738a !important;
-}
-
-/* Toppraden for sparande blir kompaktare */
-#editor .editorbar {
-  min-height: 58px !important;
-  padding: 7px 9px !important;
-  gap: 7px !important;
-}
-
-#editor .editorbar button,
-#editor .editorbar select {
-  min-height: 40px !important;
-  padding: 7px 10px !important;
-  font-size: 14px !important;
-}
-
-#editor .editorbar #roomName {
-  min-height: 40px !important;
-  font-size: 18px !important;
-}
-
-#editor .editorbar #deletePlacementBtn:disabled {
-  display: none !important;
-}
-
-#editor .saveStatus {
-  padding: 5px 8px !important;
-  font-size: 12px !important;
-}
-
-/* Mobil: tydliga steg, endast en panel i taget */
 @media (max-width: 760px) {
-  #editor .builder:not(.placeMode),
-  #editor .builder.placeMode {
-    display: flex !important;
-    flex-direction: column !important;
-  }
-
+  #editor .editorbar { position: static; }
+  #editor .editorbar .placementControls { display: flex; width: 100%; overflow-x: auto; }
+  #editor .canvasZoomBar { position: sticky; top: 0; z-index: 40; }
+  #editor .gcAdvancedMenu { margin-left: 0; }
+  #editor .gcAdvancedMenuBody { position: fixed; top: 76px; left: 10px; right: 10px; width: auto; }
+  #editor .builder,
+  #editor .builder.toolsCollapsed,
+  #editor .builder.studentsCollapsed,
+  #editor .builder.toolsCollapsed.studentsCollapsed { display: flex !important; flex-direction: column !important; min-height: 0; }
   #editor .builder:not(.placeMode) #toolsPanel,
-  #editor .builder.placeMode #studentPanel {
-    display: grid !important;
-    order: 1 !important;
-    width: 100% !important;
-    max-height: 38vh !important;
-  }
+  #editor .builder:not(.placeMode) #studentPanel,
+  #editor .builder.placeMode #studentPanel { order: 1; width: 100%; max-height: 38vh; }
+  #editor .builder:not(.placeMode) #studentPanel { max-height: 220px; }
+  #editor .builder > .stage { order: 2; width: 100%; min-height: 62vh !important; }
+  #editor .modeBtn { padding-inline: 11px; font-size: 14px; white-space: nowrap; }
+}
 
-  #editor .builder.placeMode #studentPanel {
-    display: block !important;
-  }
-
-  #editor .builder > .stage {
-    order: 2 !important;
-  }
-
-  #editor .canvasZoomBar > button:not(.modeBtn),
-  #editor .canvasZoomBar > label,
-  #editor .canvasZoomBar .toolbarDivider {
-    display: none !important;
-  }
-
-  #editor .canvasZoomBar .modeSwitch {
-    width: 100% !important;
-  }
-
-  #editor .canvasZoomBar .modeBtn {
-    flex: 1 1 50% !important;
-  }
+@media print {
+  #editor .builder > .stage::before { display: none !important; }
 }
