@@ -282,3 +282,55 @@ html,body{max-width:100%;overflow-x:hidden}.workspaceFocus .app>main{padding:12p
     bottom:calc(58vh - 4px)!important;
   }
 }
+
+/* Gruppcentralen 6.0.5 - korrigerad stangknapp */
+#editor .builder:not(.placeMode) #studentPanel > #gcCloseInspector,
+#editor .builder:not(.placeMode) #gcCloseInspector{
+  display:none!important;
+}
+
+#editor .builder:not(.placeMode) #studentPanel > #inspect:has(.figureColorControl) ~ #gcCloseInspector,
+#editor .builder:not(.placeMode) #inspect:has(.figureColorControl) + #gcCloseInspector{
+  position:fixed!important;
+  top:96px!important;
+  right:34px!important;
+  bottom:auto!important;
+  left:auto!important;
+  z-index:9999!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:42px!important;
+  height:42px!important;
+  min-width:42px!important;
+  min-height:42px!important;
+  padding:0!important;
+  margin:0!important;
+  overflow:visible!important;
+  visibility:visible!important;
+  opacity:1!important;
+  color:#fff!important;
+  font-size:28px!important;
+  font-weight:900!important;
+  line-height:1!important;
+  cursor:pointer!important;
+  pointer-events:auto!important;
+  background:#c83e57!important;
+  border:3px solid #fff!important;
+  border-radius:50%!important;
+  box-shadow:0 7px 20px rgba(70,28,40,.34)!important;
+}
+
+#editor .builder:not(.placeMode) #studentPanel > #inspect:has(.figureColorControl) ~ #gcCloseInspector:hover,
+#editor .builder:not(.placeMode) #studentPanel > #inspect:has(.figureColorControl) ~ #gcCloseInspector:focus-visible{
+  background:#9f2940!important;
+  transform:scale(1.06)!important;
+}
+
+@media(max-width:760px){
+  #editor .builder:not(.placeMode) #studentPanel > #inspect:has(.figureColorControl) ~ #gcCloseInspector{
+    top:auto!important;
+    right:18px!important;
+    bottom:calc(58vh - 2px)!important;
+  }
+}

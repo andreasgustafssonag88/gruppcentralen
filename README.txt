@@ -1,13 +1,10 @@
-GRUPPCENTRALEN 6.0.4 - STANG MOBELMENYN
-
-Detta ar en korrigering av version 6.0.3.
+GRUPPCENTRALEN 6.0.5 - KORRIGERAD STANGKNAPP
 
 ATGARDAT
-- Mobelmenyn har fatt en tydlig rod X-knapp.
-- X-knappen stanger bara redigeringsmenyn.
-- Bordet eller mobeln tas inte bort nar menyn stangs.
-- Fargval, storlek, rotation och ovriga mobelinstallningar finns kvar.
-- Ingen ny JavaScript-fil eller service worker ingar.
+- Den roda X-knappen placeras nu alltid synligt hogst upp till hoger om mobelmenyn.
+- Knappen har hogsta lager och kan inte hamna bakom menyn.
+- Ett klick avmarkerar mobeln och stanger menyn utan att ta bort mobeln.
+- Farg, storlek, rotation och andra installningar finns kvar.
 
 INSTALLATION
 1. Packa upp ZIP-filen.
