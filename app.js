@@ -439,3 +439,133 @@ document.addEventListener('fullscreenchange',()=>{
   if(!document.fullscreenElement)resetFs614();
   else updateFsPanelButton614();
 });
+
+/* ==========================================================
+   Gruppcentralen 6.1.5 - anpassningsbar klassrumsyta
+   Dra i nedre hogra hornet i Bygglage.
+   ========================================================== */
+const GC_CANVAS_DEFAULT_WIDTH=1000;
+const GC_CANVAS_DEFAULT_HEIGHT=680;
+const GC_CANVAS_MIN_WIDTH=700;
+const GC_CANVAS_MIN_HEIGHT=500;
+const GC_CANVAS_MAX_WIDTH=2400;
+const GC_CANVAS_MAX_HEIGHT=1800;
+const GC_CANVAS_SNAP=20;
+
+function ensureCanvasSize615(){
+  if(!room)return;
+  room.canvasWidth=Math.max(GC_CANVAS_MIN_WIDTH,Math.min(GC_CANVAS_MAX_WIDTH,Number(room.canvasWidth)||GC_CANVAS_DEFAULT_WIDTH));
+  room.canvasHeight=Math.max(GC_CANVAS_MIN_HEIGHT,Math.min(GC_CANVAS_MAX_HEIGHT,Number(room.canvasHeight)||GC_CANVAS_DEFAULT_HEIGHT));
+}
+
+function applyCanvasSize615(canvas){
+  if(!room||!canvas)return;
+  ensureCanvasSize615();
+  canvas.style.setProperty('--room-width',room.canvasWidth+'px');
+  canvas.style.setProperty('--room-height',room.canvasHeight+'px');
+  canvas.style.width=room.canvasWidth+'px';
+  canvas.style.height=room.canvasHeight+'px';
+  canvas.style.minWidth=room.canvasWidth+'px';
+  canvas.style.minHeight=room.canvasHeight+'px';
+}
+
+function canvasContentMinimum615(canvas){
+  let maxX=GC_CANVAS_MIN_WIDTH,maxY=GC_CANVAS_MIN_HEIGHT;
+  canvas.querySelectorAll(':scope > .obj').forEach(el=>{
+    maxX=Math.max(maxX,el.offsetLeft+el.offsetWidth+50);
+    maxY=Math.max(maxY,el.offsetTop+el.offsetHeight+50);
+  });
+  return {width:Math.ceil(maxX/GC_CANVAS_SNAP)*GC_CANVAS_SNAP,height:Math.ceil(maxY/GC_CANVAS_SNAP)*GC_CANVAS_SNAP};
+}
+
+function updateResizeLabel615(label,w,h){
+  if(label)label.textContent=`${Math.round(w)} × ${Math.round(h)}`;
+}
+
+function installCanvasResize615(){
+  const canvas=$('canvas');
+  if(!canvas||!room)return;
+  applyCanvasSize615(canvas);
+  canvas.querySelector('.gcCanvasResize615')?.remove();
+  canvas.querySelector('.gcCanvasSize615')?.remove();
+
+  const label=document.createElement('div');
+  label.className='gcCanvasSize615';
+  updateResizeLabel615(label,room.canvasWidth,room.canvasHeight);
+
+  const handle=document.createElement('button');
+  handle.type='button';
+  handle.className='gcCanvasResize615';
+  handle.title='Dra för att ändra klassrummets storlek. Dubbelklicka för standardstorlek.';
+  handle.setAttribute('aria-label','Ändra klassrummets storlek');
+  handle.innerHTML='<span aria-hidden="true">◢</span>';
+
+  canvas.append(label,handle);
+
+  handle.addEventListener('dblclick',e=>{
+    e.preventDefault();e.stopPropagation();
+    if(room.layoutLocked)return toast('Lås upp ritningen först.');
+    snapshotRoom();
+    room.canvasWidth=GC_CANVAS_DEFAULT_WIDTH;
+    room.canvasHeight=GC_CANVAS_DEFAULT_HEIGHT;
+    applyCanvasSize615(canvas);
+    updateResizeLabel615(label,room.canvasWidth,room.canvasHeight);
+    scheduleAutosave();
+    toast('Klassrumsytan återställdes.');
+  });
+
+  handle.addEventListener('pointerdown',e=>{
+    e.preventDefault();e.stopPropagation();
+    if(workMode!=='build')return;
+    if(room.layoutLocked)return toast('Lås upp ritningen först.');
+    snapshotRoom();
+    const startX=e.clientX,startY=e.clientY,startW=room.canvasWidth,startH=room.canvasHeight;
+    const scale=Math.max(.25,(canvasZoom||100)/100);
+    const contentMin=canvasContentMinimum615(canvas);
+    handle.setPointerCapture?.(e.pointerId);
+    canvas.classList.add('gcCanvasResizing615');
+    label.classList.add('show');
+
+    const move=ev=>{
+      let w=startW+(ev.clientX-startX)/scale;
+      let h=startH+(ev.clientY-startY)/scale;
+      w=Math.round(w/GC_CANVAS_SNAP)*GC_CANVAS_SNAP;
+      h=Math.round(h/GC_CANVAS_SNAP)*GC_CANVAS_SNAP;
+      room.canvasWidth=Math.max(contentMin.width,GC_CANVAS_MIN_WIDTH,Math.min(GC_CANVAS_MAX_WIDTH,w));
+      room.canvasHeight=Math.max(contentMin.height,GC_CANVAS_MIN_HEIGHT,Math.min(GC_CANVAS_MAX_HEIGHT,h));
+      applyCanvasSize615(canvas);
+      updateResizeLabel615(label,room.canvasWidth,room.canvasHeight);
+    };
+    const end=()=>{
+      handle.removeEventListener('pointermove',move);
+      handle.removeEventListener('pointerup',end);
+      handle.removeEventListener('pointercancel',end);
+      canvas.classList.remove('gcCanvasResizing615');
+      label.classList.remove('show');
+      scheduleAutosave();
+      toast(`Klassrumsytan är ${room.canvasWidth} × ${room.canvasHeight}.`);
+    };
+    handle.addEventListener('pointermove',move);
+    handle.addEventListener('pointerup',end);
+    handle.addEventListener('pointercancel',end);
+  });
+}
+
+/* Koppla storleken till den slutliga renderCanvas-funktionen. */
+const _renderCanvas615=renderCanvas;
+renderCanvas=function(id='canvas',result=false){
+  const value=_renderCanvas615(id,result);
+  const canvas=$(id);
+  if(canvas&&room)applyCanvasSize615(canvas);
+  if(id==='canvas'&&!result)installCanvasResize615();
+  return value;
+};
+
+/* Gamla klassrum far standardstorlek nar de oppnas. */
+const _openEditor615=openEditor;
+openEditor=function(){
+  ensureCanvasSize615();
+  const value=_openEditor615();
+  requestAnimationFrame(installCanvasResize615);
+  return value;
+};

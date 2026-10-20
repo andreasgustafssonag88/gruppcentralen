@@ -644,3 +644,56 @@ html,body{max-width:100%;overflow-x:hidden}.workspaceFocus .app>main{padding:12p
   #editor #classroomBuilder.fullscreenFallback>.gcFs614{top:auto!important;bottom:8px!important;left:8px!important;right:8px!important;justify-content:center!important;transform:none!important}
   #editor .gcFs614 button{padding:7px 9px;font-size:12px}
 }
+
+/* Gruppcentralen 6.1.5 - dragbar klassrumsyta */
+#canvas.canvas{
+  position:relative!important;
+  width:var(--room-width,1000px)!important;
+  height:var(--room-height,680px)!important;
+  min-width:var(--room-width,1000px)!important;
+  min-height:var(--room-height,680px)!important;
+  overflow:visible!important;
+}
+.gcCanvasResize615{
+  position:absolute;
+  right:5px;
+  bottom:5px;
+  z-index:900;
+  display:flex;
+  align-items:flex-end;
+  justify-content:flex-end;
+  width:46px;
+  height:46px;
+  padding:0 5px 3px 0;
+  color:#39506e;
+  font-size:25px;
+  line-height:1;
+  cursor:nwse-resize;
+  touch-action:none;
+  background:linear-gradient(135deg,transparent 0 48%,#dfe6f0 49% 63%,#8fa0b7 64% 72%,transparent 73%);
+  border:0;
+  border-radius:0 0 12px 0;
+  opacity:.78;
+}
+.gcCanvasResize615:hover,.gcCanvasResize615:focus-visible{opacity:1;outline:3px solid rgba(82,104,237,.28);outline-offset:2px}
+.gcCanvasSize615{
+  position:absolute;
+  right:14px;
+  bottom:58px;
+  z-index:901;
+  display:none;
+  padding:7px 10px;
+  color:#fff;
+  font-size:13px;
+  font-weight:850;
+  background:#17233b;
+  border-radius:9px;
+  box-shadow:0 6px 18px rgba(23,35,59,.24);
+  pointer-events:none;
+}
+.gcCanvasSize615.show{display:block}
+.canvas.gcCanvasResizing615{user-select:none;box-shadow:0 0 0 4px rgba(82,104,237,.25),0 10px 34px rgba(34,55,86,.12)!important}
+.builder.placeMode .gcCanvasResize615,.builder.placeMode .gcCanvasSize615{display:none!important}
+.builder:fullscreen.fsPanel614Hidden .gcCanvasResize615,.builder.fullscreenFallback.fsPanel614Hidden .gcCanvasResize615{opacity:.28}
+@media(max-width:760px){.gcCanvasResize615{width:56px;height:56px;font-size:29px}.gcCanvasSize615{right:12px;bottom:68px}}
+@media print{.gcCanvasResize615,.gcCanvasSize615{display:none!important}}
