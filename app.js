@@ -336,3 +336,61 @@ const _renderInlinePanel5761=renderInlinePanel;renderInlinePanel=function(){_ren
 const _renderUnassigned5761=renderUnassigned;renderUnassigned=function(){_renderUnassigned5761();requestAnimationFrame(finalizePanelBlocks5761)}
 const _renderCanvas5761=renderCanvas;renderCanvas=function(id='canvas',result=false){_renderCanvas5761(id,result);if(!result&&id==='canvas')requestAnimationFrame(finalizePanelBlocks5761)}
 requestAnimationFrame(finalizePanelBlocks5761)
+
+/* Gruppcentralen 6.1: valfri klassrumsrubrik och samlad export */
+function ensureRoomMeta61(){
+  if(!room)return;
+  room.meta=room.meta&&typeof room.meta==='object'?room.meta:{};
+  room.meta.className=room.meta.className||'';
+  room.meta.subject=room.meta.subject||'';
+  room.meta.lesson=room.meta.lesson||'';
+}
+function fillRoomMeta61(){
+  ensureRoomMeta61();
+  if(!room)return;
+  if($('roomClass'))$('roomClass').value=room.meta.className;
+  if($('roomSubject'))$('roomSubject').value=room.meta.subject;
+  if($('roomLesson'))$('roomLesson').value=room.meta.lesson;
+}
+function updateRoomMeta(){
+  if(!room)return;
+  ensureRoomMeta61();
+  room.meta.className=$('roomClass')?.value.trim()||'';
+  room.meta.subject=$('roomSubject')?.value.trim()||'';
+  room.meta.lesson=$('roomLesson')?.value.trim()||'';
+  scheduleAutosave();
+  updatePrintHeading61();
+}
+function roomHeadingParts61(){
+  ensureRoomMeta61();
+  return [room?.meta?.className,room?.meta?.subject,room?.meta?.lesson].filter(Boolean);
+}
+function updatePrintHeading61(){
+  if(!room)return;
+  let parts=roomHeadingParts61(),rn=$('printRoomName'),pn=$('printPlacementName');
+  if(rn)rn.textContent=parts[0]||room.name||'Klassrum';
+  if(pn){
+    let active=room.placements?.find(p=>p.id===room.activePlacementId);
+    let rest=parts.slice(1);
+    if(active?.name)rest.push(active.name);
+    pn.textContent=rest.join(' · ');
+  }
+}
+const _openEditor61=openEditor;
+openEditor=function(){
+  _openEditor61();
+  ensureRoomMeta61();
+  fillRoomMeta61();
+  updatePrintHeading61();
+};
+const _saveRoom61=saveRoom;
+saveRoom=function(manual=false){
+  if(room&&$('roomClass'))updateRoomMeta();
+  return _saveRoom61(manual);
+};
+printPlacement=function(){
+  if(!room)return;
+  updateRoomMeta();
+  updatePrintHeading61();
+  window.print();
+};

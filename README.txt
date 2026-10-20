@@ -1,16 +1,22 @@
-GRUPPCENTRALEN 6.0.8 - LITEN STANGKNAPP ENDAST VID REDIGERING
+GRUPPCENTRALEN 6.1 - RUBRIK OCH EXPORT
 
-ATGARDAT
-- Den stora roda knappen ar borttagen.
-- En liten rund X-knapp visas bara nar en mobel faktiskt ar vald och redigeringsmenyn ar oppen.
-- Nar ingen mobel ar vald syns ingen stangknapp.
-- Klick pa X stanger redigeringen utan att ta bort mobeln.
-- Knappen doljs alltid i Placeringslage.
+NYTT
+- Valfria falt for Klass, Amne och Gruppnamn eller lektion.
+- Falten sparas tillsammans med klassrummet.
+- Rubriken foljer med vid utskrift och nar utskriften sparas som PDF.
+- Tomma falt visas inte i den utskrivna rubriken.
+- Ny samlad meny: Dela och skriv ut.
+- Menyn innehaller Skriv ut / spara PDF och Visa for elever.
+- Utskriftsvyn doljer menyer, byggverktyg och kontroller.
+- Version 6.0.8:s Astridvanliga klassrumsbyggare finns kvar.
 
 INSTALLATION
 1. Packa upp ZIP-filen.
-2. Ersatt index.html och styles.css i GitHub-repot.
-3. Behall app.js, jszip.min.js och service-worker.js oforandrade.
+2. Ersatt index.html, styles.css och app.js i GitHub-repot.
+3. Behall jszip.min.js och service-worker.js oforandrade.
 4. Commit och push.
-5. Kontrollera att versionsnumret visar 6.0.8.
+5. Kontrollera att versionsnumret visar 6.1.
 6. Gor Ctrl+F5.
+
+PDF
+Valj Dela och skriv ut, sedan Skriv ut / spara PDF. Valj darefter Spara som PDF i webblasaren.
