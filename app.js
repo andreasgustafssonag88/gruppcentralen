@@ -344,3 +344,49 @@ function updatePrintHeading612(){if(!room)return;ensureRoomMeta612();let parts=[
 const _openEditor612=openEditor;openEditor=function(){_openEditor612();ensureRoomMeta612();if($('roomClass'))$('roomClass').value=room.meta.className;if($('roomSubject'))$('roomSubject').value=room.meta.subject;if($('roomLesson'))$('roomLesson').value=room.meta.lesson;updatePrintHeading612()};
 const _saveRoom612=saveRoom;saveRoom=function(manual=false){if(room&&$('roomClass'))updateRoomMeta();return _saveRoom612(manual)};
 printPlacement=function(){if(!room)return;updateRoomMeta();updatePrintHeading612();window.print()};
+
+/* Gruppcentralen 6.1.3: aterstall layout efter helskarm */
+function resetFullscreenLayout613(){
+  const builder=$('classroomBuilder');
+  const editor=$('editor');
+  const bar=document.querySelector('.canvasZoomBar');
+  if(!builder||!editor)return;
+
+  builder.classList.remove('fsPanelHidden');
+  const toggle=$('gcFsPanelToggle');
+  if(toggle){
+    toggle.textContent='◀ Dölj verktyg';
+    toggle.setAttribute('aria-expanded','true');
+  }
+
+  /* Den vanliga verktygsraden flyttades in i byggaren av den gamla
+     helskarmsfunktionen. Flytta tillbaka den direkt fore byggaren. */
+  if(bar&&bar.parentElement===builder){
+    editor.insertBefore(bar,builder);
+  }
+
+  /* Nollstall tillfalliga inline-matt och lat normal CSS ta over. */
+  const stage=builder.querySelector(':scope > .stage');
+  if(stage){
+    stage.style.removeProperty('width');
+    stage.style.removeProperty('height');
+    stage.style.removeProperty('grid-column');
+    stage.style.removeProperty('grid-row');
+  }
+
+  requestAnimationFrame(()=>{
+    try{fitCanvas()}catch(e){}
+    try{renderCanvas()}catch(e){}
+  });
+}
+
+document.addEventListener('fullscreenchange',()=>{
+  if(!document.fullscreenElement)resetFullscreenLayout613();
+});
+
+/* Fallback-laget anvander ingen fullscreenchange-handelser. */
+const _fallbackFullscreen613=fallbackFullscreen;
+fallbackFullscreen=function(on){
+  _fallbackFullscreen613(on);
+  if(!on)resetFullscreenLayout613();
+};

@@ -184,3 +184,22 @@ html,body{max-width:100%;overflow-x:hidden}.workspaceFocus .app>main{padding:12p
 #editor #classroomBuilder:fullscreen #exitFullscreen,#editor #classroomBuilder.fullscreenFallback #exitFullscreen{position:fixed!important;top:14px!important;right:14px!important;z-index:2147483647!important;display:block!important}
 @media(max-width:800px){.gcLessonMeta{grid-template-columns:1fr 1fr}.gcLessonMeta>div{grid-column:1/-1}#editor #classroomBuilder:fullscreen,#editor #classroomBuilder.fullscreenFallback{grid-template-columns:minmax(0,1fr) 250px!important}#editor #classroomBuilder:fullscreen:not(.placeMode) #toolsPanel,#editor #classroomBuilder.fullscreenFallback:not(.placeMode) #toolsPanel,#editor #classroomBuilder:fullscreen.placeMode #studentPanel,#editor #classroomBuilder.fullscreenFallback.placeMode #studentPanel{width:250px!important}}
 @media print{#home,#workspaceApp>aside,.workspaceHeader,#toast,#roomList,#editor>.editorbar,#editor>.gcLessonMeta,#editor>.canvasZoomBar,#toolsPanel,#studentPanel,#exitFullscreen,.gcFullscreenToolbar{display:none!important}#workspaceApp,#workspaceApp main,#rooms,#editor,#classroomBuilder,#classroomBuilder>.stage{display:block!important;width:100%!important;height:auto!important;min-height:0!important;margin:0!important;padding:0!important;overflow:visible!important;background:#fff!important}.printHeading{display:block!important}}
+
+/* Gruppcentralen 6.1.3 - saker atergang fran helskarm */
+#editor:not(:fullscreen) #classroomBuilder:not(.fullscreenFallback){
+  width:auto!important;
+  height:auto!important;
+  min-height:clamp(650px,74vh,940px)!important;
+  padding:0!important;
+  overflow:visible!important;
+}
+#editor #classroomBuilder:not(:fullscreen):not(.fullscreenFallback)>.stage{
+  grid-column:1!important;
+  grid-row:1!important;
+  width:auto!important;
+  height:auto!important;
+  min-width:0!important;
+  min-height:clamp(650px,74vh,940px)!important;
+}
+#editor #classroomBuilder:not(:fullscreen):not(.fullscreenFallback)>.gcFullscreenToolbar{display:none!important}
+#editor #classroomBuilder:not(:fullscreen):not(.fullscreenFallback) #exitFullscreen{display:none!important}

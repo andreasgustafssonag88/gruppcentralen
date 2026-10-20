@@ -1,12 +1,17 @@
-GRUPPCENTRALEN 6.1.2
+GRUPPCENTRALEN 6.1.3 - ATERSTALLNING EFTER HELSKARM
 
-- Bygg klassrummet i helskarm.
-- Placera elever i helskarm.
-- Valj Bygg eller Elever i den kompakta helskarmsmenyn.
-- Dolj verktyg ger en ren klassrumsvy.
-- Visa verktyg oppnar panelen igen.
-- Avsluta helskarm finns alltid kvar.
-- Rubrikfalt och utskrift/PDF fran 6.1 ingar.
+ATGARDAT
+- Nar helskarm avslutas flyttas den vanliga verktygsraden tillbaka till ratt plats.
+- Klassen Dolj verktyg nollstalls automatiskt.
+- Klassrumsytans tillfalliga helskarmsmatt tas bort.
+- Klassrummet anpassas och ritas om efter atergangen.
+- Fungerar bade med webblasarens riktiga helskarm och reservlaget.
+- Helskarm behaller Bygg, Elever och Dolj/Visa verktyg.
 
 INSTALLATION
-Ersatt index.html, styles.css och app.js. Behall jszip.min.js och service-worker.js. Gor Ctrl+F5 efter publicering.
+1. Packa upp ZIP-filen.
+2. Ersatt index.html, styles.css och app.js i GitHub-repot.
+3. Behall jszip.min.js och service-worker.js oforandrade.
+4. Commit och push.
+5. Kontrollera att versionsnumret visar 6.1.3.
+6. Gor Ctrl+F5.
