@@ -337,60 +337,10 @@ const _renderUnassigned5761=renderUnassigned;renderUnassigned=function(){_render
 const _renderCanvas5761=renderCanvas;renderCanvas=function(id='canvas',result=false){_renderCanvas5761(id,result);if(!result&&id==='canvas')requestAnimationFrame(finalizePanelBlocks5761)}
 requestAnimationFrame(finalizePanelBlocks5761)
 
-/* Gruppcentralen 6.1: valfri klassrumsrubrik och samlad export */
-function ensureRoomMeta61(){
-  if(!room)return;
-  room.meta=room.meta&&typeof room.meta==='object'?room.meta:{};
-  room.meta.className=room.meta.className||'';
-  room.meta.subject=room.meta.subject||'';
-  room.meta.lesson=room.meta.lesson||'';
-}
-function fillRoomMeta61(){
-  ensureRoomMeta61();
-  if(!room)return;
-  if($('roomClass'))$('roomClass').value=room.meta.className;
-  if($('roomSubject'))$('roomSubject').value=room.meta.subject;
-  if($('roomLesson'))$('roomLesson').value=room.meta.lesson;
-}
-function updateRoomMeta(){
-  if(!room)return;
-  ensureRoomMeta61();
-  room.meta.className=$('roomClass')?.value.trim()||'';
-  room.meta.subject=$('roomSubject')?.value.trim()||'';
-  room.meta.lesson=$('roomLesson')?.value.trim()||'';
-  scheduleAutosave();
-  updatePrintHeading61();
-}
-function roomHeadingParts61(){
-  ensureRoomMeta61();
-  return [room?.meta?.className,room?.meta?.subject,room?.meta?.lesson].filter(Boolean);
-}
-function updatePrintHeading61(){
-  if(!room)return;
-  let parts=roomHeadingParts61(),rn=$('printRoomName'),pn=$('printPlacementName');
-  if(rn)rn.textContent=parts[0]||room.name||'Klassrum';
-  if(pn){
-    let active=room.placements?.find(p=>p.id===room.activePlacementId);
-    let rest=parts.slice(1);
-    if(active?.name)rest.push(active.name);
-    pn.textContent=rest.join(' · ');
-  }
-}
-const _openEditor61=openEditor;
-openEditor=function(){
-  _openEditor61();
-  ensureRoomMeta61();
-  fillRoomMeta61();
-  updatePrintHeading61();
-};
-const _saveRoom61=saveRoom;
-saveRoom=function(manual=false){
-  if(room&&$('roomClass'))updateRoomMeta();
-  return _saveRoom61(manual);
-};
-printPlacement=function(){
-  if(!room)return;
-  updateRoomMeta();
-  updatePrintHeading61();
-  window.print();
-};
+/* Gruppcentralen 6.1.2: rubrik och export */
+function ensureRoomMeta612(){if(!room)return;room.meta=room.meta&&typeof room.meta==='object'?room.meta:{};room.meta.className=room.meta.className||'';room.meta.subject=room.meta.subject||'';room.meta.lesson=room.meta.lesson||''}
+function updateRoomMeta(){if(!room)return;ensureRoomMeta612();room.meta.className=$('roomClass')?.value.trim()||'';room.meta.subject=$('roomSubject')?.value.trim()||'';room.meta.lesson=$('roomLesson')?.value.trim()||'';scheduleAutosave();updatePrintHeading612()}
+function updatePrintHeading612(){if(!room)return;ensureRoomMeta612();let parts=[room.meta.className,room.meta.subject,room.meta.lesson].filter(Boolean),rn=$('printRoomName'),pn=$('printPlacementName'),active=room.placements?.find(p=>p.id===room.activePlacementId);if(rn)rn.textContent=parts[0]||room.name||'Klassrum';if(pn)pn.textContent=[...parts.slice(1),active?.name||''].filter(Boolean).join(' · ')}
+const _openEditor612=openEditor;openEditor=function(){_openEditor612();ensureRoomMeta612();if($('roomClass'))$('roomClass').value=room.meta.className;if($('roomSubject'))$('roomSubject').value=room.meta.subject;if($('roomLesson'))$('roomLesson').value=room.meta.lesson;updatePrintHeading612()};
+const _saveRoom612=saveRoom;saveRoom=function(manual=false){if(room&&$('roomClass'))updateRoomMeta();return _saveRoom612(manual)};
+printPlacement=function(){if(!room)return;updateRoomMeta();updatePrintHeading612();window.print()};

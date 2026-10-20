@@ -1,16 +1,12 @@
-GRUPPCENTRALEN 6.1.1 - RENT HELSKARMSLAGE
+GRUPPCENTRALEN 6.1.2
 
-ATGARDAT
-- Helskarm visar endast klassrummet, den valfria rubriken och Avsluta helskarm.
-- Byggverktyg, elevpanel, lageknappar och mobelredigering doljs.
-- Klassrumsytan anvander hela skarmen.
-- Synliga rullister ar dolda, men mushjul och styrplatta fungerar vid behov.
-- Vanligt bygglage och placeringslage ar oforandrade.
+- Bygg klassrummet i helskarm.
+- Placera elever i helskarm.
+- Valj Bygg eller Elever i den kompakta helskarmsmenyn.
+- Dolj verktyg ger en ren klassrumsvy.
+- Visa verktyg oppnar panelen igen.
+- Avsluta helskarm finns alltid kvar.
+- Rubrikfalt och utskrift/PDF fran 6.1 ingar.
 
 INSTALLATION
-1. Packa upp ZIP-filen.
-2. Ersatt index.html, styles.css och app.js i GitHub-repot.
-3. Behall jszip.min.js och service-worker.js oforandrade.
-4. Commit och push.
-5. Kontrollera att versionsnumret visar 6.1.1.
-6. Gor Ctrl+F5.
+Ersatt index.html, styles.css och app.js. Behall jszip.min.js och service-worker.js. Gor Ctrl+F5 efter publicering.
