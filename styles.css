@@ -494,3 +494,30 @@ html,body{max-width:100%;overflow-x:hidden}.workspaceFocus .app>main{padding:12p
 @media(max-width:820px){#editor .gcLessonMeta{grid-template-columns:1fr 1fr}.gcLessonMetaIntro{grid-column:1/-1}#editor .gcLessonMeta label:last-child{grid-column:1/-1}}
 @media(max-width:560px){#editor .gcLessonMeta{grid-template-columns:1fr}#editor .gcLessonMetaIntro,#editor .gcLessonMeta label:last-child{grid-column:auto}#editor .gcExportMenuBody{position:fixed;top:72px;right:10px;left:10px;width:auto}}
 @media print{#home,#workspaceApp>aside,.workspaceHeader,#toast,#roomList,#editor>.editorbar,#editor>.gcLessonMeta,#editor>.canvasZoomBar,#toolsPanel,#studentPanel,#gcCloseInspector,#exitFullscreen{display:none!important}#workspaceApp,#workspaceApp main,#rooms,#editor,#classroomBuilder,#classroomBuilder>.stage{display:block!important;width:100%!important;height:auto!important;min-height:0!important;margin:0!important;padding:0!important;overflow:visible!important;background:#fff!important;border:0!important;box-shadow:none!important}#classroomBuilder>.stage::before{display:none!important}#canvas{transform:none!important;margin:0 auto!important;box-shadow:none!important}.printHeading{display:block!important}body{background:#fff!important}}
+
+/* Gruppcentralen 6.1.1 - rent presentationslage i helskarm */
+#editor #classroomBuilder:fullscreen,
+#editor #classroomBuilder.fullscreenFallback{display:block!important;width:100vw!important;height:100vh!important;min-height:100vh!important;padding:18px!important;overflow:hidden!important;background:#dfe6f0!important}
+#editor #classroomBuilder:fullscreen #toolsPanel,
+#editor #classroomBuilder.fullscreenFallback #toolsPanel,
+#editor #classroomBuilder:fullscreen #studentPanel,
+#editor #classroomBuilder.fullscreenFallback #studentPanel,
+#editor #classroomBuilder:fullscreen #gcCloseInspector,
+#editor #classroomBuilder.fullscreenFallback #gcCloseInspector{display:none!important}
+#editor #classroomBuilder:fullscreen>.stage,
+#editor #classroomBuilder.fullscreenFallback>.stage{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:flex-start!important;width:100%!important;height:100%!important;min-width:0!important;min-height:0!important;margin:0!important;padding:12px!important;overflow:auto!important;background:#fff!important;border:0!important;border-radius:18px!important;box-shadow:0 12px 40px rgba(32,51,82,.16)!important;scrollbar-width:none!important}
+#editor #classroomBuilder:fullscreen>.stage::-webkit-scrollbar,
+#editor #classroomBuilder.fullscreenFallback>.stage::-webkit-scrollbar{display:none!important}
+#editor #classroomBuilder:fullscreen>.stage::before,
+#editor #classroomBuilder.fullscreenFallback>.stage::before{display:none!important}
+#editor #classroomBuilder:fullscreen .printHeading,
+#editor #classroomBuilder.fullscreenFallback .printHeading{display:block!important;flex:0 0 auto!important;width:100%!important;padding:4px 70px 12px!important;text-align:center!important}
+#editor #classroomBuilder:fullscreen .printHeading h1,
+#editor #classroomBuilder.fullscreenFallback .printHeading h1{margin:0 0 4px!important;color:#17233b!important;font-size:clamp(24px,3vw,40px)!important;line-height:1.1!important}
+#editor #classroomBuilder:fullscreen .printHeading p,
+#editor #classroomBuilder.fullscreenFallback .printHeading p{margin:0!important;color:#52627a!important;font-size:clamp(15px,1.6vw,22px)!important;font-weight:750!important}
+#editor #classroomBuilder:fullscreen #canvas,
+#editor #classroomBuilder.fullscreenFallback #canvas{flex:0 0 auto!important;margin:0 auto!important;transform-origin:top center!important;box-shadow:none!important}
+#editor #classroomBuilder:fullscreen #exitFullscreen,
+#editor #classroomBuilder.fullscreenFallback #exitFullscreen{position:fixed!important;top:14px!important;right:14px!important;z-index:2147483647!important;display:flex!important;align-items:center!important;justify-content:center!important;min-height:42px!important;padding:9px 14px!important;color:#fff!important;font-size:14px!important;font-weight:900!important;background:#17233b!important;border:2px solid rgba(255,255,255,.9)!important;border-radius:12px!important;box-shadow:0 8px 24px rgba(23,35,59,.25)!important}
+@media(max-width:760px){#editor #classroomBuilder:fullscreen,#editor #classroomBuilder.fullscreenFallback{padding:6px!important}#editor #classroomBuilder:fullscreen>.stage,#editor #classroomBuilder.fullscreenFallback>.stage{padding:7px!important;border-radius:12px!important}#editor #classroomBuilder:fullscreen .printHeading,#editor #classroomBuilder.fullscreenFallback .printHeading{padding:4px 52px 8px!important}#editor #classroomBuilder:fullscreen #exitFullscreen,#editor #classroomBuilder.fullscreenFallback #exitFullscreen{top:8px!important;right:8px!important;min-height:38px!important;padding:7px 10px!important;font-size:12px!important}}
