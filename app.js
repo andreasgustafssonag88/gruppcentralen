@@ -667,3 +667,34 @@ function toggleStudentFullscreen63(on){
   const show=typeof on==='boolean'?on:box.classList.contains('hide');
   box.classList.toggle('hide',!show);document.body.classList.toggle('studentRandomFullscreenLock',show);
 }
+
+/* Gruppcentralen 6.4 - tydligare startsida */
+const _updateHomeStatus64=updateHomeStatus;
+updateHomeStatus=function(){
+  _updateHomeStatus64();
+  const totalStudents=groups.reduce((sum,g)=>sum+(g.students?.length||0),0);
+  const randomCount=$('homeRandomCount');
+  if(randomCount)randomCount.textContent=groups.length?`${groups.length} grupper · ${totalStudents} elever`:'Skapa en elevgrupp först';
+  renderHomeQuickGroups64();
+};
+function renderHomeQuickGroups64(){
+  const target=$('homeQuickGroups'),empty=$('homeQuickEmpty');
+  if(!target)return;
+  const recent=groups.slice(0,6);
+  target.innerHTML=recent.map(g=>`<button type="button" onclick="openQuickRandom64('${g.id}')"><span>🎲</span><b>${esc(g.name)}</b><small>${g.students?.length||0} elever</small></button>`).join('');
+  empty?.classList.toggle('hide',recent.length>0);
+}
+function openQuickRandom64(id){
+  randSel=new Set([id]);
+  studentRandomAbsent63?.clear?.();
+  studentRandomRemaining63=[];
+  studentRandomHistory63=[];
+  studentRandomLastPoolKey63='';
+  openWorkspace('random');
+  requestAnimationFrame(()=>{
+    renderStudentRandom63();
+    $('studentRandomButton')?.focus();
+  });
+}
+/* Uppdatera status direkt nar den nya startsidan laddas. */
+requestAnimationFrame(updateHomeStatus);

@@ -1,17 +1,15 @@
-GRUPPCENTRALEN 6.3 - SNABB ELEVSLUMPNING
+GRUPPCENTRALEN 6.4 - TYDLIGARE STARTSIDA
 
-Byggd direkt pa de uppladdade 6.2-filerna. Klassrumsbyggaren ar inte andrad.
+Byggd direkt pa version 6.3. Klassrumsbyggaren och elevslumpningen ar inte andrade.
 
 NYTT
-- Valj en eller flera elevgrupper.
-- Markera tillfalligt franvarande elever.
-- Slumpa fram en elev med en stor knapp.
-- Ingen upprepning innan alla har valts, aktiverat som standard.
-- Slumpa nasta, angra senaste och aterstall omgang.
-- Visar hur manga elever som aterstar.
-- Helskarmsvisning med stort elevnamn.
-- Mobilanpassad layout.
-- Tidigare gruppslumpning finns kvar under Skapa grupper om tre.
+- Tre stora huvudval: Slumpa, Klassrum och Elevgrupper.
+- Slumpa ligger forst for snabb anvandning under lektion.
+- Korten visar antal grupper, elever och sparade klassrum.
+- Snabbslumpa visar upp till sex elevgrupper pa startsidan.
+- Ett tryck pa en snabbgrupp oppnar elevslumpningen med gruppen vald.
+- Import och backup ligger under Fler verktyg.
+- Mobilanpassade, stora tryckytor.
 
 INSTALLATION
 Ersatt index.html, styles.css och app.js. Behall jszip.min.js och service-worker.js. Gor Ctrl+F5 efter publicering.
