@@ -893,3 +893,49 @@ function toggleGroupsFullscreen65(on){
 const _renderStudentRandom641_65=renderStudentRandom641;
 renderStudentRandom641=function(){_renderStudentRandom641_65();updateGroupSetup65()};
 renderStudentRandom63=renderStudentRandom641;
+
+/* Gruppcentralen 6.5.1 - kompakt elevpanel och storre slumpyta */
+let attendanceCollapsed651=false;
+function toggleAttendance651(){
+  attendanceCollapsed651=!attendanceCollapsed651;
+  const list=$('studentRandomAttendance'),button=$('toggleAttendance651');
+  list?.classList.toggle('attendanceCollapsed651',attendanceCollapsed651);
+  if(button)button.textContent=attendanceCollapsed651?'Visa elever':'Dölj elever';
+  updateAttendanceSummary651();
+}
+function updateAttendanceSummary651(){
+  const summary=$('attendanceSummary651');if(!summary)return;
+  const total=studentEntries63().length,active=activeStudentEntries63().length,absent=Math.max(0,total-active);
+  summary.textContent=total?`${active} närvarande${absent?` · ${absent} frånvarande`:''}`:'Inga elever valda';
+  summary.classList.toggle('show',attendanceCollapsed651);
+}
+function openStudentReadyFullscreen651(){
+  const active=activeStudentEntries63();
+  if(!active.length)return toast('Välj minst en närvarande elev.');
+  $('studentRandomFullscreenName').textContent='Redo att slumpa';
+  $('studentRandomFullscreenGroup').textContent=directStudentsActive642?'Snabblista':groups.filter(g=>randSel.has(g.id)).map(g=>g.name).join(' + ');
+  $('studentRandomFullscreenRemaining').textContent=`${active.length} elever är med`;
+  toggleStudentFullscreen63(true);
+}
+function createGroupsFullscreen651(){
+  createFlexibleGroups65();
+  if(flexibleGroups65.length)toggleGroupsFullscreen65(true);
+}
+
+/* Hall sammanfattning och helskarmsknappar uppdaterade. */
+const _renderStudentRandom641_651=renderStudentRandom641;
+renderStudentRandom641=function(){
+  _renderStudentRandom641_651();
+  updateAttendanceSummary651();
+  $('studentRandomAttendance')?.classList.toggle('attendanceCollapsed651',attendanceCollapsed651);
+  const has=activeStudentEntries63().length>0;
+  if($('studentReadyFullscreen651'))$('studentReadyFullscreen651').disabled=!has;
+  if($('createGroupsFullscreen651'))$('createGroupsFullscreen651').disabled=activeStudentEntries63().length<2;
+};
+renderStudentRandom63=renderStudentRandom641;
+
+const _updateGroupSetup651=updateGroupSetup65;
+updateGroupSetup65=function(){
+  _updateGroupSetup651();
+  if($('createGroupsFullscreen651'))$('createGroupsFullscreen651').disabled=groupStudents65().length<2;
+};

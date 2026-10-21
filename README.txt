@@ -1,15 +1,15 @@
-GRUPPCENTRALEN 6.5 - FLEXIBEL GRUPPSLUMPNING
+GRUPPCENTRALEN 6.5.1 - STORRE SLUMPYTA
 
-Byggd direkt pa de uppladdade 6.4.2-filerna. Klassrumsbyggaren ar oforandrad.
+Byggd direkt pa version 6.5. Klassrumsbyggaren ar oforandrad.
 
 NYTT
-- Skapa 2-8 grupper eller lag.
-- Alternativt valj 2-5 elever per grupp.
-- Eleverna fordelas sa jamnt som mojligt.
-- Val mellan namnen Grupp, Lag och Station.
-- Ateranvander valda elevgrupper, snabblista och franvaro fran elevslumpningen.
-- Tydliga resultatkort, Slumpa igen, Borja om och Helskarm.
-- Växling mellan En elev och Skapa grupper.
+- Elev- och franvaropanelen ar smalare.
+- Slumpnings- och resultatpanelen ar betydligt storre.
+- Elevlistan kan doljas och visas med en knapp.
+- Vid dold lista visas antal narvarande och franvarande.
+- Elevslumpningen kan oppnas i helskarm redan innan forsta slumpningen.
+- Grupper och lag kan skapas och visas direkt i helskarm.
+- Resultatkort for grupper far mer plats och kan visas i tre kolumner pa bred skarm.
 
 INSTALLATION
 Ersatt index.html, styles.css och app.js. Behall jszip.min.js och service-worker.js. Gor Ctrl+F5 efter publicering.
