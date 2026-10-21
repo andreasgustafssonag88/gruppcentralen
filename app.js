@@ -810,3 +810,86 @@ renderStudentRandom641=function(){
 };
 renderStudentRandom63=renderStudentRandom641;
 renderRandom=function(){renderStudentRandom641()};
+
+/* ==========================================================
+   Gruppcentralen 6.5 - flexibel gruppslumpning
+   ========================================================== */
+let groupMethod65='teams';
+let groupValueTeams65=4;
+let groupValueSize65=3;
+let flexibleGroups65=[];
+
+function groupStudents65(){return activeStudentEntries63().map(x=>x.name)}
+function showGroupMode65(){
+  $('studentModeTab65')?.classList.remove('active');$('groupModeTab65')?.classList.add('active');
+  document.querySelector('.random641Layout')?.classList.add('hide');
+  $('groupBuilder65')?.classList.remove('hide');
+  updateGroupSetup65();
+  $('title').textContent='Skapa grupper';$('sub').textContent='Fördela elever jämnt i grupper, lag eller stationer.';
+}
+function showStudentMode65(){
+  $('groupModeTab65')?.classList.remove('active');$('studentModeTab65')?.classList.add('active');
+  $('groupBuilder65')?.classList.add('hide');
+  document.querySelector('.random641Layout')?.classList.remove('hide');
+  $('title').textContent='Slumpa en elev';$('sub').textContent='Välj en grupp och slumpa fram en elev snabbt och rättvist.';
+  renderStudentRandom641();
+}
+function setGroupMethod65(method){
+  groupMethod65=method;
+  $('methodTeams65')?.classList.toggle('active',method==='teams');
+  $('methodSize65')?.classList.toggle('active',method==='size');
+  updateGroupSetup65();
+}
+function changeGroupValue65(delta){
+  if(groupMethod65==='teams')groupValueTeams65=Math.max(2,Math.min(8,groupValueTeams65+delta));
+  else groupValueSize65=Math.max(2,Math.min(5,groupValueSize65+delta));
+  updateGroupSetup65();
+}
+function balancedSizes65(total,count){
+  const base=Math.floor(total/count),extra=total%count;
+  return Array.from({length:count},(_,i)=>base+(i<extra?1:0));
+}
+function groupCountFromSize65(total,size){return Math.max(1,Math.ceil(total/size))}
+function updateGroupSetup65(){
+  const students=groupStudents65(),total=students.length;
+  const value=groupMethod65==='teams'?groupValueTeams65:groupValueSize65;
+  $('groupValue65').textContent=value;
+  $('groupValueLabel65').textContent=groupMethod65==='teams'?'grupper':'elever per grupp';
+  const count=groupMethod65==='teams'?Math.min(groupValueTeams65,Math.max(1,total)):groupCountFromSize65(total,groupValueSize65);
+  const sizes=total?balancedSizes65(total,count):[];
+  const selectedNames=directStudentsActive642?'Snabblista':groups.filter(g=>randSel.has(g.id)).map(g=>g.name).join(' + ');
+  $('groupSourceSummary65').textContent=total?`${selectedNames||'Valda elever'} · ${total} elever`:'Välj grupper eller en snabblista i fliken En elev';
+  $('groupEstimate65').textContent=total?`${total} elever fördelas på ${count} ${count===1?'grupp':'grupper'}: ${sizes.join(' + ')} elever.`:'Inga elever valda ännu.';
+  const btn=$('createGroupsButton65');if(btn)btn.disabled=total<2;
+}
+function createFlexibleGroups65(){
+  const students=shuffle([...groupStudents65()]);
+  if(students.length<2)return toast('Välj minst två närvarande elever.');
+  let count=groupMethod65==='teams'?Math.min(groupValueTeams65,students.length):groupCountFromSize65(students.length,groupValueSize65);
+  count=Math.max(1,count);
+  const sizes=balancedSizes65(students.length,count),prefix=$('groupPrefix65')?.value||'Grupp';
+  flexibleGroups65=[];let index=0;
+  sizes.forEach((size,i)=>{flexibleGroups65.push({name:`${prefix} ${i+1}`,students:students.slice(index,index+size)});index+=size});
+  renderFlexibleGroups65();
+}
+function groupCardsMarkup65(groups){return groups.map((g,i)=>`<article class="groupCard65"><header><span>${i+1}</span><div><h3>${esc(g.name)}</h3><small>${g.students.length} elever</small></div></header><ol>${g.students.map(n=>`<li>${esc(n)}</li>`).join('')}</ol></article>`).join('')}
+function renderFlexibleGroups65(){
+  $('groupBefore65')?.classList.add('hide');$('groupResult65')?.classList.remove('hide');
+  const total=flexibleGroups65.reduce((n,g)=>n+g.students.length,0);
+  const title=`${total} elever · ${flexibleGroups65.length} grupper`;
+  $('groupResultTitle65').textContent=title;
+  $('groupCards65').innerHTML=groupCardsMarkup65(flexibleGroups65);
+  $('groupsFullscreenTitle65').textContent=title;
+  $('groupsFullscreenCards65').innerHTML=groupCardsMarkup65(flexibleGroups65);
+}
+function resetGroups65(){flexibleGroups65=[];$('groupResult65')?.classList.add('hide');$('groupBefore65')?.classList.remove('hide');updateGroupSetup65()}
+function toggleGroupsFullscreen65(on){
+  if(!flexibleGroups65.length)return toast('Skapa grupper först.');
+  const box=$('groupsFullscreen65'),show=typeof on==='boolean'?on:box.classList.contains('hide');
+  box.classList.toggle('hide',!show);document.body.classList.toggle('studentRandomFullscreenLock',show);
+}
+
+/* Gruppfliken uppdateras nar elevurval eller franvaro andras. */
+const _renderStudentRandom641_65=renderStudentRandom641;
+renderStudentRandom641=function(){_renderStudentRandom641_65();updateGroupSetup65()};
+renderStudentRandom63=renderStudentRandom641;

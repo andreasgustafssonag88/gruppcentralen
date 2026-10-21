@@ -1,15 +1,15 @@
-GRUPPCENTRALEN 6.4.2 - FLEXIBLARE ELEVSLUMPNING
+GRUPPCENTRALEN 6.5 - FLEXIBEL GRUPPSLUMPNING
 
-Byggd direkt pa 6.4.1. Klassrumsbyggaren och startsidan ar oforandrade.
+Byggd direkt pa de uppladdade 6.4.2-filerna. Klassrumsbyggaren ar oforandrad.
 
 NYTT
-- Flera sparade elevgrupper kan valjas och kombineras.
-- Elevnamn kan skrivas in direkt i en tillfallig snabblista.
-- Snabblistan sparas inte bland elevgrupperna.
-- Nar grupp eller snabblista har valts doljs gruppvalet.
-- Da visas endast valda grupper, narvarande elever och slumpningen.
-- Knappen Andra grupper oppnar gruppvalet igen.
-- Franvaro, rattvis omgang, angra och helskarm finns kvar.
+- Skapa 2-8 grupper eller lag.
+- Alternativt valj 2-5 elever per grupp.
+- Eleverna fordelas sa jamnt som mojligt.
+- Val mellan namnen Grupp, Lag och Station.
+- Ateranvander valda elevgrupper, snabblista och franvaro fran elevslumpningen.
+- Tydliga resultatkort, Slumpa igen, Borja om och Helskarm.
+- Växling mellan En elev och Skapa grupper.
 
 INSTALLATION
-Ersatt index.html, styles.css och app.js. Behall jszip.min.js och service-worker.js. Gor Ctrl+F5.
+Ersatt index.html, styles.css och app.js. Behall jszip.min.js och service-worker.js. Gor Ctrl+F5 efter publicering.
