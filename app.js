@@ -698,3 +698,34 @@ function openQuickRandom64(id){
 }
 /* Uppdatera status direkt nar den nya startsidan laddas. */
 requestAnimationFrame(updateHomeStatus);
+
+/* Gruppcentralen 6.4.1 - tydligare elevslumpning */
+let randomMulti641=false;
+function toggleRandomMulti641(){randomMulti641=!randomMulti641;$('random641MultiButton').textContent=randomMulti641?'Klar':'Välj flera';renderStudentRandom641()}
+function selectRandomGroup641(id){
+  if(randomMulti641){randSel.has(id)?randSel.delete(id):randSel.add(id)}else{randSel=new Set([id])}
+  studentRandomAbsent63.clear();syncStudentRound63(true);renderStudentRandom641();
+}
+function renderRandomGroups641(){
+  const t=$('randomChecks');if(!t)return;
+  t.innerHTML=groups.map(g=>{const selected=randSel.has(g.id);return `<button type="button" class="random641Group ${selected?'selected':''}" onclick="selectRandomGroup641('${g.id}')"><span class="random641Check">${selected?'✓':''}</span><span><b>${esc(g.name)}</b><small>${g.students.length} elever</small></span>${selected?'<em>Vald</em>':''}</button>`}).join('');
+}
+function renderStudentRandom641(){
+  renderRandomGroups641();renderStudentAttendance63();
+  $('randomEmptyGroups')?.classList.toggle('hide',groups.length>0);
+  const active=activeStudentEntries63(),has=randSel.size>0,attendance=$('random641AttendanceStep');
+  attendance?.classList.toggle('random641Locked',!has);
+  const info=$('randomInfo');if(info)info.textContent=has?`${active.length} elever är med`:'0 elever valda';
+  const btn=$('studentRandomButton');if(btn)btn.disabled=!active.length;
+  const title=$('random641ReadyTitle'),text=$('random641ReadyText');
+  if(title)title.textContent=has?'Redo att slumpa':'Välj en elevgrupp';
+  if(text)text.textContent=has?'Markera frånvarande till vänster eller slumpa direkt.':'När gruppen är vald kan du slumpa fram en elev här.';
+  syncStudentRound63(false);
+}
+renderStudentRandom63=renderStudentRandom641;
+renderRandom=function(){renderStudentRandom641()};
+toggleRandom=function(id){selectRandomGroup641(id)};
+
+/* Korrekt rubrik for den nya huvudfunktionen. */
+const _view641=view;
+view=function(v){_view641(v);if(v==='random'){$('title').textContent='Slumpa en elev';$('sub').textContent='Välj en grupp och slumpa fram en elev snabbt och rättvist.';renderStudentRandom641()}};
