@@ -569,3 +569,10 @@ openEditor=function(){
   requestAnimationFrame(installCanvasResize615);
   return value;
 };
+
+/* Gruppcentralen 6.2 - klassrumsmallar */
+newRoom=function(){let d=$('templateModal');d?.showModal?d.showModal():d?.setAttribute('open','')};
+function t62(type,seats,x,y,rotation=0){return{id:uid(),type,seats,x,y,rotation,scale:1,color:type==='round'?'#d7c5a3':'#e8b562',names:Array(seats).fill(''),lockedSeats:Array(seats).fill(false)}}
+function c62(total,max){let n=Math.ceil(total/max),b=Math.floor(total/n),e=total%n;return Array.from({length:n},(_,i)=>b+(i<e?1:0))}
+function buildTemplate62(k,seats){let r=ensureRoom52(blank());r.canvasWidth=1000;r.canvasHeight=680;r.tables=[];r.objects=[];r.name={blank:'Nytt klassrum',rows:'Rader',islands:'Bordsöar',u:'U-form',exam:'Provplacering'}[k];if(k==='blank')return r;r.objects.push({id:uid(),type:'board',x:370,y:22,rotation:0,scale:1.15,color:'#e9edf3'});if(k==='rows'){let a=c62(seats,2);a.forEach((n,i)=>r.tables.push(t62('rect',n,70+i%4*220,130+Math.floor(i/4)*145)));r.canvasHeight=Math.max(680,220+Math.ceil(a.length/4)*145)}if(k==='islands'){let a=c62(seats,6),cols=a.length<=4?2:3;a.forEach((n,i)=>r.tables.push(t62('round',n,115+i%cols*300,150+Math.floor(i/cols)*225)));r.canvasHeight=Math.max(680,260+Math.ceil(a.length/cols)*225)}if(k==='u'){let a=c62(seats,4),i=0,l=Math.ceil((a.length-2)/2),rr=a.length-2-l;for(let n=0;n<l;n++,i++)r.tables.push(t62('rect',a[i],90,150+n*145,90));let y=Math.max(430,150+Math.max(l,rr)*145);if(i<a.length)r.tables.push(t62('rect',a[i++],320,y));if(i<a.length)r.tables.push(t62('rect',a[i++],570,y));for(let n=0;n<rr&&i<a.length;n++,i++)r.tables.push(t62('rect',a[i],790,y-145-n*145,90));r.canvasHeight=Math.max(680,y+130)}if(k==='exam'){let cols=seats<=24?5:6;for(let i=0;i<seats;i++)r.tables.push(t62('square',1,80+i%cols*150,130+Math.floor(i/cols)*125));r.canvasHeight=Math.max(680,210+Math.ceil(seats/cols)*125)}return ensureRoom52(r)}
+function createRoomFromTemplate62(k){room=buildTemplate62(k,Number($('templateSeats')?.value)||24);$('templateModal')?.close?.();openEditor();toast('Klassrummet skapades.')}
