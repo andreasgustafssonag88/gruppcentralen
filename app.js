@@ -939,3 +939,53 @@ updateGroupSetup65=function(){
   _updateGroupSetup651();
   if($('createGroupsFullscreen651'))$('createGroupsFullscreen651').disabled=groupStudents65().length<2;
 };
+
+/* Gruppcentralen 6.6 - idrott, lag och stationer */
+let sportsSelected66=new Set(),sportsAbsent66=new Set(),sportsDirectList66=[],sportsDirectActive66=false,sportsPickerHidden66=false;
+let sportsType66='teams',sportsCountValue66=4,sportsGroupsResult66=[];
+function sportsEntries66(){
+  if(sportsDirectActive66)return sportsDirectList66.map(name=>({name,group:'Snabblista'}));
+  const map=new Map();groups.filter(g=>sportsSelected66.has(g.id)).forEach(g=>g.students.forEach(name=>{const k=norm(name);if(!map.has(k))map.set(k,{name,group:g.name})}));return [...map.values()];
+}
+function sportsActive66(){return sportsEntries66().filter(x=>!sportsAbsent66.has(norm(x.name)))}
+function renderSports66(){
+  const list=$('sportsGroups66');if(!list)return;
+  list.innerHTML=groups.map(g=>`<button class="${sportsSelected66.has(g.id)?'selected':''}" onclick="toggleSportsGroup66('${g.id}')"><span>${sportsSelected66.has(g.id)?'✓':''}</span><b>${esc(g.name)}</b><small>${g.students.length} elever</small></button>`).join('');
+  const has=sportsDirectActive66||sportsSelected66.size>0;
+  list.classList.toggle('hide',sportsPickerHidden66&&has);document.querySelector('.sportsDirectToggle66')?.classList.toggle('hide',sportsPickerHidden66&&has);
+  $('sportsChosen66')?.classList.toggle('hide',!(sportsPickerHidden66&&has));
+  $('sportsChosenText66').textContent=sportsDirectActive66?`Snabblista · ${sportsDirectList66.length} elever`:groups.filter(g=>sportsSelected66.has(g.id)).map(g=>g.name).join(' + ');
+  $('sportsAttendanceWrap66')?.classList.toggle('sportsLocked66',!has);
+  $('sportsAttendance66').innerHTML=sportsEntries66().map(x=>`<button class="${sportsAbsent66.has(norm(x.name))?'absent':''}" onclick="toggleSportsAbsent66('${encodeURIComponent(x.name)}')"><b>${esc(x.name)}</b><small>${sportsAbsent66.has(norm(x.name))?'Frånvarande':'Med'}</small></button>`).join('');
+  const total=sportsActive66().length,count=sportsType66==='pairs'?Math.ceil(total/2):Math.min(sportsCountValue66,Math.max(1,total));
+  const sizes=total?balancedSizes65(total,count):[];
+  $('sportsEstimate66').textContent=total?`${total} elever → ${count} ${sportsType66==='stations'?'stationer':sportsType66==='pairs'?'par/grupper':'lag'} · ${sizes.join(' + ')}`:'Välj minst två elever.';
+  $('sportsCount66').textContent=sportsCountValue66;$('sportsCountLabel66').textContent=sportsType66==='stations'?'stationer':'lag';$('sportsCounter66')?.classList.toggle('hide',sportsType66==='pairs');
+  const ok=total>=2;$('sportsCreate66').disabled=!ok;$('sportsCreateFs66').disabled=!ok;
+  $('sportsCreate66').textContent=`🎲 Skapa ${sportsType66==='stations'?'stationer':sportsType66==='pairs'?'par':'lag'}`;
+}
+function toggleSportsGroup66(id){sportsDirectActive66=false;sportsSelected66.has(id)?sportsSelected66.delete(id):sportsSelected66.add(id);sportsAbsent66.clear();sportsPickerHidden66=sportsSelected66.size>0;renderSports66()}
+function toggleSportsDirect66(){$('sportsDirect66')?.classList.toggle('hide')}
+function useSportsDirect66(){const seen=new Set();sportsDirectList66=($('sportsDirectNames66')?.value||'').split(/\r?\n|;|\t/).map(x=>x.trim()).filter(x=>{const k=norm(x);if(!k||seen.has(k))return false;seen.add(k);return true});if(!sportsDirectList66.length)return toast('Skriv in minst två namn.');sportsDirectActive66=true;sportsSelected66.clear();sportsPickerHidden66=true;sportsAbsent66.clear();$('sportsDirect66')?.classList.add('hide');renderSports66()}
+function changeSportsStudents66(){sportsPickerHidden66=false;sportsDirectActive66=false;sportsDirectList66=[];sportsAbsent66.clear();renderSports66()}
+function toggleSportsAbsent66(v){const k=norm(decodeURIComponent(v));sportsAbsent66.has(k)?sportsAbsent66.delete(k):sportsAbsent66.add(k);renderSports66()}
+function resetSportsAttendance66(){sportsAbsent66.clear();renderSports66()}
+function setSportsType66(t){sportsType66=t;['teams','stations','pairs'].forEach(x=>$(`sports${x[0].toUpperCase()+x.slice(1)}66`)?.classList.toggle('active',x===t));renderSports66()}
+function changeSportsCount66(d){sportsCountValue66=Math.max(2,Math.min(8,sportsCountValue66+d));renderSports66()}
+function createSportsGroups66(){
+  let names=sportsActive66().map(x=>x.name);if(names.length<2)return toast('Välj minst två elever.');
+  if($('sportsKeep66')?.checked&&sportsGroupsResult66.length){renderSportsResults66();return toast('Lagen behölls.');}
+  names=shuffle(names);let count=sportsType66==='pairs'?Math.ceil(names.length/2):Math.min(sportsCountValue66,names.length),sizes=balancedSizes65(names.length,count),prefix=sportsType66==='stations'?'Station':sportsType66==='pairs'?'Par':'Lag',i=0;
+  sportsGroupsResult66=sizes.map((n,idx)=>({name:`${prefix} ${idx+1}`,students:names.slice(i,i+=n),color:idx%6}));renderSportsResults66();
+}
+function sportsMarkup66(){return sportsGroupsResult66.map(g=>`<article class="sportsCard66 c${g.color}"><h3>${esc(g.name)}</h3><small>${g.students.length} elever</small><ul>${g.students.map(n=>`<li>${esc(n)}</li>`).join('')}</ul></article>`).join('')}
+function renderSportsResults66(){const total=sportsGroupsResult66.reduce((n,g)=>n+g.students.length,0),title=`${total} elever · ${sportsGroupsResult66.length} ${sportsType66==='stations'?'stationer':sportsType66==='pairs'?'par/grupper':'lag'}`;$('sportsBefore66')?.classList.add('hide');$('sportsResult66')?.classList.remove('hide');$('sportsResultTitle66').textContent=title;$('sportsCards66').innerHTML=sportsMarkup66();$('sportsFsTitle66').textContent=title;$('sportsFsCards66').innerHTML=sportsMarkup66()}
+function createSportsFullscreen66(){createSportsGroups66();if(sportsGroupsResult66.length)toggleSportsFullscreen66(true)}
+function toggleSportsFullscreen66(on){if(!sportsGroupsResult66.length)return toast('Skapa indelningen först.');const b=$('sportsFullscreen66'),show=typeof on==='boolean'?on:b.classList.contains('hide');b.classList.toggle('hide',!show);document.body.classList.toggle('studentRandomFullscreenLock',show)}
+function resetSports66(){sportsGroupsResult66=[];$('sportsResult66')?.classList.add('hide');$('sportsBefore66')?.classList.remove('hide');$('sportsKeep66').checked=false}
+
+const _view66=view;
+view=function(v){
+  if(v!=='sports')return _view66(v);
+  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.v===v));document.querySelectorAll('.view').forEach(x=>x.classList.add('hide'));$('sports').classList.remove('hide');$('title').textContent='Idrott & stationer';$('sub').textContent='Skapa lag, stationer eller par snabbt.';renderSports66();
+};
