@@ -1,15 +1,15 @@
-GRUPPCENTRALEN 6.4.1 - TYDLIGARE ELEVSLUMPNING
+GRUPPCENTRALEN 6.4.2 - FLEXIBLARE ELEVSLUMPNING
 
-Byggd direkt pa version 6.4. Klassrumsbyggaren och startsidan ar inte andrade.
+Byggd direkt pa 6.4.1. Klassrumsbyggaren och startsidan ar oforandrade.
 
 NYTT
-- Korrekt rubrik: Slumpa en elev.
-- Mindre och tydligare gruppknappar utan stora kryssrutor.
-- En grupp at gangen som standard, med valj flera som extra val.
-- Franvarosteget aktiveras forst nar en grupp valts.
-- Resultatpanelen forklarar nasta steg och innehaller huvudknappen.
-- Tydlig vaxling till Skapa grupper.
-- Mobilanpassad layout.
+- Flera sparade elevgrupper kan valjas och kombineras.
+- Elevnamn kan skrivas in direkt i en tillfallig snabblista.
+- Snabblistan sparas inte bland elevgrupperna.
+- Nar grupp eller snabblista har valts doljs gruppvalet.
+- Da visas endast valda grupper, narvarande elever och slumpningen.
+- Knappen Andra grupper oppnar gruppvalet igen.
+- Franvaro, rattvis omgang, angra och helskarm finns kvar.
 
 INSTALLATION
 Ersatt index.html, styles.css och app.js. Behall jszip.min.js och service-worker.js. Gor Ctrl+F5.

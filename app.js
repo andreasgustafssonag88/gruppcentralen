@@ -729,3 +729,84 @@ toggleRandom=function(id){selectRandomGroup641(id)};
 /* Korrekt rubrik for den nya huvudfunktionen. */
 const _view641=view;
 view=function(v){_view641(v);if(v==='random'){$('title').textContent='Slumpa en elev';$('sub').textContent='Välj en grupp och slumpa fram en elev snabbt och rättvist.';renderStudentRandom641()}};
+
+/* Gruppcentralen 6.4.2 - flera grupper, snabblista och dolt gruppval */
+let directStudents642=[];
+let directStudentsActive642=false;
+let groupPickerHidden642=false;
+
+function parseDirectStudents642(){
+  const raw=$('random642DirectNames')?.value||'';
+  const seen=new Set();
+  return raw.split(/\r?\n|;|\t/).map(x=>x.trim()).filter(name=>{
+    const key=norm(name);if(!key||seen.has(key))return false;seen.add(key);return true;
+  });
+}
+function toggleDirectStudents642(){
+  $('random642DirectPanel')?.classList.toggle('hide');
+}
+function updateDirectStudents642(){
+  const count=parseDirectStudents642().length;
+  const button=$('random642DirectToggle');
+  if(button)button.textContent=count?`✍ Snabblista · ${count} elever`:'✍ Skriv in elever direkt';
+}
+function useDirectStudents642(){
+  directStudents642=parseDirectStudents642();
+  if(!directStudents642.length)return toast('Skriv in minst ett elevnamn.');
+  directStudentsActive642=true;
+  randSel.clear();studentRandomAbsent63.clear();
+  groupPickerHidden642=true;
+  $('random642DirectPanel')?.classList.add('hide');
+  syncStudentRound63(true);renderStudentRandom641();
+}
+function clearDirectStudents642(){
+  if($('random642DirectNames'))$('random642DirectNames').value='';
+  directStudents642=[];directStudentsActive642=false;groupPickerHidden642=false;
+  updateDirectStudents642();syncStudentRound63(true);renderStudentRandom641();
+}
+function changeGroups642(){
+  groupPickerHidden642=false;directStudentsActive642=false;directStudents642=[];
+  studentRandomAbsent63.clear();syncStudentRound63(true);renderStudentRandom641();
+}
+
+/* Snabblistan deltar i samma slumpmotor som sparade grupper. */
+const _studentEntries642=studentEntries63;
+studentEntries63=function(){
+  if(directStudentsActive642)return directStudents642.map(name=>({name,groups:['Snabblista']}));
+  return _studentEntries642();
+};
+
+/* Flera grupper kan valjas direkt. Nar minst en grupp valts doljs valjaren. */
+selectRandomGroup641=function(id){
+  directStudentsActive642=false;directStudents642=[];
+  randSel.has(id)?randSel.delete(id):randSel.add(id);
+  studentRandomAbsent63.clear();
+  groupPickerHidden642=randSel.size>0;
+  syncStudentRound63(true);renderStudentRandom641();
+};
+
+toggleRandomMulti641=function(){
+  randomMulti641=true;
+  groupPickerHidden642=false;
+  renderStudentRandom641();
+};
+
+const _renderStudentRandom641_642=renderStudentRandom641;
+renderStudentRandom641=function(){
+  _renderStudentRandom641_642();
+  const has=directStudentsActive642||randSel.size>0;
+  const step=$('randomChecks')?.closest('.random641Step');
+  step?.classList.toggle('random642PickerHidden',groupPickerHidden642&&has);
+  const chosen=$('random642Chosen');
+  chosen?.classList.toggle('hide',!(groupPickerHidden642&&has));
+  const names=$('random642ChosenNames');
+  if(names){
+    names.textContent=directStudentsActive642
+      ?`Snabblista · ${directStudents642.length} elever`
+      :groups.filter(g=>randSel.has(g.id)).map(g=>g.name).join(' + ');
+  }
+  const multi=$('random641MultiButton');
+  if(multi)multi.textContent=randSel.size>1?`${randSel.size} grupper valda`:'Välj flera grupper';
+};
+renderStudentRandom63=renderStudentRandom641;
+renderRandom=function(){renderStudentRandom641()};
