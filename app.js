@@ -576,3 +576,94 @@ function t62(type,seats,x,y,rotation=0){return{id:uid(),type,seats,x,y,rotation,
 function c62(total,max){let n=Math.ceil(total/max),b=Math.floor(total/n),e=total%n;return Array.from({length:n},(_,i)=>b+(i<e?1:0))}
 function buildTemplate62(k,seats){let r=ensureRoom52(blank());r.canvasWidth=1000;r.canvasHeight=680;r.tables=[];r.objects=[];r.name={blank:'Nytt klassrum',rows:'Rader',islands:'Bordsöar',u:'U-form',exam:'Provplacering'}[k];if(k==='blank')return r;r.objects.push({id:uid(),type:'board',x:370,y:22,rotation:0,scale:1.15,color:'#e9edf3'});if(k==='rows'){let a=c62(seats,2);a.forEach((n,i)=>r.tables.push(t62('rect',n,70+i%4*220,130+Math.floor(i/4)*145)));r.canvasHeight=Math.max(680,220+Math.ceil(a.length/4)*145)}if(k==='islands'){let a=c62(seats,6),cols=a.length<=4?2:3;a.forEach((n,i)=>r.tables.push(t62('round',n,115+i%cols*300,150+Math.floor(i/cols)*225)));r.canvasHeight=Math.max(680,260+Math.ceil(a.length/cols)*225)}if(k==='u'){let a=c62(seats,4),i=0,l=Math.ceil((a.length-2)/2),rr=a.length-2-l;for(let n=0;n<l;n++,i++)r.tables.push(t62('rect',a[i],90,150+n*145,90));let y=Math.max(430,150+Math.max(l,rr)*145);if(i<a.length)r.tables.push(t62('rect',a[i++],320,y));if(i<a.length)r.tables.push(t62('rect',a[i++],570,y));for(let n=0;n<rr&&i<a.length;n++,i++)r.tables.push(t62('rect',a[i],790,y-145-n*145,90));r.canvasHeight=Math.max(680,y+130)}if(k==='exam'){let cols=seats<=24?5:6;for(let i=0;i<seats;i++)r.tables.push(t62('square',1,80+i%cols*150,130+Math.floor(i/cols)*125));r.canvasHeight=Math.max(680,210+Math.ceil(seats/cols)*125)}return ensureRoom52(r)}
 function createRoomFromTemplate62(k){room=buildTemplate62(k,Number($('templateSeats')?.value)||24);$('templateModal')?.close?.();openEditor();toast('Klassrummet skapades.')}
+
+/* ==========================================================
+   Gruppcentralen 6.3 - snabb elevslumpning
+   Klassrumsbyggaren ar oforandrad fran 6.2.
+   ========================================================== */
+let studentRandomAbsent63=new Set();
+let studentRandomRemaining63=[];
+let studentRandomHistory63=[];
+let studentRandomLastPoolKey63='';
+let studentRandomNoRepeat63=true;
+
+function studentEntries63(){
+  const map=new Map();
+  groups.filter(g=>randSel.has(g.id)).forEach(g=>g.students.forEach(name=>{
+    const key=norm(name);
+    if(!map.has(key))map.set(key,{name,groups:[g.name]});
+    else if(!map.get(key).groups.includes(g.name))map.get(key).groups.push(g.name);
+  }));
+  return [...map.values()];
+}
+function activeStudentEntries63(){return studentEntries63().filter(x=>!studentRandomAbsent63.has(norm(x.name)))}
+function studentPoolKey63(){return activeStudentEntries63().map(x=>norm(x.name)).sort().join('|')}
+function syncStudentRound63(force=false){
+  const key=studentPoolKey63();
+  if(force||key!==studentRandomLastPoolKey63){
+    studentRandomRemaining63=activeStudentEntries63();
+    studentRandomHistory63=[];
+    studentRandomLastPoolKey63=key;
+  }
+}
+function toggleStudentAbsent63(encoded){
+  const name=decodeURIComponent(encoded),key=norm(name);
+  studentRandomAbsent63.has(key)?studentRandomAbsent63.delete(key):studentRandomAbsent63.add(key);
+  syncStudentRound63(true);renderStudentRandom63();
+}
+function resetStudentAttendance63(){studentRandomAbsent63.clear();syncStudentRound63(true);renderStudentRandom63()}
+function renderStudentAttendance63(){
+  const target=$('studentRandomAttendance');if(!target)return;
+  const entries=studentEntries63();
+  target.innerHTML=entries.length?entries.map(x=>`<button type="button" class="studentRandomChip ${studentRandomAbsent63.has(norm(x.name))?'absent':''}" onclick="toggleStudentAbsent63('${encodeURIComponent(x.name)}')"><span>${esc(x.name)}</span><small>${studentRandomAbsent63.has(norm(x.name))?'Frånvarande':'Närvarande'}</small></button>`).join(''):'<span class="meta">Välj minst en elevgrupp.</span>';
+}
+function renderStudentRandom63(){
+  if(!$('randomChecks'))return;
+  $('randomChecks').innerHTML=checkHtml(randSel,'toggleRandom');
+  $('randomEmptyGroups')?.classList.toggle('hide',groups.length>0);
+  renderStudentAttendance63();
+  const active=activeStudentEntries63();
+  const absent=studentRandomAbsent63.size;
+  $('randomInfo').textContent=`${active.length} närvarande${absent?' · '+absent+' frånvarande':''}`;
+  const btn=$('studentRandomButton');if(btn)btn.disabled=!active.length;
+  syncStudentRound63(false);
+}
+renderRandom=function(){renderStudentRandom63()};
+toggleRandom=function(id){randSel.has(id)?randSel.delete(id):randSel.add(id);syncStudentRound63(true);renderStudentRandom63()};
+
+function updateStudentResult63(entry){
+  if(!entry)return;
+  $('studentRandomBefore')?.classList.add('hide');$('studentRandomResult')?.classList.remove('hide');
+  $('studentRandomName').textContent=entry.name;
+  $('studentRandomGroup').textContent=entry.groups.join(' · ');
+  const left=studentRandomNoRepeat63?studentRandomRemaining63.length:activeStudentEntries63().length;
+  $('studentRandomRemaining').textContent=studentRandomNoRepeat63?`${left} elever kvar i omgången`:`Fri slumpning bland ${left} elever`;
+  $('studentUndoButton').disabled=!studentRandomHistory63.length;
+  $('studentRandomFullscreenName').textContent=entry.name;
+  $('studentRandomFullscreenGroup').textContent=entry.groups.join(' · ');
+  $('studentRandomFullscreenRemaining').textContent=$('studentRandomRemaining').textContent;
+}
+function drawStudent63(){
+  studentRandomNoRepeat63=$('studentNoRepeat')?.checked!==false;
+  let active=activeStudentEntries63();
+  if(!active.length)return toast('Välj en elevgrupp med närvarande elever.');
+  syncStudentRound63(false);
+  let pool=studentRandomNoRepeat63?studentRandomRemaining63:active;
+  if(!pool.length){studentRandomRemaining63=[...active];pool=studentRandomRemaining63;toast('Ny omgång startade.');}
+  const index=Math.floor(Math.random()*pool.length),entry=pool[index];
+  if(studentRandomNoRepeat63)studentRandomRemaining63.splice(index,1);
+  studentRandomHistory63.push(entry);updateStudentResult63(entry);
+}
+function undoStudentDraw63(){
+  if(!studentRandomHistory63.length)return;
+  const removed=studentRandomHistory63.pop();
+  if(studentRandomNoRepeat63&&!studentRandomRemaining63.some(x=>norm(x.name)===norm(removed.name)))studentRandomRemaining63.push(removed);
+  const previous=studentRandomHistory63.at(-1);
+  if(previous)updateStudentResult63(previous);else{$('studentRandomResult')?.classList.add('hide');$('studentRandomBefore')?.classList.remove('hide');}
+}
+function resetStudentRound63(){syncStudentRound63(true);$('studentRandomResult')?.classList.add('hide');$('studentRandomBefore')?.classList.remove('hide');toast('Omgången återställdes.')}
+function toggleStudentFullscreen63(on){
+  const box=$('studentRandomFullscreen');if(!box)return;
+  const show=typeof on==='boolean'?on:box.classList.contains('hide');
+  box.classList.toggle('hide',!show);document.body.classList.toggle('studentRandomFullscreenLock',show);
+}
