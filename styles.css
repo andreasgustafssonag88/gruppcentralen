@@ -722,3 +722,73 @@ html,body{max-width:100%;overflow-x:hidden}.workspaceFocus .app>main{padding:12p
 
 /* Gruppcentralen 6.6 - idrott, lag och stationer */
 .home64Primary{grid-template-columns:repeat(4,1fr)!important}.home66Sports .home64Icon{background:#fff0d9}.sports66Layout{display:grid;grid-template-columns:minmax(360px,.72fr) minmax(0,1.28fr);gap:16px}.sports66Setup,.sports66Result{min-height:650px}.sports66Head>span{color:#5268ed;font-size:11px;font-weight:900;letter-spacing:1px}.sports66Head h2{margin:5px 0}.sports66Head p,.sports66StepTitle p{margin:0;color:#6c778c}.sports66Step{margin-top:16px;padding:14px;background:#f8f9fc;border:1px solid #dce2eb;border-radius:14px}.sports66StepTitle{display:grid;grid-template-columns:34px 1fr auto;gap:10px}.sports66StepTitle>b{display:grid;place-items:center;width:32px;height:32px;color:#fff;background:#5268ed;border-radius:50%}.sports66StepTitle h3{margin:2px 0}.sports66StepTitle p{font-size:12px}.sportsGroups66{display:grid;grid-template-columns:1fr 1fr;gap:7px;max-height:190px;margin-top:12px;overflow:auto}.sportsGroups66 button{display:grid;grid-template-columns:25px 1fr;gap:3px 8px;align-items:center;padding:9px;text-align:left;background:#fff;border:2px solid #dce2eb;border-radius:10px}.sportsGroups66 button.selected{background:#eef1ff;border-color:#5268ed}.sportsGroups66 button span{grid-row:1/3;display:grid;place-items:center;width:24px;height:24px;color:#fff;background:#5268ed;border-radius:6px}.sportsGroups66 small{color:#6c778c}.sportsDirectToggle66{margin-top:9px}.sportsDirect66{display:grid;gap:8px;margin-top:8px}.sportsChosen66{display:flex;align-items:center;justify-content:space-between;gap:9px;margin-top:10px;padding:11px;background:#eef1ff;border:1px solid #cbd3ff;border-radius:10px}.sportsAttendance66{display:flex;flex-wrap:wrap;gap:6px;max-height:180px;margin-top:10px;overflow:auto}.sportsAttendance66 button{display:flex;flex-direction:column;padding:7px 9px;text-align:left;color:#08764f;background:#eaf7f1;border:1px solid #b9e7d2;border-radius:10px}.sportsAttendance66 button.absent{color:#8a4553;text-decoration:line-through;background:#fff0f2;border-color:#efbac5}.sportsAttendance66 small{font-size:9px}.sportsLocked66{opacity:.45;pointer-events:none}.sportsType66{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:12px}.sportsType66 button{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px;font-size:21px;background:#fff;border:2px solid #dce2eb;border-radius:11px}.sportsType66 button b{font-size:13px}.sportsType66 button.active{background:#eef1ff;border-color:#5268ed}.sportsCounter66{display:grid;grid-template-columns:44px 1fr 44px;gap:10px;align-items:center;margin:15px auto;width:min(260px,100%)}.sportsCounter66 button{height:44px;color:#5268ed;font-size:25px;background:#eef1ff;border:0;border-radius:50%}.sportsCounter66 strong{font-size:35px;text-align:center}.sportsCounter66 span{grid-column:2;text-align:center;color:#6c778c}.sportsEstimate66{padding:10px;color:#4e5c72;font-size:12px;background:#fff;border-radius:9px}.sportsCreate66,.sportsCreateFs66{width:100%;min-height:49px;margin-top:9px}.sportsCreate66:disabled,.sportsCreateFs66:disabled{opacity:.4}.sports66Result{background:linear-gradient(145deg,#fff,#f5f6ff)}.sportsBefore66{display:grid;place-items:center;align-content:center;height:100%;text-align:center}.sportsBefore66>span{font-size:75px}.sportsBefore66 h2{margin:10px}.sportsBefore66 p{color:#6c778c}.sportsResultHead66{display:flex;align-items:center;justify-content:space-between;gap:12px}.sportsResultHead66 span{color:#5268ed;font-size:11px;font-weight:900}.sportsResultHead66 h2{margin:4px 0}.keepTeams66{display:flex;align-items:center;gap:7px;padding:8px 10px;background:#eef1ff;border-radius:10px}.keepTeams66 input{width:auto}.sportsCards66,.sportsFsCards66{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px;max-height:515px;overflow:auto}.sportsCard66{padding:13px;background:#fff;border-top:7px solid #5268ed;border-radius:13px;box-shadow:0 5px 16px #29375414}.sportsCard66.c1{border-color:#e34f61}.sportsCard66.c2{border-color:#23a36d}.sportsCard66.c3{border-color:#e9b239}.sportsCard66.c4{border-color:#9b64d9}.sportsCard66.c5{border-color:#e8813c}.sportsCard66 h3{margin:0}.sportsCard66 small{color:#6c778c}.sportsCard66 ul{display:grid;gap:6px;padding-left:20px}.sportsActions66{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.sportsFullscreen66{position:fixed;inset:0;z-index:5200;display:flex;flex-direction:column;padding:28px;color:#fff;background:#17223c}.sportsFullscreen66>span,.sportsFullscreen66>h2{text-align:center}.sportsFullscreen66>span{font-size:12px;font-weight:900;letter-spacing:2px;color:#cbd6ff}.sportsFsCards66{flex:1;max-height:none}.sportsFullscreen66 .sportsCard66{color:#172036}.sportsFullscreen66>.primary{align-self:center;margin-top:15px}.sportsFsClose66{position:fixed;top:16px;right:16px;padding:9px 12px;font-weight:850;background:#fff;border:0;border-radius:10px}@media(max-width:1050px){.home64Primary{grid-template-columns:repeat(2,1fr)!important}.sports66Layout{grid-template-columns:minmax(330px,.8fr) minmax(0,1.2fr)}.sportsCards66{grid-template-columns:repeat(2,1fr)}}@media(max-width:850px){.sports66Layout{grid-template-columns:1fr}.sports66Setup,.sports66Result{min-height:auto}.sports66Result{min-height:420px}}@media(max-width:560px){.home64Primary{grid-template-columns:1fr!important}.sports66Setup,.sports66Result{padding:14px}.sportsGroups66,.sportsCards66,.sportsFsCards66{grid-template-columns:1fr}.sportsType66{grid-template-columns:repeat(3,1fr)}.sportsResultHead66{align-items:stretch;flex-direction:column}.sportsActions66{display:grid;grid-template-columns:1fr 1fr}.sportsActions66 .primary{grid-column:1/-1}.sportsFullscreen66{padding:58px 14px 16px}}
+
+/* ==========================================================
+   Gruppcentralen 6.6.1 - ren klassrumsutskrift
+   ========================================================== */
+.classroomPrintOnly661{display:none}
+@media print{
+  @page{size:landscape;margin:10mm}
+  body.printClassroomOnly661{margin:0!important;background:#fff!important}
+  body.printClassroomOnly661>*:not(#classroomPrintOnly661){display:none!important}
+  body.printClassroomOnly661 #classroomPrintOnly661{
+    display:block!important;
+    width:100%!important;
+    margin:0!important;
+    padding:0!important;
+    color:#111827!important;
+    background:#fff!important;
+  }
+  .classroomPrintHeading661{
+    display:block!important;
+    margin:0 0 7mm!important;
+    padding:0!important;
+    text-align:center!important;
+  }
+  .classroomPrintHeading661 h1{
+    margin:0 0 2mm!important;
+    color:#111827!important;
+    font-size:22pt!important;
+    line-height:1.1!important;
+  }
+  .classroomPrintHeading661 p{
+    margin:0!important;
+    color:#475569!important;
+    font-size:12pt!important;
+    font-weight:700!important;
+  }
+  .classroomPrintFrame661{
+    display:flex!important;
+    align-items:flex-start!important;
+    justify-content:center!important;
+    width:100%!important;
+    margin:0!important;
+    padding:0!important;
+    overflow:visible!important;
+  }
+  #classroomPrintCanvas661{
+    display:block!important;
+    position:relative!important;
+    margin:0 auto!important;
+    transform:none!important;
+    transform-origin:top left!important;
+    overflow:visible!important;
+    border:2px solid #334155!important;
+    border-radius:0!important;
+    box-shadow:none!important;
+    print-color-adjust:exact!important;
+    -webkit-print-color-adjust:exact!important;
+  }
+  #classroomPrintCanvas661 .obj,
+  #classroomPrintCanvas661 .seat{
+    print-color-adjust:exact!important;
+    -webkit-print-color-adjust:exact!important;
+  }
+  #classroomPrintCanvas661 button,
+  #classroomPrintCanvas661 .rotateHandle,
+  #classroomPrintCanvas661 .rotateStem,
+  #classroomPrintCanvas661 .gcCanvasResize615,
+  #classroomPrintCanvas661 .gcCanvasSize615{
+    display:none!important;
+  }
+}

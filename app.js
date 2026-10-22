@@ -989,3 +989,51 @@ view=function(v){
   if(v!=='sports')return _view66(v);
   document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.v===v));document.querySelectorAll('.view').forEach(x=>x.classList.add('hide'));$('sports').classList.remove('hide');$('title').textContent='Idrott & stationer';$('sub').textContent='Skapa lag, stationer eller par snabbt.';renderSports66();
 };
+
+/* ==========================================================
+   Gruppcentralen 6.6.1 - skriv endast ut klassrummet
+   En separat utskriftskopia skapas. Ovriga delar av appen ingar inte.
+   ========================================================== */
+function removeClassroomPrintRoot661(){
+  document.getElementById('classroomPrintOnly661')?.remove();
+  document.body.classList.remove('printClassroomOnly661');
+}
+function buildClassroomPrintRoot661(){
+  removeClassroomPrintRoot661();
+  if(!room)return null;
+  try{updateRoomMeta?.()}catch(e){}
+  try{updatePrintHeading61?.()}catch(e){}
+
+  const source=$('canvas');
+  if(!source)return null;
+  const root=document.createElement('main');
+  root.id='classroomPrintOnly661';
+  root.className='classroomPrintOnly661';
+
+  const heading=document.createElement('header');
+  heading.className='classroomPrintHeading661';
+  const title=($('printRoomName')?.textContent||room.name||'Klassrum').trim();
+  const subtitle=($('printPlacementName')?.textContent||'').trim();
+  heading.innerHTML=`<h1>${esc(title)}</h1>${subtitle?`<p>${esc(subtitle)}</p>`:''}`;
+
+  const frame=document.createElement('section');
+  frame.className='classroomPrintFrame661';
+  const clone=source.cloneNode(true);
+  clone.id='classroomPrintCanvas661';
+  clone.querySelectorAll('button,.rotateHandle,.rotateStem,.gcCanvasResize615,.gcCanvasSize615').forEach(el=>el.remove());
+  clone.querySelectorAll('.selected').forEach(el=>el.classList.remove('selected'));
+  frame.appendChild(clone);
+  root.append(heading,frame);
+  document.body.appendChild(root);
+  document.body.classList.add('printClassroomOnly661');
+  return root;
+}
+
+/* Ersatter tidigare utskrift: bara rubrik och klassrumsyta skrivs ut. */
+printPlacement=function(){
+  if(!room)return;
+  const root=buildClassroomPrintRoot661();
+  if(!root)return toast('Klassrummet kunde inte förberedas för utskrift.');
+  requestAnimationFrame(()=>requestAnimationFrame(()=>window.print()));
+};
+window.addEventListener('afterprint',removeClassroomPrintRoot661);
