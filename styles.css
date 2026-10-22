@@ -829,3 +829,47 @@ html,body{max-width:100%;overflow-x:hidden}.workspaceFocus .app>main{padding:12p
     page-break-inside:avoid!important;
   }
 }
+
+/* Gruppcentralen 6.6.3 - zoom paverkar layoutboxen och hindrar sida 2 */
+@media print{
+  @page{size:A4 landscape;margin:7mm}
+  body.printClassroomOnly661,
+  body.printClassroomOnly661 #classroomPrintOnly661{
+    width:100%!important;
+    min-height:0!important;
+    overflow:hidden!important;
+  }
+  body.printClassroomOnly661 #classroomPrintOnly661{
+    position:relative!important;
+    box-sizing:border-box!important;
+    break-after:avoid-page!important;
+    page-break-after:avoid!important;
+  }
+  .classroomPrintHeading661{
+    margin:0 0 4mm!important;
+  }
+  .classroomPrintFrame661{
+    display:block!important;
+    position:relative!important;
+    margin:0 auto!important;
+    padding:0!important;
+    overflow:hidden!important;
+    break-before:avoid-page!important;
+    break-after:avoid-page!important;
+    break-inside:avoid-page!important;
+    page-break-before:avoid!important;
+    page-break-after:avoid!important;
+    page-break-inside:avoid!important;
+  }
+  #classroomPrintCanvas661{
+    position:relative!important;
+    top:auto!important;
+    left:auto!important;
+    margin:0!important;
+    transform:none!important;
+    transform-origin:top left!important;
+    overflow:hidden!important;
+    break-inside:avoid-page!important;
+    page-break-inside:avoid!important;
+  }
+}

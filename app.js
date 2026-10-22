@@ -1082,3 +1082,55 @@ printPlacement=function(){
     requestAnimationFrame(()=>window.print());
   }));
 };
+
+/* ==========================================================
+   Gruppcentralen 6.6.3 - stabil utskrift pa exakt en sida
+   Chrome paginerar transformerade element efter deras oskalade box.
+   Darfor anvands CSS zoom, som ocksa skalar layoutboxen.
+   ========================================================== */
+function fitClassroomPrintToOnePage663(){
+  const canvas=document.getElementById('classroomPrintCanvas661');
+  const frame=document.querySelector('.classroomPrintFrame661');
+  const root=document.getElementById('classroomPrintOnly661');
+  const heading=document.querySelector('.classroomPrintHeading661');
+  if(!canvas||!frame||!root)return;
+
+  const roomWidth=Math.max(1,Number(room?.canvasWidth)||canvas.scrollWidth||canvas.offsetWidth);
+  const roomHeight=Math.max(1,Number(room?.canvasHeight)||canvas.scrollHeight||canvas.offsetHeight);
+
+  /* Saker utskriftsyta inom A4 liggande, aven nar Chrome visar
+     sidhuvud/sidfot. Vardena ar medvetet nagot konservativa. */
+  const printableWidth=980;
+  const printableHeight=610;
+  const headingHeight=heading&&heading.textContent.trim()?Math.ceil(heading.offsetHeight):0;
+  const availableHeight=Math.max(250,printableHeight-headingHeight-14);
+  const scale=Math.min(1,printableWidth/roomWidth,availableHeight/roomHeight);
+
+  canvas.style.transform='none';
+  canvas.style.removeProperty('--print-scale-662');
+  canvas.style.zoom=String(scale);
+  canvas.style.width=`${roomWidth}px`;
+  canvas.style.height=`${roomHeight}px`;
+  canvas.style.minWidth='0';
+  canvas.style.minHeight='0';
+
+  frame.style.width=`${Math.ceil(roomWidth*scale)}px`;
+  frame.style.height=`${Math.ceil(roomHeight*scale)}px`;
+  frame.style.maxWidth='100%';
+  frame.style.overflow='hidden';
+
+  root.style.height=`${Math.ceil(headingHeight+roomHeight*scale+14)}px`;
+  root.style.maxHeight=`${printableHeight}px`;
+  root.dataset.printScale=scale.toFixed(3);
+}
+
+/* Den senaste anpassningen ersatter 6.6.2 helt. */
+printPlacement=function(){
+  if(!room)return;
+  const root=buildClassroomPrintRoot661();
+  if(!root)return toast('Klassrummet kunde inte förberedas för utskrift.');
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    fitClassroomPrintToOnePage663();
+    requestAnimationFrame(()=>window.print());
+  }));
+};

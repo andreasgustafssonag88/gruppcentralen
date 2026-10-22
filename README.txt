@@ -1,22 +1,20 @@
-GRUPPCENTRALEN 6.6.2 - AUTOMATISK UTSKRIFTSANPASSNING
+GRUPPCENTRALEN 6.6.3 - KORRIGERAD ENSIDESUTSKRIFT
 
-Byggd direkt pa version 6.6.1.
+Byggd direkt pa version 6.6.2.
 
-NYTT
-- Klassrummets verkliga bredd och hojd mats fore utskrift.
-- Hela klassrummet skalas proportionerligt till en liggande A4-sida.
-- Breda, langa och avlanga klassrum anpassas automatiskt.
-- Mobler och elevnamn flyttas inte och forvrangs inte.
-- Rubriken raknas in i den tillgangliga hojden.
-- Sakerhetsmarginal minskar risken for en extra tom sida.
-- Samma anpassning anvands vid Spara som PDF.
-- Endast klassrummet skrivs fortfarande ut.
+ORSAK
+Den tidigare losningen anvande transform: scale. Chrome visade klassrummet mindre men beraknade sidbrytningen fran den oskalade klassrumsytan. Darfor kunde en tom eller halv sida 2 skapas.
 
-OBS
-Webblasaren kan fortfarande visa egna val for skalning. Normal installning eller standardstorlek rekommenderas eftersom Gruppcentralen redan har anpassat innehållet.
+ATGARDAT
+- Utskriften anvander nu CSS zoom, som skalar bade innehall och layoutbox.
+- Klassrummet anpassas till A4 liggande med sakerhetsutrymme for sidhuvud och sidfot.
+- Utskriftsramens verkliga storlek motsvarar den skalade klassrumsytan.
+- Overflod doljs och sidbrytning inne i klassrummet blockeras.
+- Endast klassrummet skrivs ut.
+- Samma losning anvands vid Spara som PDF.
+
+TIPS
+For maximalt utrymme kan Sidhuvud och sidfot stangas av i webblasaren. Det ska dock inte langre kravdes for att klassrummet ska hamna pa en sida.
 
 INSTALLATION
-1. Packa upp ZIP-filen.
-2. Ersatt index.html, styles.css och app.js.
-3. Behall jszip.min.js och service-worker.js oforandrade.
-4. Publicera och gor Ctrl+F5.
+Ersatt index.html, styles.css och app.js. Behall jszip.min.js och service-worker.js. Publicera och gor Ctrl+F5.
