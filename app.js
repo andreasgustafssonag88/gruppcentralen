@@ -1037,3 +1037,48 @@ printPlacement=function(){
   requestAnimationFrame(()=>requestAnimationFrame(()=>window.print()));
 };
 window.addEventListener('afterprint',removeClassroomPrintRoot661);
+
+/* ==========================================================
+   Gruppcentralen 6.6.2 - automatisk anpassning till en utskriftssida
+   ========================================================== */
+function fitClassroomPrintToOnePage662(){
+  const canvas=document.getElementById('classroomPrintCanvas661');
+  const frame=document.querySelector('.classroomPrintFrame661');
+  const heading=document.querySelector('.classroomPrintHeading661');
+  if(!canvas||!frame)return;
+
+  /* A4 liggande med 10 mm marginal: cirka 1047 x 718 CSS-pixlar vid 96 dpi.
+     En liten sakerhetsmarginal minskar risken for en extra tom sida. */
+  const pageWidth=1010;
+  const pageHeight=680;
+  const headingHeight=heading?Math.ceil(heading.getBoundingClientRect().height):0;
+  const availableHeight=Math.max(260,pageHeight-headingHeight-18);
+  const roomWidth=Math.max(1,canvas.scrollWidth,Number(room?.canvasWidth)||0);
+  const roomHeight=Math.max(1,canvas.scrollHeight,Number(room?.canvasHeight)||0);
+  const scale=Math.min(1,pageWidth/roomWidth,availableHeight/roomHeight);
+
+  canvas.style.setProperty('--print-scale-662',String(scale));
+  canvas.style.transform=`scale(${scale})`;
+  frame.style.width=`${Math.ceil(roomWidth*scale)}px`;
+  frame.style.height=`${Math.ceil(roomHeight*scale)}px`;
+  frame.dataset.printScale=scale.toFixed(3);
+}
+
+const _buildClassroomPrintRoot662=buildClassroomPrintRoot661;
+buildClassroomPrintRoot661=function(){
+  const root=_buildClassroomPrintRoot662();
+  if(root){
+    requestAnimationFrame(()=>fitClassroomPrintToOnePage662());
+  }
+  return root;
+};
+
+printPlacement=function(){
+  if(!room)return;
+  const root=buildClassroomPrintRoot661();
+  if(!root)return toast('Klassrummet kunde inte förberedas för utskrift.');
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    fitClassroomPrintToOnePage662();
+    requestAnimationFrame(()=>window.print());
+  }));
+};

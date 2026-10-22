@@ -1,14 +1,19 @@
-GRUPPCENTRALEN 6.6.1 - REN KLASSRUMSUTSKRIFT
+GRUPPCENTRALEN 6.6.2 - AUTOMATISK UTSKRIFTSANPASSNING
 
-Byggd direkt pa version 6.6.
+Byggd direkt pa version 6.6.1.
 
-ATGARDAT
-- Dela och skriv ut i klassrumsbyggaren skriver nu endast ut klassrummet.
-- Gruppslumpning, idrott, menyer, sidopaneler och andra appdelar kommer inte med.
-- Klass, amne, gruppnamn och placeringsnamn visas ovanfor klassrummet om de ar ifyllda.
-- Mobler, elevnamn, farger och den valda klassrumsstorleken foljer med.
-- Redigeringshandtag, markeringsramar och knappar tas bort fran utskriften.
-- Samma rena vy anvands nar webblasaren sparar utskriften som PDF.
+NYTT
+- Klassrummets verkliga bredd och hojd mats fore utskrift.
+- Hela klassrummet skalas proportionerligt till en liggande A4-sida.
+- Breda, langa och avlanga klassrum anpassas automatiskt.
+- Mobler och elevnamn flyttas inte och forvrangs inte.
+- Rubriken raknas in i den tillgangliga hojden.
+- Sakerhetsmarginal minskar risken for en extra tom sida.
+- Samma anpassning anvands vid Spara som PDF.
+- Endast klassrummet skrivs fortfarande ut.
+
+OBS
+Webblasaren kan fortfarande visa egna val for skalning. Normal installning eller standardstorlek rekommenderas eftersom Gruppcentralen redan har anpassat innehållet.
 
 INSTALLATION
 1. Packa upp ZIP-filen.

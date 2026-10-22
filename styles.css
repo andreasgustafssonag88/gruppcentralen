@@ -792,3 +792,40 @@ html,body{max-width:100%;overflow-x:hidden}.workspaceFocus .app>main{padding:12p
     display:none!important;
   }
 }
+
+/* Gruppcentralen 6.6.2 - automatisk en-sidesanpassning */
+@media print{
+  html,body.printClassroomOnly661{
+    width:100%!important;
+    height:auto!important;
+    overflow:visible!important;
+  }
+  body.printClassroomOnly661 #classroomPrintOnly661{
+    break-inside:avoid!important;
+    page-break-inside:avoid!important;
+  }
+  .classroomPrintHeading661{
+    break-after:avoid!important;
+    page-break-after:avoid!important;
+  }
+  .classroomPrintFrame661{
+    display:block!important;
+    position:relative!important;
+    flex:none!important;
+    max-width:100%!important;
+    margin:0 auto!important;
+    overflow:visible!important;
+    break-inside:avoid!important;
+    page-break-inside:avoid!important;
+  }
+  #classroomPrintCanvas661{
+    position:absolute!important;
+    top:0!important;
+    left:0!important;
+    margin:0!important;
+    transform:scale(var(--print-scale-662,1))!important;
+    transform-origin:top left!important;
+    break-inside:avoid!important;
+    page-break-inside:avoid!important;
+  }
+}
