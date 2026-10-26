@@ -1135,97 +1135,45 @@ printPlacement=function(){
   }));
 };
 
+/* 6.6.4 compatibility: temporary classroom students */
+function ensureTemporaryStudents664(r=room){if(!r)return[];r.temporaryStudents=Array.isArray(r.temporaryStudents)?r.temporaryStudents.map(String).map(x=>x.trim()).filter(Boolean):[];r.temporaryStudents=[...new Map(r.temporaryStudents.map(n=>[norm(n),n])).values()];return r.temporaryStudents}
+function toggleTemporaryStudents664(show){let f=$('temporaryStudentsForm664');if(!f)return;let open=typeof show==='boolean'?show:f.classList.contains('hide');f.classList.toggle('hide',!open);if(open)requestAnimationFrame(()=>$('temporaryStudentsNames664')?.focus())}
+function addTemporaryStudents664(){if(!room)return;let seen=new Set(ensureTemporaryStudents664().map(norm)),names=($('temporaryStudentsNames664')?.value||'').split(/\r?\n|;|\t/).map(x=>x.trim()).filter(Boolean),added=0;names.forEach(n=>{if(!seen.has(norm(n))){room.temporaryStudents.push(n);seen.add(norm(n));added++}});if($('temporaryStudentsNames664'))$('temporaryStudentsNames664').value='';toggleTemporaryStudents664(false);scheduleAutosave();renderInlinePanel();toast(added?`${added} tillfälliga elever lades till.`:'Inga nya elever lades till.')}
+function removeTemporaryStudent664(v){let n=decodeURIComponent(v);if(!confirm(`Ta bort ”${n}” från klassrummet?`))return;room.temporaryStudents=ensureTemporaryStudents664().filter(x=>norm(x)!==norm(n));room.tables.forEach(t=>t.names=t.names.map(x=>norm(x)===norm(n)?'':x));scheduleAutosave();renderCanvas()}
+function renderTemporaryStudents664(){let b=$('temporaryStudentsList664');if(!b||!room)return;let a=ensureTemporaryStudents664();b.innerHTML=a.length?`<div class="temporaryStudentsChips664">${a.map(n=>`<span><b>${esc(n)}</b><small>Tillfällig</small><button onclick="removeTemporaryStudent664('${encodeURIComponent(n)}')">×</button></span>`).join('')}</div>`:''}
+const _inlineStudents665=inlineStudents;inlineStudents=function(){let a=_inlineStudents665(),seen=new Set(a.map(norm));ensureTemporaryStudents664().forEach(n=>{if(!seen.has(norm(n)))a.push(n)});return a};
+const _renderInlinePanel665=renderInlinePanel;renderInlinePanel=function(){_renderInlinePanel665();renderTemporaryStudents664()};
+const _placementSnapshot665=placementSnapshot;placementSnapshot=function(name){let p=_placementSnapshot665(name);p.temporaryStudents=[...ensureTemporaryStudents664()];return p};
+const _loadPlacement665=loadPlacement;loadPlacement=function(id){let p=id&&room?.placements?.find(x=>x.id===id);_loadPlacement665(id);if(p){room.temporaryStudents=[...(p.temporaryStudents||[])];renderInlinePanel();scheduleAutosave()}};
+const _openEditor665=openEditor;openEditor=function(){ensureTemporaryStudents664();return _openEditor665()};
+
 /* ==========================================================
-   Gruppcentralen 6.6.4 - tillfalliga elever i klassrummet
+   6.6.5: exact one-page print without clipping.
+   The canvas keeps original dimensions inside a scaled wrapper.
+   The wrapper alone participates in page layout.
    ========================================================== */
-function ensureTemporaryStudents664(r=room){
-  if(!r)return [];
-  r.temporaryStudents=Array.isArray(r.temporaryStudents)?r.temporaryStudents.map(x=>String(x).trim()).filter(Boolean):[];
-  r.temporaryStudents=[...new Map(r.temporaryStudents.map(n=>[norm(n),n])).values()];
-  return r.temporaryStudents;
+function fitClassroomPrintToOnePage665(){
+  const canvas=document.getElementById('classroomPrintCanvas661');
+  const frame=document.querySelector('.classroomPrintFrame661');
+  const root=document.getElementById('classroomPrintOnly661');
+  const heading=document.querySelector('.classroomPrintHeading661');
+  if(!canvas||!frame||!root)return;
+  const rw=Math.max(1,Number(room?.canvasWidth)||canvas.scrollWidth||canvas.offsetWidth);
+  const rh=Math.max(1,Number(room?.canvasHeight)||canvas.scrollHeight||canvas.offsetHeight);
+  const headingH=heading&&heading.textContent.trim()?Math.ceil(heading.getBoundingClientRect().height):0;
+  /* Safe printable area for A4 landscape with standard browser headers/footers. */
+  const maxW=940,maxH=Math.max(300,520-headingH);
+  const scale=Math.min(1,maxW/rw,maxH/rh);
+  canvas.style.zoom='1';
+  canvas.style.width=`${rw}px`;canvas.style.height=`${rh}px`;
+  canvas.style.minWidth=`${rw}px`;canvas.style.minHeight=`${rh}px`;
+  canvas.style.transform=`scale(${scale})`;
+  canvas.style.transformOrigin='top left';
+  canvas.style.position='absolute';canvas.style.inset='0 auto auto 0';
+  frame.style.width=`${Math.floor(rw*scale)}px`;
+  frame.style.height=`${Math.floor(rh*scale)}px`;
+  frame.style.position='relative';frame.style.overflow='visible';
+  root.style.height='auto';root.style.maxHeight='none';
+  root.dataset.printScale=scale.toFixed(4);
 }
-function toggleTemporaryStudents664(show){
-  const form=$('temporaryStudentsForm664');if(!form)return;
-  const open=typeof show==='boolean'?show:form.classList.contains('hide');
-  form.classList.toggle('hide',!open);
-  if(open)requestAnimationFrame(()=>$('temporaryStudentsNames664')?.focus());
-}
-function parseTemporaryStudents664(){
-  const raw=$('temporaryStudentsNames664')?.value||'',seen=new Set();
-  return raw.split(/\r?\n|;|\t/).map(x=>x.trim()).filter(n=>{const k=norm(n);if(!k||seen.has(k))return false;seen.add(k);return true});
-}
-function allKnownStudentKeys664(){
-  return new Set([...groups.flatMap(g=>g.students||[]),...ensureTemporaryStudents664()].map(norm));
-}
-function addTemporaryStudents664(){
-  if(!room)return;
-  const names=parseTemporaryStudents664();
-  if(!names.length)return toast('Skriv in minst ett elevnamn.');
-  ensureTemporaryStudents664();
-  const known=allKnownStudentKeys664();
-  const added=[];
-  names.forEach(name=>{const k=norm(name);if(!known.has(k)){room.temporaryStudents.push(name);known.add(k);added.push(name)}});
-  if($('temporaryStudentsNames664'))$('temporaryStudentsNames664').value='';
-  toggleTemporaryStudents664(false);
-  scheduleAutosave();renderInlinePanel();
-  toast(added.length?`${added.length} tillfälliga elever lades till.`:'Eleverna finns redan i klassrummet eller en vald grupp.');
-}
-function renameTemporaryStudent664(encoded){
-  if(!room)return;ensureTemporaryStudents664();
-  const oldName=decodeURIComponent(encoded),index=room.temporaryStudents.findIndex(n=>norm(n)===norm(oldName));
-  if(index<0)return;
-  const next=prompt('Ändra elevens namn:',oldName)?.trim();
-  if(!next||norm(next)===norm(oldName))return;
-  if(allKnownStudentKeys664().has(norm(next)))return toast('Det namnet finns redan.');
-  snapshotRoom();room.temporaryStudents[index]=next;
-  room.tables.forEach(t=>t.names=t.names.map(n=>norm(n)===norm(oldName)?next:n));
-  room.placements?.forEach(p=>{p.temporaryStudents=(p.temporaryStudents||[]).map(n=>norm(n)===norm(oldName)?next:n);p.tables?.forEach(t=>t.names=(t.names||[]).map(n=>norm(n)===norm(oldName)?next:n))});
-  scheduleAutosave();renderCanvas();toast('Namnet ändrades.');
-}
-function removeTemporaryStudent664(encoded){
-  if(!room)return;ensureTemporaryStudents664();
-  const name=decodeURIComponent(encoded),placed=room.tables.some(t=>(t.names||[]).some(n=>norm(n)===norm(name)));
-  const text=placed?`”${name}” är placerad. Ta bort eleven även från placeringen?`:`Ta bort ”${name}” från klassrummet?`;
-  if(!confirm(text))return;
-  snapshotRoom();room.temporaryStudents=room.temporaryStudents.filter(n=>norm(n)!==norm(name));
-  room.tables.forEach(t=>t.names=t.names.map(n=>norm(n)===norm(name)?'':n));
-  room.placements?.forEach(p=>{p.temporaryStudents=(p.temporaryStudents||[]).filter(n=>norm(n)!==norm(name));p.tables?.forEach(t=>t.names=(t.names||[]).map(n=>norm(n)===norm(name)?'':n))});
-  scheduleAutosave();renderCanvas();toast('Den tillfälliga eleven togs bort.');
-}
-function clearTemporaryStudents664(){
-  const names=ensureTemporaryStudents664();if(!names.length)return;
-  if(!confirm(`Ta bort alla ${names.length} tillfälliga elever och deras placeringar?`))return;
-  const keys=new Set(names.map(norm));snapshotRoom();room.temporaryStudents=[];
-  room.tables.forEach(t=>t.names=t.names.map(n=>keys.has(norm(n))?'':n));
-  room.placements?.forEach(p=>{p.temporaryStudents=[];p.tables?.forEach(t=>t.names=(t.names||[]).map(n=>keys.has(norm(n))?'':n))});
-  scheduleAutosave();renderCanvas();toast('Alla tillfälliga elever togs bort.');
-}
-function renderTemporaryStudents664(){
-  const box=$('temporaryStudentsList664');if(!box||!room)return;
-  const names=ensureTemporaryStudents664();
-  box.innerHTML=names.length?`<div class="temporaryStudentsSummary664"><span>${names.length} tillfälliga</span><button type="button" onclick="clearTemporaryStudents664()">Töm alla</button></div><div class="temporaryStudentsChips664">${names.map(n=>`<span><b>${esc(n)}</b><small>Tillfällig</small><button title="Ändra namn" onclick="renameTemporaryStudent664('${encodeURIComponent(n)}')">✎</button><button title="Ta bort" onclick="removeTemporaryStudent664('${encodeURIComponent(n)}')">×</button></span>`).join('')}</div>`:'';
-}
-
-/* Tillfalliga elever deltar i samma manuella och automatiska placering. */
-const _inlineStudents664=inlineStudents;
-inlineStudents=function(){
-  const out=_inlineStudents664(),seen=new Set(out.map(norm));
-  ensureTemporaryStudents664().forEach(n=>{if(!seen.has(norm(n))){out.push(n);seen.add(norm(n))}});
-  return out;
-};
-const _renderInlinePanel664=renderInlinePanel;
-renderInlinePanel=function(){_renderInlinePanel664();renderTemporaryStudents664()};
-
-/* Spara tillfalliga elever med varje sparad placering. */
-const _placementSnapshot664=placementSnapshot;
-placementSnapshot=function(name){const p=_placementSnapshot664(name);p.temporaryStudents=[...ensureTemporaryStudents664()];return p};
-const _loadPlacement664=loadPlacement;
-loadPlacement=function(id){
-  const p=id&&room?.placements?.find(x=>x.id===id);
-  _loadPlacement664(id);
-  if(p){room.temporaryStudents=Array.isArray(p.temporaryStudents)?[...p.temporaryStudents]:[];renderInlinePanel();scheduleAutosave()}
-};
-
-/* Gamla klassrum far en tom lista utan att paverkas. */
-const _openEditor664=openEditor;
-openEditor=function(){ensureTemporaryStudents664();return _openEditor664()};
+printPlacement=function(){if(!room)return;let root=buildClassroomPrintRoot661();if(!root)return toast('Klassrummet kunde inte förberedas för utskrift.');requestAnimationFrame(()=>requestAnimationFrame(()=>{fitClassroomPrintToOnePage665();requestAnimationFrame(()=>window.print())}))};
