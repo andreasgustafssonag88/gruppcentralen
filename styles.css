@@ -911,3 +911,18 @@ html,body{max-width:100%;overflow-x:hidden}.workspaceFocus .app>main{padding:12p
     page-break-inside:avoid!important;
   }
 }
+
+/* Gruppcentralen 6.6.7 - utskriftsval */
+.printSettings667{width:min(720px,calc(100vw - 26px));max-width:none;padding:0;border:0;border-radius:20px;box-shadow:0 28px 80px #17233b55}.printSettings667::backdrop{background:#17223c88;backdrop-filter:blur(3px)}.printSettingsShell667{padding:22px;background:#f7f9fc}.printSettingsHead667{display:flex;align-items:flex-start;justify-content:space-between;gap:15px}.printSettingsHead667 span{color:#5268ed;font-size:11px;font-weight:900;letter-spacing:1px}.printSettingsHead667 h2{margin:4px 0}.printSettingsHead667 p{margin:0;color:#6c778c}.printSettingsHead667>button{width:40px;height:40px;font-size:23px;background:#e8ecf3;border:0;border-radius:10px}.printSettings667 fieldset{margin:18px 0 0;padding:0;border:0}.printSettings667 legend{margin-bottom:8px;font-weight:900}.printChoiceGrid667{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.printChoiceGrid667.two{grid-template-columns:repeat(2,1fr)}.printChoiceGrid667 label{cursor:pointer}.printChoiceGrid667 input{position:absolute;opacity:0;pointer-events:none}.printChoiceGrid667 label>span{display:flex;flex-direction:column;gap:4px;min-height:85px;padding:14px;color:#34415b;background:#fff;border:2px solid #dce2eb;border-radius:12px}.printChoiceGrid667 input:checked+span{color:#24318c;background:#eef1ff;border-color:#5268ed}.printChoiceGrid667 small{color:#6c778c}.printSettingsActions667{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}.printSettingsActions667 button{min-height:44px}
+@media(max-width:560px){.printChoiceGrid667,.printChoiceGrid667.two{grid-template-columns:1fr}.printChoiceGrid667 label>span{min-height:0}.printSettingsActions667{display:grid;grid-template-columns:1fr 1fr}}
+
+/* Slutlig utskrift byggs redan i ratt storlek, ingen transform pa canvas. */
+@media print{
+  html,body.printClassroomOnly661{width:100%!important;height:auto!important;margin:0!important;overflow:visible!important}
+  body.printClassroomOnly661>*:not(#classroomPrintOnly661){display:none!important}
+  body.printClassroomOnly661 #classroomPrintOnly661{display:block!important;width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;margin:0!important;padding:0!important;overflow:visible!important;break-inside:avoid!important;page-break-inside:avoid!important}
+  .printRoot667 .classroomPrintHeading661{margin:0 0 3mm!important;padding:0!important;text-align:center!important;break-after:avoid!important;page-break-after:avoid!important}
+  .printFrame667{display:block!important;position:relative!important;margin:0 auto!important;padding:0!important;overflow:visible!important;break-inside:avoid!important;page-break-inside:avoid!important;contain:none!important}
+  .printCanvas667{display:block!important;position:relative!important;margin:0!important;border:1.5px solid #334155!important;border-radius:0!important;box-shadow:none!important;overflow:visible!important;transform:none!important;zoom:1!important;print-color-adjust:exact!important;-webkit-print-color-adjust:exact!important}
+  .printCanvas667 .obj,.printCanvas667 .seat{print-color-adjust:exact!important;-webkit-print-color-adjust:exact!important}
+}

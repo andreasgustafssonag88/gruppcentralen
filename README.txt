@@ -1,17 +1,16 @@
-GRUPPCENTRALEN 6.6.6 - UTSKRIFT MED VERKLIGA KLASSRUMSMATT
+GRUPPCENTRALEN 6.6.7 - VALBART SIDFORMAT OCH FYLL SIDAN
 
-Byggd pa 6.6.5 och innehaller tillfalliga elever.
+Byggd pa 6.6.6 och innehaller tillfalliga elever.
 
-ORSAK TILL FELET
-Tidigare versioner anvande i forsta hand sparade canvasWidth/canvasHeight. Den synliga klassrumsytan kunde vara hogre an de sparade matten. Utskriftsramen blev da for lag och nederdelen beskars.
-
-ATGARDAT
-- Matt hamtas nu fran den faktiska synliga klassrumsytan.
-- scrollWidth, scrollHeight, offsetWidth, offsetHeight och moblernas ytterkanter kontrolleras.
-- Den klonade utskriftsytan far de verkliga matten som inline-format.
-- Utskriftsramen raknas fran den faktiska skalade bredden och hojden.
-- contain och all klippning stangs av i utskriftslaget.
-- Hela klassrummet skalas till en A4 liggande sida.
+NYTT
+- En utskriftsdialog visas fore webblasaren.
+- Val: Automatiskt, Liggande eller Staende.
+- Val: Fyll sidan eller Extra marginal.
+- Automatiskt valjer formatet som ger storst klassrum.
+- Utskriftskopian byggs direkt i slutlig storlek.
+- Varje mobels position och skala raknas om, i stallet for att skala hela canvas-elementet.
+- Detta undviker tidigare problem med beskarning och sida 2.
+- Rubrik och klassrum fyller den valda sidans utskrivbara yta.
 - Endast klassrummet skrivs ut.
 
 INSTALLATION

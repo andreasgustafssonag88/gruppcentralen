@@ -1247,3 +1247,96 @@ printPlacement=function(){
     requestAnimationFrame(()=>window.print());
   }));
 };
+
+/* ==========================================================
+   Gruppcentralen 6.6.7 - valbart sidformat och riktig fyll-sidan
+   Utskriftskopian byggs i slutlig storlek. Ingen container transformeras.
+   ========================================================== */
+let printChoice667={orientation:'auto',fit:'fill'};
+function openClassroomPrintSettings667(){
+  if(!room)return;
+  const d=$('printSettings667');
+  if(d?.showModal)d.showModal();else d?.setAttribute('open','');
+}
+
+/* Dela och skriv ut anropar nu installningsrutan. */
+printPlacement=function(){openClassroomPrintSettings667()};
+
+function originalRoomSize667(source){
+  const cs=getComputedStyle(source);
+  return {
+    width:Math.max(1,Number(room?.canvasWidth)||parseFloat(cs.width)||source.offsetWidth||1000),
+    height:Math.max(1,Number(room?.canvasHeight)||parseFloat(cs.height)||source.offsetHeight||680)
+  };
+}
+function pageBox667(orientation,fit){
+  /* CSS-pixlar med sakerhetsutrymme for Chromes sidhuvud/sidfot. */
+  const padding=fit==='fill'?10:38;
+  if(orientation==='portrait')return {width:700-padding*2,height:980-padding*2,label:'portrait'};
+  return {width:1000-padding*2,height:680-padding*2,label:'landscape'};
+}
+function chooseOrientation667(roomW,roomH,headingH,requested,fit){
+  if(requested!=='auto')return requested;
+  const land=pageBox667('landscape',fit),port=pageBox667('portrait',fit);
+  const sl=Math.min(land.width/roomW,(land.height-headingH)/roomH);
+  const sp=Math.min(port.width/roomW,(port.height-headingH)/roomH);
+  return sp>sl?'portrait':'landscape';
+}
+function scaledTransform667(value,scale){
+  const text=value&&value!=='none'?value:'';
+  const match=text.match(/scale\(([-.\d]+)\)/);
+  if(match)return text.replace(match[0],`scale(${Number(match[1])*scale})`);
+  return `${text} scale(${scale})`.trim();
+}
+function buildClassroomPrint667(orientation,fit){
+  removeClassroomPrintRoot661();
+  const source=$('canvas');if(!source||!room)return null;
+  try{updateRoomMeta?.()}catch(e){}
+  try{updatePrintHeading61?.()}catch(e){}
+
+  const size=originalRoomSize667(source);
+  const title=($('printRoomName')?.textContent||room.name||'Klassrum').trim();
+  const subtitle=($('printPlacementName')?.textContent||'').trim();
+  const headingEstimate=subtitle?72:52;
+  const chosen=chooseOrientation667(size.width,size.height,headingEstimate,orientation,fit);
+  const box=pageBox667(chosen,fit);
+  const scale=Math.min(box.width/size.width,(box.height-headingEstimate)/size.height);
+  const finalW=Math.floor(size.width*scale),finalH=Math.floor(size.height*scale);
+
+  let pageStyle=document.getElementById('printPageStyle667');
+  if(!pageStyle){pageStyle=document.createElement('style');pageStyle.id='printPageStyle667';document.head.appendChild(pageStyle)}
+  pageStyle.textContent=`@media print{@page{size:A4 ${chosen};margin:5mm}}`;
+
+  const root=document.createElement('main');root.id='classroomPrintOnly661';root.className='classroomPrintOnly661 printRoot667';
+  const heading=document.createElement('header');heading.className='classroomPrintHeading661';
+  heading.innerHTML=`<h1>${esc(title)}</h1>${subtitle?`<p>${esc(subtitle)}</p>`:''}`;
+  const frame=document.createElement('section');frame.className='classroomPrintFrame661 printFrame667';
+  frame.style.width=finalW+'px';frame.style.height=finalH+'px';
+
+  const clone=source.cloneNode(true);clone.id='classroomPrintCanvas661';clone.classList.add('printCanvas667');
+  clone.querySelectorAll('button,.rotateHandle,.rotateStem,.gcCanvasResize615,.gcCanvasSize615').forEach(x=>x.remove());
+  clone.querySelectorAll('.selected').forEach(x=>x.classList.remove('selected'));
+  clone.style.cssText=`position:relative!important;width:${finalW}px!important;height:${finalH}px!important;min-width:${finalW}px!important;min-height:${finalH}px!important;max-width:${finalW}px!important;max-height:${finalH}px!important;transform:none!important;zoom:1!important;overflow:visible!important;`;
+
+  const sourceObjects=[...source.querySelectorAll(':scope > .obj')];
+  const cloneObjects=[...clone.querySelectorAll(':scope > .obj')];
+  cloneObjects.forEach((el,i)=>{
+    const src=sourceObjects[i];if(!src)return;
+    const left=parseFloat(src.style.left)||src.offsetLeft||0,top=parseFloat(src.style.top)||src.offsetTop||0;
+    const transform=src.style.transform||getComputedStyle(src).transform;
+    el.style.left=(left*scale)+'px';el.style.top=(top*scale)+'px';
+    el.style.transform=scaledTransform667(transform,scale);el.style.transformOrigin='top left';
+  });
+  frame.appendChild(clone);root.append(heading,frame);document.body.appendChild(root);
+  document.body.classList.add('printClassroomOnly661');
+  root.dataset.orientation=chosen;root.dataset.scale=scale.toFixed(4);root.dataset.original=`${size.width}x${size.height}`;
+  return root;
+}
+function confirmClassroomPrint667(){
+  const orientation=document.querySelector('input[name="printOrientation667"]:checked')?.value||'auto';
+  const fit=document.querySelector('input[name="printFit667"]:checked')?.value||'fill';
+  printChoice667={orientation,fit};$('printSettings667')?.close?.();
+  const root=buildClassroomPrint667(orientation,fit);
+  if(!root)return toast('Klassrummet kunde inte förberedas för utskrift.');
+  requestAnimationFrame(()=>requestAnimationFrame(()=>window.print()));
+}
