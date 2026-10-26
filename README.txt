@@ -1,20 +1,22 @@
-GRUPPCENTRALEN 6.6.3 - KORRIGERAD ENSIDESUTSKRIFT
+GRUPPCENTRALEN 6.6.4 - TILLFALLIGA ELEVER I KLASSRUMMET
 
-Byggd direkt pa version 6.6.2.
+Byggd direkt pa de uppladdade 6.6.3-filerna.
 
-ORSAK
-Den tidigare losningen anvande transform: scale. Chrome visade klassrummet mindre men beraknade sidbrytningen fran den oskalade klassrumsytan. Darfor kunde en tom eller halv sida 2 skapas.
-
-ATGARDAT
-- Utskriften anvander nu CSS zoom, som skalar bade innehall och layoutbox.
-- Klassrummet anpassas till A4 liggande med sakerhetsutrymme for sidhuvud och sidfot.
-- Utskriftsramens verkliga storlek motsvarar den skalade klassrumsytan.
-- Overflod doljs och sidbrytning inne i klassrummet blockeras.
-- Endast klassrummet skrivs ut.
-- Samma losning anvands vid Spara som PDF.
-
-TIPS
-For maximalt utrymme kan Sidhuvud och sidfot stangas av i webblasaren. Det ska dock inte langre kravdes for att klassrummet ska hamna pa en sida.
+NYTT
+- I Placera elever finns knappen Lagg till direkt.
+- Ett eller flera namn kan skrivas in, ett namn per rad.
+- Tillfalliga elever visas bland Ej placerade elever.
+- Eleverna kan placeras manuellt eller med Slumpa pa borden.
+- Tillfalliga elever sparas med klassrummet.
+- Tillfalliga elever sparas ocksa separat med sparade placeringar.
+- Namn kan andras och elever kan tas bort.
+- Alla tillfalliga elever kan tommas samtidigt.
+- Tillfalliga elever laggs inte till i ordinarie elevgrupper.
+- Befintliga klassrum och placeringar fungerar utan migrering.
+- Ensidesutskriften fran 6.6.3 finns kvar.
 
 INSTALLATION
-Ersatt index.html, styles.css och app.js. Behall jszip.min.js och service-worker.js. Publicera och gor Ctrl+F5.
+1. Packa upp ZIP-filen.
+2. Ersatt index.html, styles.css och app.js.
+3. Behall jszip.min.js och service-worker.js oforandrade.
+4. Publicera och gor Ctrl+F5.

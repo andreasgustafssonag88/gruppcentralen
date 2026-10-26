@@ -1134,3 +1134,98 @@ printPlacement=function(){
     requestAnimationFrame(()=>window.print());
   }));
 };
+
+/* ==========================================================
+   Gruppcentralen 6.6.4 - tillfalliga elever i klassrummet
+   ========================================================== */
+function ensureTemporaryStudents664(r=room){
+  if(!r)return [];
+  r.temporaryStudents=Array.isArray(r.temporaryStudents)?r.temporaryStudents.map(x=>String(x).trim()).filter(Boolean):[];
+  r.temporaryStudents=[...new Map(r.temporaryStudents.map(n=>[norm(n),n])).values()];
+  return r.temporaryStudents;
+}
+function toggleTemporaryStudents664(show){
+  const form=$('temporaryStudentsForm664');if(!form)return;
+  const open=typeof show==='boolean'?show:form.classList.contains('hide');
+  form.classList.toggle('hide',!open);
+  if(open)requestAnimationFrame(()=>$('temporaryStudentsNames664')?.focus());
+}
+function parseTemporaryStudents664(){
+  const raw=$('temporaryStudentsNames664')?.value||'',seen=new Set();
+  return raw.split(/\r?\n|;|\t/).map(x=>x.trim()).filter(n=>{const k=norm(n);if(!k||seen.has(k))return false;seen.add(k);return true});
+}
+function allKnownStudentKeys664(){
+  return new Set([...groups.flatMap(g=>g.students||[]),...ensureTemporaryStudents664()].map(norm));
+}
+function addTemporaryStudents664(){
+  if(!room)return;
+  const names=parseTemporaryStudents664();
+  if(!names.length)return toast('Skriv in minst ett elevnamn.');
+  ensureTemporaryStudents664();
+  const known=allKnownStudentKeys664();
+  const added=[];
+  names.forEach(name=>{const k=norm(name);if(!known.has(k)){room.temporaryStudents.push(name);known.add(k);added.push(name)}});
+  if($('temporaryStudentsNames664'))$('temporaryStudentsNames664').value='';
+  toggleTemporaryStudents664(false);
+  scheduleAutosave();renderInlinePanel();
+  toast(added.length?`${added.length} tillfälliga elever lades till.`:'Eleverna finns redan i klassrummet eller en vald grupp.');
+}
+function renameTemporaryStudent664(encoded){
+  if(!room)return;ensureTemporaryStudents664();
+  const oldName=decodeURIComponent(encoded),index=room.temporaryStudents.findIndex(n=>norm(n)===norm(oldName));
+  if(index<0)return;
+  const next=prompt('Ändra elevens namn:',oldName)?.trim();
+  if(!next||norm(next)===norm(oldName))return;
+  if(allKnownStudentKeys664().has(norm(next)))return toast('Det namnet finns redan.');
+  snapshotRoom();room.temporaryStudents[index]=next;
+  room.tables.forEach(t=>t.names=t.names.map(n=>norm(n)===norm(oldName)?next:n));
+  room.placements?.forEach(p=>{p.temporaryStudents=(p.temporaryStudents||[]).map(n=>norm(n)===norm(oldName)?next:n);p.tables?.forEach(t=>t.names=(t.names||[]).map(n=>norm(n)===norm(oldName)?next:n))});
+  scheduleAutosave();renderCanvas();toast('Namnet ändrades.');
+}
+function removeTemporaryStudent664(encoded){
+  if(!room)return;ensureTemporaryStudents664();
+  const name=decodeURIComponent(encoded),placed=room.tables.some(t=>(t.names||[]).some(n=>norm(n)===norm(name)));
+  const text=placed?`”${name}” är placerad. Ta bort eleven även från placeringen?`:`Ta bort ”${name}” från klassrummet?`;
+  if(!confirm(text))return;
+  snapshotRoom();room.temporaryStudents=room.temporaryStudents.filter(n=>norm(n)!==norm(name));
+  room.tables.forEach(t=>t.names=t.names.map(n=>norm(n)===norm(name)?'':n));
+  room.placements?.forEach(p=>{p.temporaryStudents=(p.temporaryStudents||[]).filter(n=>norm(n)!==norm(name));p.tables?.forEach(t=>t.names=(t.names||[]).map(n=>norm(n)===norm(name)?'':n))});
+  scheduleAutosave();renderCanvas();toast('Den tillfälliga eleven togs bort.');
+}
+function clearTemporaryStudents664(){
+  const names=ensureTemporaryStudents664();if(!names.length)return;
+  if(!confirm(`Ta bort alla ${names.length} tillfälliga elever och deras placeringar?`))return;
+  const keys=new Set(names.map(norm));snapshotRoom();room.temporaryStudents=[];
+  room.tables.forEach(t=>t.names=t.names.map(n=>keys.has(norm(n))?'':n));
+  room.placements?.forEach(p=>{p.temporaryStudents=[];p.tables?.forEach(t=>t.names=(t.names||[]).map(n=>keys.has(norm(n))?'':n))});
+  scheduleAutosave();renderCanvas();toast('Alla tillfälliga elever togs bort.');
+}
+function renderTemporaryStudents664(){
+  const box=$('temporaryStudentsList664');if(!box||!room)return;
+  const names=ensureTemporaryStudents664();
+  box.innerHTML=names.length?`<div class="temporaryStudentsSummary664"><span>${names.length} tillfälliga</span><button type="button" onclick="clearTemporaryStudents664()">Töm alla</button></div><div class="temporaryStudentsChips664">${names.map(n=>`<span><b>${esc(n)}</b><small>Tillfällig</small><button title="Ändra namn" onclick="renameTemporaryStudent664('${encodeURIComponent(n)}')">✎</button><button title="Ta bort" onclick="removeTemporaryStudent664('${encodeURIComponent(n)}')">×</button></span>`).join('')}</div>`:'';
+}
+
+/* Tillfalliga elever deltar i samma manuella och automatiska placering. */
+const _inlineStudents664=inlineStudents;
+inlineStudents=function(){
+  const out=_inlineStudents664(),seen=new Set(out.map(norm));
+  ensureTemporaryStudents664().forEach(n=>{if(!seen.has(norm(n))){out.push(n);seen.add(norm(n))}});
+  return out;
+};
+const _renderInlinePanel664=renderInlinePanel;
+renderInlinePanel=function(){_renderInlinePanel664();renderTemporaryStudents664()};
+
+/* Spara tillfalliga elever med varje sparad placering. */
+const _placementSnapshot664=placementSnapshot;
+placementSnapshot=function(name){const p=_placementSnapshot664(name);p.temporaryStudents=[...ensureTemporaryStudents664()];return p};
+const _loadPlacement664=loadPlacement;
+loadPlacement=function(id){
+  const p=id&&room?.placements?.find(x=>x.id===id);
+  _loadPlacement664(id);
+  if(p){room.temporaryStudents=Array.isArray(p.temporaryStudents)?[...p.temporaryStudents]:[];renderInlinePanel();scheduleAutosave()}
+};
+
+/* Gamla klassrum far en tom lista utan att paverkas. */
+const _openEditor664=openEditor;
+openEditor=function(){ensureTemporaryStudents664();return _openEditor664()};
