@@ -1177,3 +1177,73 @@ function fitClassroomPrintToOnePage665(){
   root.dataset.printScale=scale.toFixed(4);
 }
 printPlacement=function(){if(!room)return;let root=buildClassroomPrintRoot661();if(!root)return toast('Klassrummet kunde inte förberedas för utskrift.');requestAnimationFrame(()=>requestAnimationFrame(()=>{fitClassroomPrintToOnePage665();requestAnimationFrame(()=>window.print())}))};
+
+/* ==========================================================
+   6.6.6 - utskrift med verkliga matt fran den synliga klassrumsytan
+   Tidigare kod litade for mycket pa sparade room.canvasHeight.
+   ========================================================== */
+function actualClassroomBounds666(source){
+  const rect=source.getBoundingClientRect();
+  const style=getComputedStyle(source);
+  let width=Math.max(source.scrollWidth,source.offsetWidth,parseFloat(style.width)||0,Number(room?.canvasWidth)||0);
+  let height=Math.max(source.scrollHeight,source.offsetHeight,parseFloat(style.height)||0,Number(room?.canvasHeight)||0);
+  source.querySelectorAll(':scope > .obj').forEach(el=>{
+    const r=el.getBoundingClientRect();
+    const sx=rect.width?width/rect.width:1;
+    const sy=rect.height?height/rect.height:1;
+    width=Math.max(width,(r.right-rect.left)*sx+12);
+    height=Math.max(height,(r.bottom-rect.top)*sy+12);
+  });
+  return {width:Math.ceil(width),height:Math.ceil(height)};
+}
+
+const _buildClassroomPrintRoot666=buildClassroomPrintRoot661;
+buildClassroomPrintRoot661=function(){
+  const source=$('canvas');
+  if(!source)return null;
+  const bounds=actualClassroomBounds666(source);
+  const root=_buildClassroomPrintRoot666();
+  const clone=document.getElementById('classroomPrintCanvas661');
+  if(clone){
+    clone.dataset.actualWidth=String(bounds.width);
+    clone.dataset.actualHeight=String(bounds.height);
+    clone.style.setProperty('--room-width',bounds.width+'px');
+    clone.style.setProperty('--room-height',bounds.height+'px');
+  }
+  return root;
+};
+
+function fitClassroomPrintToOnePage666(){
+  const canvas=document.getElementById('classroomPrintCanvas661');
+  const frame=document.querySelector('.classroomPrintFrame661');
+  const root=document.getElementById('classroomPrintOnly661');
+  const heading=document.querySelector('.classroomPrintHeading661');
+  if(!canvas||!frame||!root)return;
+
+  const rw=Math.max(1,Number(canvas.dataset.actualWidth)||canvas.scrollWidth||canvas.offsetWidth);
+  const rh=Math.max(1,Number(canvas.dataset.actualHeight)||canvas.scrollHeight||canvas.offsetHeight);
+  const headingH=heading&&heading.textContent.trim()?Math.ceil(heading.getBoundingClientRect().height):0;
+
+  /* Saker yta for A4 liggande med webblasarens sidhuvud och sidfot. */
+  const maxW=930;
+  const maxH=Math.max(260,500-headingH);
+  const scale=Math.min(1,maxW/rw,maxH/rh);
+  const scaledW=Math.floor(rw*scale);
+  const scaledH=Math.floor(rh*scale);
+
+  canvas.style.cssText+=`;position:absolute!important;top:0!important;left:0!important;width:${rw}px!important;height:${rh}px!important;min-width:${rw}px!important;min-height:${rh}px!important;max-width:none!important;max-height:none!important;zoom:1!important;transform:scale(${scale})!important;transform-origin:top left!important;overflow:visible!important;`;
+  frame.style.cssText+=`;position:relative!important;width:${scaledW}px!important;height:${scaledH}px!important;min-width:${scaledW}px!important;min-height:${scaledH}px!important;max-width:${scaledW}px!important;max-height:${scaledH}px!important;margin:0 auto!important;overflow:visible!important;`;
+  root.style.cssText+=`;height:${headingH+scaledH+12}px!important;min-height:0!important;max-height:none!important;overflow:visible!important;`;
+  root.dataset.printScale=scale.toFixed(4);
+  root.dataset.roomSize=`${rw}x${rh}`;
+}
+
+printPlacement=function(){
+  if(!room)return;
+  const root=buildClassroomPrintRoot661();
+  if(!root)return toast('Klassrummet kunde inte förberedas för utskrift.');
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    fitClassroomPrintToOnePage666();
+    requestAnimationFrame(()=>window.print());
+  }));
+};
