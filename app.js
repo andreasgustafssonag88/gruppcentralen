@@ -1340,3 +1340,45 @@ function confirmClassroomPrint667(){
   if(!root)return toast('Klassrummet kunde inte förberedas för utskrift.');
   requestAnimationFrame(()=>requestAnimationFrame(()=>window.print()));
 }
+
+/* ==========================================================
+   Gruppcentralen 6.6.8 - tydlig skillnad mellan fyll sida och marginal
+   ========================================================== */
+function pageBox668(orientation,fit){
+  /* Verklig A4-proportion i CSS-pixlar. Marginal-laget reserverar
+     avsiktligt 15 procent runt innehållet sa skillnaden blir tydlig. */
+  const base=orientation==='portrait'
+    ?{width:730,height:1035,label:'portrait'}
+    :{width:1035,height:730,label:'landscape'};
+  if(fit==='safe')return {width:Math.floor(base.width*.70),height:Math.floor(base.height*.70),label:base.label};
+  return {width:Math.floor(base.width*.94),height:Math.floor(base.height*.90),label:base.label};
+}
+function chooseOrientation668(roomW,roomH,headingH,requested,fit){
+  if(requested!=='auto')return requested;
+  const land=pageBox668('landscape',fit),port=pageBox668('portrait',fit);
+  const sl=Math.min(land.width/roomW,(land.height-headingH)/roomH);
+  const sp=Math.min(port.width/roomW,(port.height-headingH)/roomH);
+  return sp>sl?'portrait':'landscape';
+}
+function buildClassroomPrint668(orientation,fit){
+  removeClassroomPrintRoot661();
+  const source=$('canvas');if(!source||!room)return null;
+  try{updateRoomMeta?.()}catch(e){}try{updatePrintHeading61?.()}catch(e){}
+  const size=originalRoomSize667(source),title=($('printRoomName')?.textContent||room.name||'Klassrum').trim(),subtitle=($('printPlacementName')?.textContent||'').trim();
+  const headingEstimate=subtitle?70:48,chosen=chooseOrientation668(size.width,size.height,headingEstimate,orientation,fit),box=pageBox668(chosen,fit);
+  const scale=Math.min(box.width/size.width,(box.height-headingEstimate)/size.height),finalW=Math.floor(size.width*scale),finalH=Math.floor(size.height*scale);
+  let ps=$('printPageStyle667');if(!ps){ps=document.createElement('style');ps.id='printPageStyle667';document.head.appendChild(ps)}
+  ps.textContent=`@media print{@page{size:A4 ${chosen};margin:${fit==='fill'?'3mm':'12mm'}}}`;
+  const root=document.createElement('main');root.id='classroomPrintOnly661';root.className=`classroomPrintOnly661 printRoot667 printFit-${fit}`;
+  const heading=document.createElement('header');heading.className='classroomPrintHeading661';heading.innerHTML=`<h1>${esc(title)}</h1>${subtitle?`<p>${esc(subtitle)}</p>`:''}`;
+  const frame=document.createElement('section');frame.className='classroomPrintFrame661 printFrame667';frame.style.width=finalW+'px';frame.style.height=finalH+'px';
+  const clone=source.cloneNode(true);clone.id='classroomPrintCanvas661';clone.classList.add('printCanvas667');clone.querySelectorAll('button,.rotateHandle,.rotateStem,.gcCanvasResize615,.gcCanvasSize615').forEach(x=>x.remove());clone.querySelectorAll('.selected').forEach(x=>x.classList.remove('selected'));
+  clone.style.cssText=`position:relative!important;width:${finalW}px!important;height:${finalH}px!important;min-width:${finalW}px!important;min-height:${finalH}px!important;max-width:${finalW}px!important;max-height:${finalH}px!important;transform:none!important;zoom:1!important;overflow:visible!important;`;
+  const src=[...source.querySelectorAll(':scope > .obj')],dst=[...clone.querySelectorAll(':scope > .obj')];
+  dst.forEach((el,i)=>{const o=src[i];if(!o)return;el.style.left=((parseFloat(o.style.left)||o.offsetLeft||0)*scale)+'px';el.style.top=((parseFloat(o.style.top)||o.offsetTop||0)*scale)+'px';el.style.transform=scaledTransform667(o.style.transform||getComputedStyle(o).transform,scale);el.style.transformOrigin='top left'});
+  frame.appendChild(clone);root.append(heading,frame);document.body.appendChild(root);document.body.classList.add('printClassroomOnly661');root.dataset.orientation=chosen;root.dataset.fit=fit;root.dataset.scale=scale.toFixed(4);return root;
+}
+confirmClassroomPrint667=function(){
+  const orientation=document.querySelector('input[name="printOrientation667"]:checked')?.value||'auto',fit=document.querySelector('input[name="printFit667"]:checked')?.value||'fill';
+  $('printSettings667')?.close?.();const root=buildClassroomPrint668(orientation,fit);if(!root)return toast('Klassrummet kunde inte förberedas för utskrift.');requestAnimationFrame(()=>requestAnimationFrame(()=>window.print()));
+};

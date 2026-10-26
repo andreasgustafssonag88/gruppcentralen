@@ -926,3 +926,10 @@ html,body{max-width:100%;overflow-x:hidden}.workspaceFocus .app>main{padding:12p
   .printCanvas667{display:block!important;position:relative!important;margin:0!important;border:1.5px solid #334155!important;border-radius:0!important;box-shadow:none!important;overflow:visible!important;transform:none!important;zoom:1!important;print-color-adjust:exact!important;-webkit-print-color-adjust:exact!important}
   .printCanvas667 .obj,.printCanvas667 .seat{print-color-adjust:exact!important;-webkit-print-color-adjust:exact!important}
 }
+
+/* 6.6.8 - synligt olika utskriftslagen */
+@media print{
+  .printRoot667.printFit-fill .printFrame667{margin:0 auto!important}
+  .printRoot667.printFit-safe .printFrame667{margin:8mm auto 0!important}
+  .printRoot667.printFit-safe .classroomPrintHeading661{margin-bottom:7mm!important}
+}
